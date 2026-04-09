@@ -1,0 +1,1 @@
+{"name":"B. Easy Number Challenge","url":"https://codeforces.com/contest/236/problem/B","interactive":false,"memoryLimit":0,"timeLimit":3000,"group":"Codeforces - Codeforces Round 146 (Div. 2)","tests":[{"input":"2 2 2\n","output":"20\n","id":1768285219534},{"id":1768285219503,"input":"5 6 7\n","output":"1520\n"}],"srcPath":"d:\\cp_zoashro\\236B.cpp"}

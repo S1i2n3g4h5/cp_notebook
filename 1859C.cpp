@@ -1,0 +1,80 @@
+/*
+  Competing against Myself  
+  [zoASHro]
+*/
+#pragma GCC optimize("O2")  
+#include <bits/stdc++.h>
+using namespace std;
+
+template <typename... Args>
+void print(Args&&... args){
+   ((cout << args << " "), ...); cout << "\n";
+}
+#define all(x)(x).begin(),(x).end()
+#define rall(x)(x).rbegin(),(x).rend()
+#define pb push_back
+#define f(i, a, b)          for(int i = a; i < b; i++)
+#define debug(x) cout<<#x<<" = "<<x<<ln
+typedef long long ll;
+typedef pair<ll,ll> pll;
+typedef vector<ll> vll;
+
+
+
+// ______________________________________________________
+long long fast_power(long long base, long long power, long long  MOD=1e9+7ll){
+  long long result = 1;
+  while(power > 0){
+    if(power & 1){result =(result*base) % MOD;}
+    base =(base*base) % MOD;
+    power = power>>1ll;
+  } 
+  return result;
+}
+
+
+const bool multipleTestCases = 1; 
+
+
+void solve(){
+  /*
+  
+  */
+  
+  ll n;cin>>n;
+
+    ll ans = 0;
+    f(k,0,n+1){
+
+        ll mx=0;
+        ll prod=0;
+
+        f(i,1,k+1){
+            prod += (i*i);
+            mx = max((ll)i*i, mx);
+        }
+        for(int i=n,j=k+1;i>k;i--,j++){
+            prod += (i*j);
+            mx = max(mx, (ll)i*j);
+        }
+        // 1 2 3 4 5 6 10 9 8 7
+
+        ans = max(ans, prod-mx);
+    }
+
+
+    print(ans);
+  
+}
+
+
+int main(){
+  ios::sync_with_stdio(0);cin.tie(0);cout.tie(0);
+  
+  int t = 1;
+  if(multipleTestCases) cin >> t;
+  while(t--){
+      solve();
+  }
+  return 0;
+}

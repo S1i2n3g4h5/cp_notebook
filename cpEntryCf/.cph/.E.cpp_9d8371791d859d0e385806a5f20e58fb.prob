@@ -1,0 +1,1 @@
+{"name":"Local: E","url":"d:\\cp_zoashro\\cpEntryCf\\E.cpp","tests":[{"id":1765103038535,"input":"4\n1010\n11\n10001\n110\n1\n1\n1010101010101\n11110000","output":"1\n3\n0\n0"}],"interactive":false,"memoryLimit":1024,"timeLimit":3000,"srcPath":"d:\\cp_zoashro\\cpEntryCf\\E.cpp","group":"local","local":true}

@@ -1,0 +1,1 @@
+{"name":"Local: IncreasingArray","url":"d:\\cp_zoashro\\IncreasingArray.cpp","tests":[{"id":1768514271375,"input":"5\n3 2 5 1 7","output":"5"}],"interactive":false,"memoryLimit":1024,"timeLimit":3000,"srcPath":"d:\\cp_zoashro\\IncreasingArray.cpp","group":"local","local":true}

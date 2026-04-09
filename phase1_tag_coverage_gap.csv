@@ -1,0 +1,37 @@
+tag,solved,total_available,coverage
+graphs,0,115,0.0
+dsu,0,55,0.0
+trees,0,47,0.0
+interactive,0,16,0.0
+divide and conquer,0,9,0.0
+2-sat,0,3,0.0
+probabilities,0,10,0.0
+matrices,0,6,0.0
+chinese remainder theorem,0,2,0.0
+schedules,0,5,0.0
+flows,0,5,0.0
+string suffix structures,0,2,0.0
+meet-in-the-middle,0,3,0.0
+dfs and similar,2,117,0.017
+dp,6,313,0.019
+combinatorics,2,108,0.019
+binary search,6,260,0.023
+two pointers,4,171,0.023
+data structures,6,244,0.025
+*special,3,114,0.026
+geometry,3,94,0.032
+constructive algorithms,27,758,0.036
+number theory,11,281,0.039
+games,4,95,0.042
+math,64,1424,0.045
+greedy,72,1525,0.047
+shortest paths,1,20,0.05
+bitmasks,7,126,0.056
+sortings,30,536,0.056
+brute force,49,790,0.062
+implementation,121,1724,0.07
+ternary search,1,11,0.091
+strings,35,368,0.095
+hashing,2,20,0.1
+expression parsing,1,8,0.125
+graph matchings,1,7,0.143

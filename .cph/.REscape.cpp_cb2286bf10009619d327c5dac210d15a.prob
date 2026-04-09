@@ -1,0 +1,1 @@
+{"name":"Local: REscape","url":"d:\\cp_zoashro\\REscape.cpp","tests":[{"id":1773331125971,"input":"6\n2 3 1 1 5 1","output":"3"},{"id":1773331135214,"input":"4\n1 2 3 4\n","output":"1"}],"interactive":false,"memoryLimit":1024,"timeLimit":3000,"srcPath":"d:\\cp_zoashro\\REscape.cpp","group":"local","local":true}

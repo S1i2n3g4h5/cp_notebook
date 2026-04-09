@@ -1,0 +1,1 @@
+{"name":"C. Kanade's Perfect Multiples","url":"https://codeforces.com/contest/2173/problem/C","interactive":false,"memoryLimit":0,"timeLimit":3000,"group":"Codeforces - Codeforces Round 1068 (Div. 2)","tests":[{"id":1775386670362,"input":"4\n4 6\n3 2 4 6\n5 5\n1 2 3 4 5\n3 6\n2 3 6\n1 2\n2\n","output":"2\n2 3\n1\n1\n-1\n1\n2\n"}],"srcPath":"d:\\cp_zoashro\\2173C.cpp"}

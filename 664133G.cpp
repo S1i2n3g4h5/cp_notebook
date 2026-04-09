@@ -1,0 +1,79 @@
+#pragma GCC optimize("O2")  
+#include <bits/stdc++.h>
+using namespace std;
+template <typename... Args>
+
+
+void print(Args&&... args) {
+    (std::cout << ... << args) << "\n";
+}
+
+
+#define f(i, a, b)          for(int i = a; i < b; i++)
+#define ll long long
+#define ld long double
+
+
+
+const bool multipleTestCases = 0;
+
+
+
+void solve(){    
+    
+    ll n,k;cin>>n>>k;
+    vector<ll>arr(n);
+    f(i,0,n)cin>>arr[i];
+
+
+
+    vector<ll>prefix(n+1,0);
+    f(i,0,n) prefix[i+1] = prefix[i]+arr[i];
+
+    // f(i,0,n+1) cout<<prefix[i] <<" ";
+    // cout<<"\n ";
+
+
+    auto check = [&](ll r){
+        f(i,0,n){
+            ll L = max(0LL, i-r);
+            ll R=min(n-1, i+r);
+            
+            ll sm = prefix[R+1] - prefix[L];
+            // print(R, " , ", L, "  ->", sm);
+            if(sm > k) 
+                return false;
+        }
+        return true;
+    };
+
+
+    ll l=0,h=n;
+    ll ans = -1;
+
+    while(l<=h){
+        ll mid = l+ (h-l)/2;
+
+        if(check(mid)){
+            ans = mid;
+            l = mid + 1;
+        }   
+        else{
+            h = mid - 1;
+        }
+    }
+    
+
+    print(ans);
+  
+  return;
+}
+
+int main() {
+  ios::sync_with_stdio(0);cin.tie(0);cout.tie(0);
+    int t = 1;multipleTestCases and cin >> t;    
+    while(t--){  
+      solve();
+    }  
+    return 0;
+}     

@@ -1,0 +1,1 @@
+{"name":"Local: Pokedex","url":"d:\\cp_zoashro\\Pokedex.cpp","tests":[{"id":1768409345062,"input":"10 4\n1 4 2 5 6 1 10 23 10 35\n12\n23\n9\n4\n","output":"2\n2\n4\n7\n"}],"interactive":false,"memoryLimit":1024,"timeLimit":3000,"srcPath":"d:\\cp_zoashro\\Pokedex.cpp","group":"local","local":true}
