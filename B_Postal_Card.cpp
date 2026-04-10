@@ -36,68 +36,42 @@ long long fast_power(long long base, long long power, long long  MOD=1e9+7ll){
 }
 
 
-const bool multipleTestCases = 1; 
-
+const bool multipleTestCases = 0; 
 
 void solve(){
   /*
-    sort of prefix + sliding window concept used
 
-
-    
   */
 
-    int n;cin>>n;
-    vll u(n), s(n);
-    f(i,0,n){
-        cin>>u[i];
-    }
-    f(i,0,n){
-        cin>>s[i];
-    }
-    vector<vll> unis(n+1);
-    f(i,0,n){
-        unis[u[i]].pb(s[i]);
+    int n,m;cin>>n>>m;
+    vector<string>s(n),t(m);
+    f(i,0,n)cin>>s[i];
+    f(i,0,m)cin>>t[i];
+
+
+    set<string> targets;
+    for(int i = 0; i < m; i++) {
+        targets.insert(t[i]);
     }
 
+    int ans = 0;
+    for(int i = 0; i < n; i++) {
 
-    vll ans(n+1,0);
+        string last_three = s[i].substr(3);
+        
 
-    f(i,1,n+1){
-
-        if(unis[i].empty()) continue;
-
-        sort(rall(unis[i]));
-
-        int m=unis[i].size();
-        vll pref(m+1,0);
-        f(j,0,m){
-            pref[j+1] = pref[j] + unis[i][j];
+        if (targets.count(last_three)) {
+            ans++;
         }
-
-
-        f(k,1,m+1){
-
-            int take = (m/k) * k;
-
-            ans[k] += pref[take];
-
-        }
-
     }
-
-
-
-    f(k,1,n+1)cout << ans[k] << " ";
-
-    cout <<"\n";
-
+    
+    print(ans);
 }
 
 
 int main(){
   ios::sync_with_stdio(0);cin.tie(0);cout.tie(0);
-
+  
   int t = 1;
   if(multipleTestCases) cin >> t;
   while(t--){

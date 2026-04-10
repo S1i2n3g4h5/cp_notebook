@@ -36,68 +36,46 @@ long long fast_power(long long base, long long power, long long  MOD=1e9+7ll){
 }
 
 
-const bool multipleTestCases = 1; 
-
+const bool multipleTestCases = 0; 
 
 void solve(){
   /*
-    sort of prefix + sliding window concept used
 
-
-    
   */
 
-    int n;cin>>n;
-    vll u(n), s(n);
-    f(i,0,n){
-        cin>>u[i];
-    }
-    f(i,0,n){
-        cin>>s[i];
-    }
-    vector<vll> unis(n+1);
-    f(i,0,n){
-        unis[u[i]].pb(s[i]);
-    }
+    int n,q;cin>>n>>q;
+    vector<pair<ll,ll>>arr(q);
+    f(i,0,q)cin>>arr[i].first>>arr[i].second;
 
 
-    vll ans(n+1,0);
+    map<int,int>fr;
+    f(i,0,q){
 
-    f(i,1,n+1){
-
-        if(unis[i].empty()) continue;
-
-        sort(rall(unis[i]));
-
-        int m=unis[i].size();
-        vll pref(m+1,0);
-        f(j,0,m){
-            pref[j+1] = pref[j] + unis[i][j];
+        if(arr[i].first == 1){
+            fr[arr[i].second] ++;
         }
+        else if(arr[i].first == 2){
+            fr[arr[i].second] += 2;
+        }
+        else{
+            if(fr[arr[i].second] >= 2){
+                print("Yes");
 
-
-        f(k,1,m+1){
-
-            int take = (m/k) * k;
-
-            ans[k] += pref[take];
-
+            }
+            else{
+                print("No");
+            }
         }
 
     }
 
-
-
-    f(k,1,n+1)cout << ans[k] << " ";
-
-    cout <<"\n";
 
 }
 
 
 int main(){
   ios::sync_with_stdio(0);cin.tie(0);cout.tie(0);
-
+  
   int t = 1;
   if(multipleTestCases) cin >> t;
   while(t--){

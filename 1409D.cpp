@@ -38,66 +38,58 @@ long long fast_power(long long base, long long power, long long  MOD=1e9+7ll){
 
 const bool multipleTestCases = 1; 
 
+ll sum_digits(ll n) {
+    ll res = 0;
+    while (n > 0) {
+        res += n % 10;
+        n /= 10;
+    }
+    return res;
+}
 
 void solve(){
   /*
-    sort of prefix + sliding window concept used
-
-
-    
+    nearest next 10th number 
   */
 
-    int n;cin>>n;
-    vll u(n), s(n);
-    f(i,0,n){
-        cin>>u[i];
-    }
-    f(i,0,n){
-        cin>>s[i];
-    }
-    vector<vll> unis(n+1);
-    f(i,0,n){
-        unis[u[i]].pb(s[i]);
+    ll n,s;cin>>n>>s;
+
+
+    ll sm = sum_digits(n);
+
+    if(sm <= s){
+        print(0);
+        return;
     }
 
 
-    vll ans(n+1,0);
-
-    f(i,1,n+1){
-
-        if(unis[i].empty()) continue;
-
-        sort(rall(unis[i]));
-
-        int m=unis[i].size();
-        vll pref(m+1,0);
-        f(j,0,m){
-            pref[j+1] = pref[j] + unis[i][j];
+    // correction
+    ll ans=0;
+    ll org = n;
+    ll p=10;
+    f(i,0,20){
+        ll rem = n % p;
+        if(rem != 0){
+            ll add = p - rem;
+            n += add;
+            ans += add;
         }
 
 
-        f(k,1,m+1){
+        if(sum_digits(n) <= s) break;
 
-            int take = (m/k) * k;
-
-            ans[k] += pref[take];
-
-        }
-
+        p*=10;
     }
 
 
-
-    f(k,1,n+1)cout << ans[k] << " ";
-
-    cout <<"\n";
+    print(n - org);
 
 }
 
 
 int main(){
   ios::sync_with_stdio(0);cin.tie(0);cout.tie(0);
-
+  
   int t = 1;
   if(multipleTestCases) cin >> t;
   while(t--){

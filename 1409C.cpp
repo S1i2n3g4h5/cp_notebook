@@ -38,66 +38,56 @@ long long fast_power(long long base, long long power, long long  MOD=1e9+7ll){
 
 const bool multipleTestCases = 1; 
 
-
 void solve(){
   /*
-    sort of prefix + sliding window concept used
+    finding the best d (ap series)
 
+    then filling up nums like y+d or y-d or x+d or x-d
 
-    
   */
 
-    int n;cin>>n;
-    vll u(n), s(n);
-    f(i,0,n){
-        cin>>u[i];
-    }
-    f(i,0,n){
-        cin>>s[i];
-    }
-    vector<vll> unis(n+1);
-    f(i,0,n){
-        unis[u[i]].pb(s[i]);
-    }
+    ll n,x,y;cin>>n>>x>>y;
 
 
-    vll ans(n+1,0);
-
-    f(i,1,n+1){
-
-        if(unis[i].empty()) continue;
-
-        sort(rall(unis[i]));
-
-        int m=unis[i].size();
-        vll pref(m+1,0);
-        f(j,0,m){
-            pref[j+1] = pref[j] + unis[i][j];
+    ll best_d=0;
+    ll diff = y-x;
+    for(int g=n-1;g>=1;g--){
+        if(diff%g == 0){
+            best_d = diff / g;
+            break;
         }
-
-
-        f(k,1,m+1){
-
-            int take = (m/k) * k;
-
-            ans[k] += pref[take];
-
-        }
-
     }
 
 
+    vll ans;
+    ll curr =y;
+    while(curr >= x and ans.size() < n){
+        ans.pb(curr);
+        curr -= best_d;
+    }
 
-    f(k,1,n+1)cout << ans[k] << " ";
+    curr = x-best_d;
+    while(curr > 0 and ans.size() < n){
+        ans.pb(curr);
+        curr -= best_d;
+    }
 
-    cout <<"\n";
+    curr = y+best_d;
+    while(curr> 0 and ans.size() < n){
+        ans.pb(curr);
+        curr += best_d;
+    }
+
+
+    f(i,0,ans.size())cout << ans[i] << " ";
+    cout << "\n";
 
 }
 
 
 int main(){
   ios::sync_with_stdio(0);cin.tie(0);cout.tie(0);
-
+  
   int t = 1;
   if(multipleTestCases) cin >> t;
   while(t--){
