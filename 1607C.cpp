@@ -38,19 +38,24 @@ long long fast_power(long long base, long long power, long long  MOD=1e9+7ll){
 
 const bool multipleTestCases = 1; 
 
-
 void solve(){
   /*
 
-
   */
 
-  int n;cin>>n;vll a(n);
-  f(i,0,n)cin>>a[i];
+    ll n;cin>>n;
+    vll arr(n);
+    f(i,0,n)cin>>arr[i];
+
+    sort(all(arr));
+    
+    ll mx = arr[0];
+    f(i,0,n-1){
+        mx = max(mx, (arr[i+1] - arr[i]));
+    }
 
 
-  
-
+    print(mx);
 
 }
 

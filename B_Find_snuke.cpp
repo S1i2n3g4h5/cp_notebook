@@ -36,20 +36,64 @@ long long fast_power(long long base, long long power, long long  MOD=1e9+7ll){
 }
 
 
-const bool multipleTestCases = 1; 
-
+const bool multipleTestCases = 0; 
 
 void solve(){
   /*
 
-
   */
 
-  int n;cin>>n;vll a(n);
-  f(i,0,n)cin>>a[i];
+  int h,w;cin>>h>>w;
+
+  vector<string>arr(h);
+  f(i,0,h){
+      cin>>arr[i];
+  }
+
+  string out="snuke";
+
+  int di[] = {-1,-1,0,1,1,1,0,-1};
+  int dj[] = {0,1,1,1,0,-1,-1,-1};
+
+  f(i,0,h){
+    f(j,0,w){
+
+      if(arr[i][j] == 's'){
+        
+        f(dir, 0,8){
+
+            bool match = true;
+            vector<pair<ll,ll>>path;
+            path.pb({i+1, j+1});
+
+            f(step, 1,5){
+                int ni = i+di[dir]*step;
+                int nj = j+dj[dir]*step;
+
+                if(ni>=0 and ni<h and nj>=0 and nj<w and arr[ni][nj] == out[step]){
+                    path.pb({ni+1, nj+1});
+                }
+                else{
+                    match=false;
+                    break;
+                }
+
+            }
+
+            if(match){
+                for(auto p:path){
+                    print(p.first, p.second);
+                }
+                return;
+            }
+
+        }
 
 
-  
+      }
+
+    }
+  }
 
 
 }

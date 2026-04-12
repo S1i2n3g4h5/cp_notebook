@@ -38,19 +38,46 @@ long long fast_power(long long base, long long power, long long  MOD=1e9+7ll){
 
 const bool multipleTestCases = 1; 
 
-
 void solve(){
   /*
+    parity = evne odd
+
+    modified kadane type algo
+
+    
+    ----
+    <got wa, reasoning on this wy?>
+
+
 
 
   */
 
-  int n;cin>>n;vll a(n);
-  f(i,0,n)cin>>a[i];
+    ll n;cin>>n;
+    vll arr;
+    f(i,0,n){
+        ll x;cin>>x;
+        arr.pb(x);
+    }
 
 
-  
+    ll currsm=arr[0];
+    ll ans=arr[0];
+    f(i,1,n){
+        if(abs(arr[i])%2 == abs(arr[i-1])%2){
+            currsm = arr[i];
+        }
+        else{
 
+            currsm = max(arr[i], currsm + arr[i]);
+            
+        }
+        
+        ans = max(currsm, ans);
+    }
+
+
+    print(ans);
 
 }
 

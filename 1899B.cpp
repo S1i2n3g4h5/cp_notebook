@@ -38,19 +38,84 @@ long long fast_power(long long base, long long power, long long  MOD=1e9+7ll){
 
 const bool multipleTestCases = 1; 
 
-
 void solve(){
   /*
+    since we need to find the max diff, we loop over all k values
+    and ofcourse k can be just 1 to n but instead those divisors of n only
 
+    cuz then only its possible to load full trucks
+
+
+    wihtout changing order, we do it the cool way using prefx sums ..... :)
 
   */
 
-  int n;cin>>n;vll a(n);
-  f(i,0,n)cin>>a[i];
+    ll n;cin>>n;
+    vll arr(n);
+
+    f(i,0,n)cin>>arr[i];
+
+    
+    // ll ans=-1;
+    // f(d,1,n+1){
+
+    //     if(n%d == 0){
+
+    //         ll mx = -1e18, mn = 1e18;
+    //         for(int i=0;i<n;i+=d){
+    //             ll sm =0;
+                
+    //             for(int j=i;j<i+d;j++){
+    //                 sm += arr[j];
+    //             }
+
+    //             mx = max(mx, sm);
+    //             mn = min(mn, sm);
+    //         }
 
 
-  
+    //         ans = max(ans, mx - mn);
 
+    //     }
+
+    // }
+
+    // print(ans);
+
+
+    f(i,1,n){
+        arr[i] += arr[i-1];
+    }
+
+    ll ans=0;
+    f(k,1,n){
+
+        if(n%k == 0){
+
+            ll mx=-1, mn = -1;
+
+            for(int i=0;i<n; i+=k){
+                int L = i;
+                int R = i + k - 1;
+
+                ll weight;
+                if(i==0)
+                    weight = arr[R];
+                else
+                    weight = arr[R] - arr[L - 1];
+
+                if(mx == -1 or weight > mx) mx = weight;
+                if(mn == -1 or weight < mn) mn = weight;
+
+            }
+
+            ans = max(ans, mx - mn);
+
+        }
+
+    }
+
+    print(ans);
 
 }
 

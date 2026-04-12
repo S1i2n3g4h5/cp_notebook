@@ -36,20 +36,48 @@ long long fast_power(long long base, long long power, long long  MOD=1e9+7ll){
 }
 
 
-const bool multipleTestCases = 1; 
-
+const bool multipleTestCases = 0; 
 
 void solve(){
   /*
 
-
   */
 
-  int n;cin>>n;vll a(n);
-  f(i,0,n)cin>>a[i];
+    int n,m;cin>>n>>m;
+    vector<string>arr(n);
+    f(i,0,n)cin>>arr[i];
 
 
-  
+    auto dist = [&](int r, int c){
+        return abs(r-c);  
+    };
+
+
+    f(i,0,n){
+        f(j,0,m){
+
+            if(arr[i][j] != '.' and arr[i][j] != '#'){
+
+                int x = arr[i][j] - '0';
+                arr[i][j] = '.';
+
+                f(k,0,n){
+                    f(l,0,m){
+                        if(dist(i,k) + dist(j,l) <= x and arr[k][l] == '#'){
+                            arr[k][l] = '.';
+                        }
+                    }
+                }
+
+            }
+
+        }
+    }
+
+
+    f(i,0,n){
+        print(arr[i]);
+    }
 
 
 }

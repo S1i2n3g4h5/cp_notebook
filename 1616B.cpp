@@ -38,19 +38,38 @@ long long fast_power(long long base, long long power, long long  MOD=1e9+7ll){
 
 const bool multipleTestCases = 1; 
 
-
 void solve(){
   /*
 
+    so given the problem, first we want to the prefix to be decreasing
+    then onnly its will be lexigraphically better
 
   */
 
-  int n;cin>>n;vll a(n);
-  f(i,0,n)cin>>a[i];
+    int n;cin>>n;
+    string s;cin>>s;
 
+    string res="";
+    res += s[0];
 
-  
+    f(i,1,n){
+        // edge case  by default consider k=1
+        if(i==1 and s[i]==s[i-1]){
+            break;
+        }
 
+        if(s[i] <= s[i-1])
+            res += s[i];
+        else{
+            break;
+
+        }
+
+    }
+
+    cout << res;
+    reverse(all(res));
+    cout << res << "\n";
 
 }
 

@@ -36,21 +36,56 @@ long long fast_power(long long base, long long power, long long  MOD=1e9+7ll){
 }
 
 
-const bool multipleTestCases = 1; 
-
+const bool multipleTestCases = 0; 
 
 void solve(){
   /*
+    minimizing the deletions
 
+    since due to constraints we can easily check each power nad 
+    kind of 2 sum appraoch
 
   */
 
-  int n;cin>>n;vll a(n);
-  f(i,0,n)cin>>a[i];
+    int n;cin>>n;
+    vll arr(n);
+    map<ll,ll>mp;
+    f(i,0,n){
+        cin>>arr[i];
+        mp[arr[i]]++;
+    }
 
 
-  
+    int safe=0;
+    f(i,0,n){
 
+        bool f=0;
+        f(d,0,31){
+            ll p2 = (1ll << d);
+            ll target = p2 - arr[i];
+
+            if(mp.count(target)){
+                if(target == arr[i]){
+                    if(mp[arr[i]] >= 2){
+
+                        f=1;
+                    }
+                }
+                else{
+                    f=1;
+                }
+            }
+
+            if(f)break;
+
+        }
+
+        if(f) safe++;
+
+    }
+
+
+    print(n - safe);
 
 }
 

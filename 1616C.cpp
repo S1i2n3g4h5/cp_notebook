@@ -38,19 +38,25 @@ long long fast_power(long long base, long long power, long long  MOD=1e9+7ll){
 
 const bool multipleTestCases = 1; 
 
-
 void solve(){
   /*
+    so deconding the formula actually represtns
+    just the ap series sum formula
+
 
 
   */
+ 
+    int n;cin>>n;
+    vll arr(n);
+    f(i,0,n)cin>>arr[i];
 
-  int n;cin>>n;vll a(n);
-  f(i,0,n)cin>>a[i];
+    sort(all(arr));
 
+    f(i,1,n)
+        cout << arr[i] - arr[i-1] << " ";
 
-  
-
+    cout <<"\n";
 
 }
 

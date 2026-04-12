@@ -36,21 +36,33 @@ long long fast_power(long long base, long long power, long long  MOD=1e9+7ll){
 }
 
 
-const bool multipleTestCases = 1; 
-
+const bool multipleTestCases = 0; 
 
 void solve(){
   /*
 
-
   */
 
-  int n;cin>>n;vll a(n);
-  f(i,0,n)cin>>a[i];
+  ll n,x;cin>>n>>x;
+  vll arr(n);
+  f(i,0,n)cin>>arr[i];
 
+
+  map<ll,ll>mp;
+  f(i,0,n){
+      mp[x + arr[i]]++;
+  
+  }
 
   
+  f(i,0,n){
+      if(mp[arr[i]] >= 1){
+          print("Yes");
+          return;
+      }
 
+  }
+  print("No");
 
 }
 

@@ -36,20 +36,38 @@ long long fast_power(long long base, long long power, long long  MOD=1e9+7ll){
 }
 
 
-const bool multipleTestCases = 1; 
-
+const bool multipleTestCases = 0; 
 
 void solve(){
   /*
 
-
   */
 
-  int n;cin>>n;vll a(n);
-  f(i,0,n)cin>>a[i];
+    int n,m;cin>>n>>m;
+
+    vector<bool>hasre(n+1,false);
+    f(i,0,m){
+        int x;cin>>x;
+        hasre[x] =1;
+    }
+
+    f(i,1,n+1){
+        int left = i,right=i;
+
+        while(right < n and hasre[right]){
+            right++;
+        }
 
 
-  
+        for(int j=right;j>=left;j--){
+            cout << j << " ";
+        }
+
+
+        i = right;
+
+    }
+    cout << "\n";
 
 
 }

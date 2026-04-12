@@ -38,26 +38,64 @@ long long fast_power(long long base, long long power, long long  MOD=1e9+7ll){
 
 const bool multipleTestCases = 1; 
 
+vector<string>powers;
+
+void precompute(){
+  for(ll i=0;i<=60;i++){
+    powers.pb(to_string(1ll << i));
+
+  }
+}
 
 void solve(){
   /*
+    basic implemetnion to grediyl check all powers of 2 and find min answer
 
+    more bluntly we ind the common subsequence between the numbers
+
+    so its like if we want to convert 1052 to 1024 we would require 2 moves
+    cuz removing 5 then adding 4 at end
+
+    hence the maths is like ->  (string s - matching chars) + (string prime - matching chars)
 
   */
 
-  int n;cin>>n;vll a(n);
-  f(i,0,n)cin>>a[i];
+  string s;cin>>s;
+
+  ll ans=s.size()+1;  
 
 
-  
+  for(auto p:powers){
 
+    // matching
+    int si=0, pi=0;
+    int matched=0;
+
+    while(si < s.size() and pi<p.size()){
+      if(s[si] == p[pi]){
+        matched++;
+        pi++;
+      }
+
+      si++;
+    }
+
+    ll moves = (s.size() - matched) + (p.size() - matched);
+
+
+    ans = min(ans, moves);
+
+  }
+
+
+  print(ans);
 
 }
 
 
 int main(){
   ios::sync_with_stdio(0);cin.tie(0);cout.tie(0);
-  
+  precompute();
   int t = 1;
   if(multipleTestCases) cin >> t;
   while(t--){

@@ -38,19 +38,41 @@ long long fast_power(long long base, long long power, long long  MOD=1e9+7ll){
 
 const bool multipleTestCases = 1; 
 
-
 void solve(){
   /*
+    on dry run we observe this pattern
 
-
+    even x0 
+      n%4 ==0 -> 0
+      n%4 ==1 -> x0 - n
+      n%4 ==2 -> x0 + 1
+      n%4 ==3 -> x0+n+1
+      
+      
+    odd x0
+      n%4 ==0 -> 0
+      n%4 ==1 -> x0 + n
+      n%4 ==2 -> x0 - 1
+      n%4 ==3 -> x0-n-1
+      
   */
 
-  int n;cin>>n;vll a(n);
-  f(i,0,n)cin>>a[i];
+  ll x,n;cin>>x>>n;
+
+  ll rem = n%4;
+  ll add=0;
+
+  if(rem == 1) add = -n;
+  else if(rem == 2) add = +1;
+  else if(rem == 3) add = n+1;
 
 
-  
-
+  if(x%2 == 0){
+    print(x + add);
+  }
+  else{
+    print(x-add);
+  }
 
 }
 

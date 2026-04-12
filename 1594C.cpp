@@ -38,18 +38,51 @@ long long fast_power(long long base, long long power, long long  MOD=1e9+7ll){
 
 const bool multipleTestCases = 1; 
 
-
 void solve(){
   /*
+    required answer, always 0,1,2 only
+
 
 
   */
 
-  int n;cin>>n;vll a(n);
-  f(i,0,n)cin>>a[i];
+    int n;char c;cin>>n>>c;
+    string s;cin>>s;
+
+    bool allc=true;
+    f(i,0,n){
+        if(s[i] != c){
+            allc=false;
+            break;
+
+        }
+    }
+    if(allc){
+        print(0);
+        return;
+    }
 
 
-  
+    f(x,1,n+1){
+        bool f=1;
+        for(int m=x;m<=n;m+=x){
+            if(s[m - 1] != c){
+                f=0;
+                break;
+            }
+        }
+
+        if(f){
+            print(1);
+            print(x);
+            return;
+        }
+
+    }
+
+    print(2);
+    print(n,n-1);
+
 
 
 }

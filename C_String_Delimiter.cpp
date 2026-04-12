@@ -36,21 +36,44 @@ long long fast_power(long long base, long long power, long long  MOD=1e9+7ll){
 }
 
 
-const bool multipleTestCases = 1; 
-
+const bool multipleTestCases = 0; 
 
 void solve(){
   /*
 
-
   */
 
-  int n;cin>>n;vll a(n);
-  f(i,0,n)cin>>a[i];
+    int n;cin>>n;
+    string s;cin>>s;
 
 
-  
+    int cnt=0;
+    int idx=0;
+    
 
+    vector<pair<ll,ll>> pos;
+    f(i,0,n){
+        if(cnt == 0 and s[i] == ','){
+            s[i] = '.';
+        }
+
+        if(s[i] == '"'){
+            if(cnt==0){
+                cnt++;
+                idx=i;
+                
+            }
+            else{
+                pos.pb({idx,i});
+
+                cnt=0;
+            }
+        }
+
+    }
+
+
+    print(s);
 
 }
 

@@ -56,9 +56,6 @@ void solve(){
     total elemsn in eahc layer is 2x - 1
     and corner of each layer x is  (x,x);
 
-
-
-
   */
 
   ll k;cin>>k;
@@ -84,7 +81,7 @@ void solve(){
   }
   else{
     row = x;
-    col = x*x -k -1;
+    col = x*x -k +1;
   }
 
 

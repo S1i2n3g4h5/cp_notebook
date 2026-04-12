@@ -38,19 +38,51 @@ long long fast_power(long long base, long long power, long long  MOD=1e9+7ll){
 
 const bool multipleTestCases = 1; 
 
-
 void solve(){
   /*
+    so given we got ai
+    then conditions are thsi - > let bi = 2^ai
+        then count such pairs such that bi^bj = bj^bi
 
+    simplify this ->  2^(ai*2^aj) = 2^(aj*2^ai);    
+    after simplify with log -> ai*2^aj = aj*2^ai
+                            -> ai/aj = (2^ai)/(2^aj)
+                            -> ai/(2^ai) = aj/(2^aj)
+        so this is like f(x) = x/(2^x)
+
+
+    dry running f(x) we find that for only x=1,2 the value is same else (i.e. f(1) = f(2) = 0.5   (both same cuz the pair we needed)) all keeps decreasing which eans 
+    only for f(x) with x=1,2 the answer possible
+    and also for those duplicates only...
+
+
+    SO THIS ALL BOILS DOWN TO basic maths and hashing only. 
+
+
+        MAGNIFICIENT PROBLEM  d=====(￣▽￣*)b
 
   */
 
-  int n;cin>>n;vll a(n);
-  f(i,0,n)cin>>a[i];
+    ll n;cin>>n;
+    map<ll,ll>mp;
+    f(i,0,n){
+        ll x;cin>>x;
+        mp[x]++;
+    }
+
+    ll ans=0;
+    for(auto [val, cnt]:mp){
+        if(cnt >= 2){
+
+            ans += (cnt * (cnt-1) / 2);
+
+        }
+    }
+
+    ans += ((mp[1]) * (mp[2]));
 
 
-  
-
+    print(ans);
 
 }
 
