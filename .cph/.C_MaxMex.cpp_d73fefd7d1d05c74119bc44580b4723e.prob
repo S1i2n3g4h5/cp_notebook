@@ -1,0 +1,1 @@
+{"name":"Local: C_MaxMex","url":"d:\\cp_zoashro\\C_MaxMex.cpp","tests":[{"id":1776026290717,"input":"7 3\n2 0 2 3 2 1 9","output":""}],"interactive":false,"memoryLimit":1024,"timeLimit":3000,"srcPath":"d:\\cp_zoashro\\C_MaxMex.cpp","group":"local","local":true}
