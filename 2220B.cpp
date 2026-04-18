@@ -40,48 +40,45 @@ const bool multipleTestCases = 1;
 
 void solve(){
   /*
-    splitting numbs into b,r  can simplify this alot
-
-    cuz then we know thte constraints to choose from eaisly
 
   */
 
-  int n;cin>>n;
-  vll arr(n);
-  f(i,0,n)cin>>arr[i];
-  string s;cin>>s;
+    ll n,m;cin>>n>>m;
+    vll arr(n);
+    f(i,0,n)cin>>arr[i];
 
 
-  vll blue, red;
-  f(i,0,n){
-    if(s[i] == 'B')
-      blue.pb(arr[i]);
-    else
-      red.pb(arr[i]);
-  }
-
-  sort(all(blue));
-  sort(all(red));
-
-
-  f(i,0,blue.size()){
-    if(blue[i] < (i+1)){
-      print("NO");
-      return;
+    vll b(n);
+    f(i,0,n){
+        ll dangertime = (m - arr[i]) % m;
+        ll pos =i+1;
+        
+        b[i] = (dangertime - pos) % m;
+        
+        if(b[i] <= -1)
+            b[i] += m;
     }
 
-  }
 
-  f(i,0,red.size()){
-    if(red[i] > (ll)(blue.size() + i + 1)){
-      print("NO");
-      return;
+    
+    ll ans=1;
+    ll curr=1;
+    f(i,0,n-1){
+        if(b[i] == (b[i+1] + 1)%m){
+            curr++;
+        }
+        else{
+            ans = max(ans, curr);
+
+            curr = 1;
+        }
     }
-  }
 
+    ans = max(ans, curr);
 
-
-  print("YES");
+    if(ans >= m)
+        print("NO");
+    else print("YES");
 
 }
 

@@ -40,48 +40,41 @@ const bool multipleTestCases = 1;
 
 void solve(){
   /*
-    splitting numbs into b,r  can simplify this alot
+    cases for imperfect - 
+      evne banks with same start end char
+      odd blanks with diff start end char
 
-    cuz then we know thte constraints to choose from eaisly
+
+    for implemetioan there is direct cool way
+    like filling up the counts from left to right by starting there which is possible
+    similarly filling up the ounts form right ot left by start there which is possible starrts
+    
 
   */
 
-  int n;cin>>n;
-  vll arr(n);
-  f(i,0,n)cin>>arr[i];
-  string s;cin>>s;
+    int n;cin>>n;
+    string s;cin>>s;
 
-
-  vll blue, red;
-  f(i,0,n){
-    if(s[i] == 'B')
-      blue.pb(arr[i]);
-    else
-      red.pb(arr[i]);
-  }
-
-  sort(all(blue));
-  sort(all(red));
-
-
-  f(i,0,blue.size()){
-    if(blue[i] < (i+1)){
-      print("NO");
-      return;
+    
+    if(count(all(s), '?') == n){
+        s[0] = 'B';
     }
 
-  }
 
-  f(i,0,red.size()){
-    if(red[i] > (ll)(blue.size() + i + 1)){
-      print("NO");
-      return;
+    f(i,0,n-1){
+        if(s[i] != '?' and s[i+1] == '?'){
+            s[i+1] = (s[i] == 'B' ? 'R' : 'B');
+        }
     }
-  }
+
+    for(int i=n-1;i>0;i--){
+        if(s[i] != '?' and s[i-1] == '?'){
+            s[i-1] = (s[i] == 'B' ? 'R' : 'B');
+        }
+    }
 
 
-
-  print("YES");
+    print(s);
 
 }
 

@@ -40,48 +40,61 @@ const bool multipleTestCases = 1;
 
 void solve(){
   /*
-    splitting numbs into b,r  can simplify this alot
+    obs1 -> 
+        first step to find the  road ->   
+            -> like if a0 == 1 then we start form 1  else start from  (n+1)
 
-    cuz then we know thte constraints to choose from eaisly
+    so its like if we get taht a[0]=1 then we found its a loop hence starting form the n+1 -> 1 struutere only
+        hence answer  -> n+1 -> 1 -> 2 ....n
+
+    
 
   */
 
   int n;cin>>n;
   vll arr(n);
   f(i,0,n)cin>>arr[i];
-  string s;cin>>s;
 
 
-  vll blue, red;
-  f(i,0,n){
-    if(s[i] == 'B')
-      blue.pb(arr[i]);
-    else
-      red.pb(arr[i]);
+  if(arr[0] == 1){
+    cout << n+1;
+    f(i,0,n)cout << " " << i+1;
+    cout <<"\n";
+    return;
   }
 
-  sort(all(blue));
-  sort(all(red));
 
 
-  f(i,0,blue.size()){
-    if(blue[i] < (i+1)){
-      print("NO");
+  // epxloring possible valid path
+  f(i,0,n-1){
+    // i ->  n+1   -> i+1
+    if(arr[i] == 0 and arr[i+1]==1){
+
+      f(j,0,i+1){
+        cout << j+1 << " ";
+      }
+      cout << n+1 << " ";
+      f(j,i+1,n){
+        cout << j+1 << " ";
+      }
+
+      cout <<"\n";
+
       return;
     }
 
   }
 
-  f(i,0,red.size()){
-    if(red[i] > (ll)(blue.size() + i + 1)){
-      print("NO");
-      return;
-    }
+
+
+  if(arr[n-1] == 0){
+    f(i,0,n)cout <<i+1 << " ";
+    cout  << n+1 <<"\n";
+    return;
   }
 
 
-
-  print("YES");
+  print(-1);
 
 }
 

@@ -40,48 +40,19 @@ const bool multipleTestCases = 1;
 
 void solve(){
   /*
-    splitting numbs into b,r  can simplify this alot
-
-    cuz then we know thte constraints to choose from eaisly
+    so the max product is just 2 big positive or 2 least negatives
 
   */
 
-  int n;cin>>n;
-  vll arr(n);
-  f(i,0,n)cin>>arr[i];
-  string s;cin>>s;
+    int n;cin>>n;
+    vll arr(n);
+    f(i,0,n)cin>>arr[i];
 
 
-  vll blue, red;
-  f(i,0,n){
-    if(s[i] == 'B')
-      blue.pb(arr[i]);
-    else
-      red.pb(arr[i]);
-  }
+    sort(all(arr));
 
-  sort(all(blue));
-  sort(all(red));
+    print(max(arr[0]*arr[1], arr[n-1]*arr[n-2]));
 
-
-  f(i,0,blue.size()){
-    if(blue[i] < (i+1)){
-      print("NO");
-      return;
-    }
-
-  }
-
-  f(i,0,red.size()){
-    if(red[i] > (ll)(blue.size() + i + 1)){
-      print("NO");
-      return;
-    }
-  }
-
-
-
-  print("YES");
 
 }
 

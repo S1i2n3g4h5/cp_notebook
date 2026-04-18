@@ -36,52 +36,50 @@ long long fast_power(long long base, long long power, long long  MOD=1e9+7ll){
 }
 
 
-const bool multipleTestCases = 1; 
+const bool multipleTestCases = 0; 
 
 void solve(){
   /*
-    splitting numbs into b,r  can simplify this alot
-
-    cuz then we know thte constraints to choose from eaisly
 
   */
 
-  int n;cin>>n;
-  vll arr(n);
-  f(i,0,n)cin>>arr[i];
-  string s;cin>>s;
+    int h,m;cin>>h>>m;
 
 
-  vll blue, red;
-  f(i,0,n){
-    if(s[i] == 'B')
-      blue.pb(arr[i]);
-    else
-      red.pb(arr[i]);
-  }
+    auto confusing =  [](int h, int m){
+        int a = h/10;
+        int b = h%10;
+        int c = m/10;
+        int d = m%10;
 
-  sort(all(blue));
-  sort(all(red));
+        h = a*10 +c;
+        m = b*10 + d;
 
+        return h >=0 and h<=23 and m>=0 and m<=59;
 
-  f(i,0,blue.size()){
-    if(blue[i] < (i+1)){
-      print("NO");
-      return;
+    };
+    
+
+    while(1){
+
+        if(confusing(h,m)){
+            cout << h << " " << m << endl;
+            return;
+        }
+
+        m++;
+
+        if(m == 60){
+            m=0;
+            h++;
+        }
+
+        if(h==24){
+            h=0;
+        }
+
     }
 
-  }
-
-  f(i,0,red.size()){
-    if(red[i] > (ll)(blue.size() + i + 1)){
-      print("NO");
-      return;
-    }
-  }
-
-
-
-  print("YES");
 
 }
 

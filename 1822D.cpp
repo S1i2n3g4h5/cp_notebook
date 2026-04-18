@@ -40,48 +40,58 @@ const bool multipleTestCases = 1;
 
 void solve(){
   /*
-    splitting numbs into b,r  can simplify this alot
 
-    cuz then we know thte constraints to choose from eaisly
+    SO just requiring the prefix sums such that it forms a permuation
+    need ot arrange the array permution vluaes uch t forms all kinds of remanders 0<=n-1
+
+    obs1 -> total sum%2 ==0 (even) wont have the answers;
+
+    array b=>  0 n-1 1 n-2 2 n-3 ...
+
+
 
   */
 
-  int n;cin>>n;
-  vll arr(n);
-  f(i,0,n)cin>>arr[i];
-  string s;cin>>s;
+    ll n;cin>>n;
 
-
-  vll blue, red;
-  f(i,0,n){
-    if(s[i] == 'B')
-      blue.pb(arr[i]);
-    else
-      red.pb(arr[i]);
-  }
-
-  sort(all(blue));
-  sort(all(red));
-
-
-  f(i,0,blue.size()){
-    if(blue[i] < (i+1)){
-      print("NO");
-      return;
+    if(n==1){
+        print(1);
+        return;
     }
 
-  }
-
-  f(i,0,red.size()){
-    if(red[i] > (ll)(blue.size() + i + 1)){
-      print("NO");
-      return;
+    
+    if((n)%2 == 1){
+        print(-1);
+        return;
     }
-  }
 
 
 
-  print("YES");
+    ll lastb= 0;
+    ll low=1, high=n-1; 
+
+    
+    cout << n << " ";
+    f(i,1,n){
+
+        int currb;
+        if(i%2 ==0 ){
+            currb = low++;
+        }
+        else{
+            currb = high--;
+        }
+
+        int a = (currb - lastb+ n) % n;
+        if(a == 0)
+            a = n;
+
+        cout << a << " ";
+        lastb= currb;
+
+    }
+
+    cout << "\n";
 
 }
 

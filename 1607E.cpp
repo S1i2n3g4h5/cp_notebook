@@ -40,48 +40,54 @@ const bool multipleTestCases = 1;
 
 void solve(){
   /*
-    splitting numbs into b,r  can simplify this alot
+    instead of starting to follow directly we do reverse thing
 
-    cuz then we know thte constraints to choose from eaisly
+    we assume to be 1,1 as best posistion and try aking space for moves
 
   */
 
-  int n;cin>>n;
-  vll arr(n);
-  f(i,0,n)cin>>arr[i];
-  string s;cin>>s;
+    ll n,m;cin>>n>>m;
+    string s;cin>>s;
 
 
-  vll blue, red;
-  f(i,0,n){
-    if(s[i] == 'B')
-      blue.pb(arr[i]);
-    else
-      red.pb(arr[i]);
-  }
+    int curr_r=0, curr_c=0;
+    int min_r=0,min_c=0,max_r=0,max_c=0;
 
-  sort(all(blue));
-  sort(all(red));
+    int start_r=1, start_c=1;
+
+    for(char c:s){
+
+        if(c == 'L') curr_c--;
+        else if(c == 'R') curr_c++;
+        else if(c == 'D') curr_r++;
+        else if(c == 'U') curr_r--;
 
 
-  f(i,0,blue.size()){
-    if(blue[i] < (i+1)){
-      print("NO");
-      return;
+        int nxt_min_r = min(min_r, curr_r);
+        int nxt_max_r = max(max_r, curr_r);
+        int nxt_min_c = min(min_c, curr_c);
+        int nxt_max_c = max(max_c, curr_c);
+
+
+        // within bounds?
+        if(nxt_max_r - nxt_min_r + 1 > n or nxt_max_c - nxt_min_c + 1 > m){
+            break;
+        }
+
+        min_r = nxt_min_r;
+        max_r = nxt_max_r;
+        min_c = nxt_min_c;
+        max_c = nxt_max_c;
+
+
+        // here we make the shift like if we need out of range like -3 then to adjust we do 1- (-3) => 4 which results into the start posistion (1 (min))
+        start_r = 1-min_r;
+        start_c = 1-min_c;
+
     }
 
-  }
 
-  f(i,0,red.size()){
-    if(red[i] > (ll)(blue.size() + i + 1)){
-      print("NO");
-      return;
-    }
-  }
-
-
-
-  print("YES");
+    print(start_r, start_c);
 
 }
 

@@ -40,49 +40,35 @@ const bool multipleTestCases = 1;
 
 void solve(){
   /*
-    splitting numbs into b,r  can simplify this alot
-
-    cuz then we know thte constraints to choose from eaisly
 
   */
 
-  int n;cin>>n;
-  vll arr(n);
-  f(i,0,n)cin>>arr[i];
-  string s;cin>>s;
+    int n;cin>>n;
+    vll arr(n);
 
-
-  vll blue, red;
-  f(i,0,n){
-    if(s[i] == 'B')
-      blue.pb(arr[i]);
-    else
-      red.pb(arr[i]);
-  }
-
-  sort(all(blue));
-  sort(all(red));
-
-
-  f(i,0,blue.size()){
-    if(blue[i] < (i+1)){
-      print("NO");
-      return;
+    set<int>distinct_elements;
+    
+    bool dups=0;
+    f(i,0,n){
+        cin>>arr[i];
+        
+        if(distinct_elements.count(arr[i])){
+            dups = true;
+        }
+        distinct_elements.insert(arr[i]);
     }
 
-  }
 
-  f(i,0,red.size()){
-    if(red[i] > (ll)(blue.size() + i + 1)){
-      print("NO");
-      return;
+    if(dups){
+        print(-1);
+        return;
     }
-  }
+    
+    sort(rall(arr));
 
-
-
-  print("YES");
-
+    f(i,0,n)cout << arr[i] << " ";
+    cout << "\n";
+    
 }
 
 

@@ -40,48 +40,34 @@ const bool multipleTestCases = 1;
 
 void solve(){
   /*
-    splitting numbs into b,r  can simplify this alot
+    antipalindrome conditions -
+        -> size even
+        -> all left,right pointer string index are differents
 
-    cuz then we know thte constraints to choose from eaisly
+    operation allowed- swap 2 chars
 
   */
 
-  int n;cin>>n;
-  vll arr(n);
-  f(i,0,n)cin>>arr[i];
-  string s;cin>>s;
+    int n;cin>>n;
+    string s;cin>>s;
 
 
-  vll blue, red;
-  f(i,0,n){
-    if(s[i] == 'B')
-      blue.pb(arr[i]);
-    else
-      red.pb(arr[i]);
-  }
-
-  sort(all(blue));
-  sort(all(red));
-
-
-  f(i,0,blue.size()){
-    if(blue[i] < (i+1)){
-      print("NO");
-      return;
+    bool already_antipalindrome = (n%2 == 0);
+    for(int l=0,h=n-1;l<h;l++,h--){
+        if(s[l] == s[h]){
+            already_antipalindrome = false;
+            break;
+        }
     }
 
-  }
-
-  f(i,0,red.size()){
-    if(red[i] > (ll)(blue.size() + i + 1)){
-      print("NO");
-      return;
+    if(already_antipalindrome){
+        print(0);
+        return;
     }
-  }
 
 
+    
 
-  print("YES");
 
 }
 

@@ -40,48 +40,40 @@ const bool multipleTestCases = 1;
 
 void solve(){
   /*
-    splitting numbs into b,r  can simplify this alot
-
-    cuz then we know thte constraints to choose from eaisly
 
   */
 
-  int n;cin>>n;
-  vll arr(n);
-  f(i,0,n)cin>>arr[i];
-  string s;cin>>s;
+    ll n;cin>>n;
 
+    
+    vll answer = {0,0,0,0};
+    ll first_card = 1;
 
-  vll blue, red;
-  f(i,0,n){
-    if(s[i] == 'B')
-      blue.pb(arr[i]);
-    else
-      red.pb(arr[i]);
-  }
+    f(i,1,20000){
+        int who = (i%4 == 1 or i%4 ==0 ? 0 : 1);
 
-  sort(all(blue));
-  sort(all(red));
+        int cnt = i;
+        if(n < cnt){
+            cnt = n;
+        }
 
+        ll cnt_white = (cnt + first_card%2) /2;
+        ll cnt_black = cnt - cnt_white;
 
-  f(i,0,blue.size()){
-    if(blue[i] < (i+1)){
-      print("NO");
-      return;
+        answer[who*2 + 0] += cnt_white;
+        answer[who*2 + 1] += cnt_black;
+
+        first_card += cnt;
+
+        n -= cnt;
+
+        if(n==0)break;
+
     }
 
-  }
 
-  f(i,0,red.size()){
-    if(red[i] > (ll)(blue.size() + i + 1)){
-      print("NO");
-      return;
-    }
-  }
-
-
-
-  print("YES");
+    f(i,0,4){cout << answer[i] << " ";}
+    cout << "\n";
 
 }
 

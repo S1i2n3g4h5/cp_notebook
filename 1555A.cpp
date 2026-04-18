@@ -40,48 +40,29 @@ const bool multipleTestCases = 1;
 
 void solve(){
   /*
-    splitting numbs into b,r  can simplify this alot
+    slice -> time
+    6 - 15  -> 2.5 min/slice
+    8 - 20  -> 2.5 min/slice
+    10 - 25  -> 2.5 min/slice
 
-    cuz then we know thte constraints to choose from eaisly
+    
+    time = slice * 2.5
+    time = slice * 5 / 2
 
   */
 
-  int n;cin>>n;
-  vll arr(n);
-  f(i,0,n)cin>>arr[i];
-  string s;cin>>s;
+    ll n;cin>>n;
 
 
-  vll blue, red;
-  f(i,0,n){
-    if(s[i] == 'B')
-      blue.pb(arr[i]);
-    else
-      red.pb(arr[i]);
-  }
-
-  sort(all(blue));
-  sort(all(red));
-
-
-  f(i,0,blue.size()){
-    if(blue[i] < (i+1)){
-      print("NO");
-      return;
+    if(n<=6){
+        print(15);
+        return;
     }
 
-  }
+    if(n&1)n++;
 
-  f(i,0,red.size()){
-    if(red[i] > (ll)(blue.size() + i + 1)){
-      print("NO");
-      return;
-    }
-  }
+    print((n*5) / 2);
 
-
-
-  print("YES");
 
 }
 
