@@ -40,37 +40,10 @@ const bool multipleTestCases = 1;
 
 void solve(){
   /*
-    cake occupies  -  ai-w to ai+w
-    conveyor segment - bi - h   to   bi+h
-
-    new positions cake ->  ai-w+d  to ai+w+d
-
-
-    this is cuz there is single vlaue that affets everything that is buton press is the global variable, every cae is shifted by exact
-    same d, kid of  interval intersection problem
-
-
 
   */
 
-    ll n,w,h;cin>>n>>w>>h;
-    vll a(n),b(n);
-    f(i,0,n)cin>>a[i];
-    f(i,0,n)cin>>b[i];
 
-
-    ll mn=2e9;
-    ll mx=-2e9;
-    ll diff = w-h;
-
-    f(i,0,n){
-        mn = min(mn, b[i] - a[i]  + diff);
-        mx = max(mx, b[i] - a[i]  - diff);
-
-    }
-
-    if(mx <= mn)print("YES");
-    else print("NO");
 
 
 }
