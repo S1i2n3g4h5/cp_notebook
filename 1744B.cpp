@@ -43,28 +43,42 @@ void solve(){
 
   */
 
-  int n,k;cin>>n>>k;
-  vll arr(n);
-  f(i,0,n)cin>>arr[i];
+    int n,q;cin>>n>>q;
+    vll arr(n);
+    ll tot=0;
+    f(i,0,n)cin>>arr[i],tot+=arr[i];
 
+    ll even=0,odd=0;
+    f(i,0,n){
+        if(arr[i]%2 == 0)even++;
+        else odd++;
+    }
 
-  sort(all(arr));
+    
+    while(q--){
+        int type,x;cin>>type>>x;
+        
+        if(type == 0){
+            // even
+            tot += x*even;
+            if(x%2 == 1){
+                odd=n;
+                even=0;
+            }
+        }
+        else{
+            // odd
+            tot += x*odd;
+            if(x%2==1){
+                even=n;
+                odd=0;
+            }
+        }
 
-  vll pref(n+1,0);
-  f(i,0,n)
-    pref[i+1] += pref[i] + arr[i];
+        print(tot);
 
+    }
 
-  ll ans = 0;
-  f(i,0,k+1){
-    int mn = i * 2;
-    int mx = k- i;
-
-    ans = max(ans, pref[n - mx] - pref[mn]);
-
-  }
-
-  print(ans);
 
 }
 

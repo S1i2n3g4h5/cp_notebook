@@ -40,32 +40,40 @@ const bool multipleTestCases = 1;
 
 void solve(){
   /*
+    final equaatoin - 
+        xy = k(ab)
 
+    and we can eaisly loop for a< x  <=c;
+    then check for optimal y values to exist
+
+    y just needs to be divisble by a*b/gcd(x,ab);
+
+
+    
   */
 
-  int n,k;cin>>n>>k;
-  vll arr(n);
-  f(i,0,n)cin>>arr[i];
+    ll a,b,c,d;cin>>a>>b>>c>>d;
 
+    
+    f(x,a+1,c+1){
 
-  sort(all(arr));
+        ll g = __gcd((ll)x,a*b);
+        
+        // this is our debt, like we know what x has paid (g) so findingthe leftover
+        ll l = a*b/g;  
 
-  vll pref(n+1,0);
-  f(i,0,n)
-    pref[i+1] += pref[i] + arr[i];
+        // jumping for boundaries that is min start is b <  y
+        ll y = l * (b/l + 1);
 
+        if(y <= d){
+            print(x,y);
+            return;
+        }
 
-  ll ans = 0;
-  f(i,0,k+1){
-    int mn = i * 2;
-    int mx = k- i;
-
-    ans = max(ans, pref[n - mx] - pref[mn]);
-
-  }
-
-  print(ans);
-
+    }
+    
+    print(-1,-1);
+    
 }
 
 

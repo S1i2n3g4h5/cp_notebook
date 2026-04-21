@@ -40,31 +40,65 @@ const bool multipleTestCases = 1;
 
 void solve(){
   /*
+    first we cna eaisly check the factors of 2 contributing each number arr[i];
+    if its >= n then the amount reuqired is already done - 0
+
+    and to fix it we try to greedily pic the even idx first
+    like picking those with big index and large count contriution already and doing for thw whole array
+
+    ---
+    
+    mistake here made is that we don’t need to make the whole array exactly power of 2 but instead just divisible by power of 2
 
   */
-
-  int n,k;cin>>n>>k;
-  vll arr(n);
-  f(i,0,n)cin>>arr[i];
-
-
-  sort(all(arr));
-
-  vll pref(n+1,0);
-  f(i,0,n)
-    pref[i+1] += pref[i] + arr[i];
+    int n;cin>>n;
+    vll arr(n);
+    f(i,0,n)cin>>arr[i];
 
 
-  ll ans = 0;
-  f(i,0,k+1){
-    int mn = i * 2;
-    int mx = k- i;
+    auto powerof2 = [&](ll x){
+        return (x&(x-1)) == 0;
+    };
+    auto count_factor_2 = [&](ll x){
+        int cnt=0;
+        while(x> 0 and x%2==0){
+            x/=2;
+            cnt++;
+        }
+        return cnt;
+    };
 
-    ans = max(ans, pref[n - mx] - pref[mn]);
 
-  }
+    ll fct_cnt =0 ;
+    f(i,0,n){
+        fct_cnt += (count_factor_2(arr[i]));
+    }
 
-  print(ans);
+    
+    // fixing
+    if(fct_cnt>= n){
+        print(0);
+        return;
+    }
+
+    vll fcts;
+    f(i,0,n)fcts.pb(count_factor_2(i+1));
+    sort(rall(fcts));
+
+
+    int ans=0;
+    f(i,0,n){
+        fct_cnt += fcts[i];
+        ans++;
+
+        if(fct_cnt >= n){
+            print(ans);
+            return;
+        }
+    }
+
+
+    print(-1);
 
 }
 

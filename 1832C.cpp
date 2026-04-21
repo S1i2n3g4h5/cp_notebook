@@ -40,31 +40,47 @@ const bool multipleTestCases = 1;
 
 void solve(){
   /*
+    since the final contrast is ike frist elem - end elem
+
+    hence to find the min length subsequence b array
+    we can delete the values that dont contribute
+    like if ai-1 < ai < ai+1
+        this ai is useless cuz iits not contributing hence rmeoving this
+    and only caring about those which make big difference
+
+    cuz example - 
+        1. 0, 10, 0
+            here total distnce is 10+10 = 20
+            ut if we remove 10 then its 0, this means 10 is important
+        2. 0, 5, 10
+            total distancec=10
+            if we delte 5 its still 10 hence 5 useless
+
+
 
   */
 
-  int n,k;cin>>n>>k;
-  vll arr(n);
-  f(i,0,n)cin>>arr[i];
+    int n;cin>>n;
+    vll arr(n);
+    f(i,0,n)cin>>arr[i];
+
+    arr.erase(unique(all(arr)), arr.end());
 
 
-  sort(all(arr));
+    if(arr.size() <= 1){
+        print(1);
+        return;
+    }
 
-  vll pref(n+1,0);
-  f(i,0,n)
-    pref[i+1] += pref[i] + arr[i];
 
+    int ans=2;
+    f(i,1,arr.size()-1){
+        if((arr[i] > arr[i-1] and arr[i] > arr[i+1]) or (arr[i] < arr[i-1] and arr[i] < arr[i+1])){
+            ans++;
+        }
+    }
 
-  ll ans = 0;
-  f(i,0,k+1){
-    int mn = i * 2;
-    int mx = k- i;
-
-    ans = max(ans, pref[n - mx] - pref[mn]);
-
-  }
-
-  print(ans);
+    print(ans);
 
 }
 

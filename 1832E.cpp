@@ -40,31 +40,16 @@ const bool multipleTestCases = 1;
 
 void solve(){
   /*
-
-  */
-
-  int n,k;cin>>n>>k;
-  vll arr(n);
-  f(i,0,n)cin>>arr[i];
+    array a = ai = (ai-1*x + y) mod m
+  */    
 
 
-  sort(all(arr));
-
-  vll pref(n+1,0);
-  f(i,0,n)
-    pref[i+1] += pref[i] + arr[i];
+    ll MOD = 998244353;
+    ll n,a1,x,y,m,k;cin>>n>>a1>>x>>y>>m>>k;
 
 
-  ll ans = 0;
-  f(i,0,k+1){
-    int mn = i * 2;
-    int mx = k- i;
 
-    ans = max(ans, pref[n - mx] - pref[mn]);
 
-  }
-
-  print(ans);
 
 }
 

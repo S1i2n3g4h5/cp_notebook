@@ -40,31 +40,58 @@ const bool multipleTestCases = 1;
 
 void solve(){
   /*
+    best cnadidates to flip are - 
+        0 from the 1st
+        1 from the end
+        initial inversion count
+
+    
 
   */
 
-  int n,k;cin>>n>>k;
-  vll arr(n);
-  f(i,0,n)cin>>arr[i];
+    int n;cin>>n;
+    vll arr(n);
+    int one_idx=-1,zero_idx=-1;
+    f(i,0,n){
+        cin>>arr[i];
+        
+        if(arr[i] == 1)
+            one_idx = i;
+
+        if(arr[i] == 0 and zero_idx == -1)
+            zero_idx = i;
+    }
+
+    auto inversion_count = [&](auto arr){
+        ll one=0,ans=0;
+        f(i,0,n){
+
+            if(arr[i] == 1)one++;
+            else{
+                ans += one;
+            }
+
+        }
+
+        return ans;
+    };
 
 
-  sort(all(arr));
+    ll ans = inversion_count(arr);
+    
+    if(zero_idx != -1){
+        arr[zero_idx] = 1;
+        ans = max(ans, inversion_count(arr));
+        arr[zero_idx] = 0;
+    }
+    if(one_idx != -1){
+        arr[one_idx] = 0;
+        ans = max(ans, inversion_count(arr));
+        arr[one_idx] = 1;
+    }
 
-  vll pref(n+1,0);
-  f(i,0,n)
-    pref[i+1] += pref[i] + arr[i];
 
-
-  ll ans = 0;
-  f(i,0,k+1){
-    int mn = i * 2;
-    int mx = k- i;
-
-    ans = max(ans, pref[n - mx] - pref[mn]);
-
-  }
-
-  print(ans);
+    print(ans);
 
 }
 

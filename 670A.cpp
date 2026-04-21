@@ -36,35 +36,22 @@ long long fast_power(long long base, long long power, long long  MOD=1e9+7ll){
 }
 
 
-const bool multipleTestCases = 1; 
+const bool multipleTestCases = 0; 
 
 void solve(){
   /*
+    for maximizing the holidays we start off the day with saturday instead of monday
 
   */
 
-  int n,k;cin>>n>>k;
-  vll arr(n);
-  f(i,0,n)cin>>arr[i];
+    ll n;cin>>n;
 
 
-  sort(all(arr));
+    ll k=n/7;
+    ll r = n%7;
 
-  vll pref(n+1,0);
-  f(i,0,n)
-    pref[i+1] += pref[i] + arr[i];
+    print(2*k + max(0ll,r-5), 2*k + min(r,2ll));
 
-
-  ll ans = 0;
-  f(i,0,k+1){
-    int mn = i * 2;
-    int mx = k- i;
-
-    ans = max(ans, pref[n - mx] - pref[mn]);
-
-  }
-
-  print(ans);
 
 }
 

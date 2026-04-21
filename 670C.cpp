@@ -36,35 +36,60 @@ long long fast_power(long long base, long long power, long long  MOD=1e9+7ll){
 }
 
 
-const bool multipleTestCases = 1; 
+const bool multipleTestCases = 0; 
 
 void solve(){
   /*
+    since the pririy decided by audio first then subtitle
+
+    its more of like counting frequency type only
 
   */
 
-  int n,k;cin>>n>>k;
-  vll arr(n);
-  f(i,0,n)cin>>arr[i];
+    ll n;cin>>n;
+    vll arr(n);
+    f(i,0,n)cin>>arr[i];
+
+    ll m;cin>>m;
+    vll b(m),c(m);
+    f(i,0,m)cin>>b[i];
+    f(i,0,m)cin>>c[i];
 
 
-  sort(all(arr));
 
-  vll pref(n+1,0);
-  f(i,0,n)
-    pref[i+1] += pref[i] + arr[i];
+    map<ll,ll> lang_count;
+    f(i,0,n){
+        lang_count[arr[i]]++;
+    }
 
 
-  ll ans = 0;
-  f(i,0,k+1){
-    int mn = i * 2;
-    int mx = k- i;
+    ll best_movie=0, max_very_pleased=-1,max_almost_pleased=-1;
 
-    ans = max(ans, pref[n - mx] - pref[mn]);
+    f(i,0,m){
 
-  }
+        int curr_very = lang_count[b[i]];
+        int curr_almost = lang_count[c[i]];
 
-  print(ans);
+        if(curr_very > max_very_pleased){
+            max_very_pleased = curr_very;
+
+            max_almost_pleased = curr_almost;
+
+            best_movie =i+1;
+
+
+        }
+        else if(curr_very == max_very_pleased){
+            if(curr_almost > max_almost_pleased){
+                max_almost_pleased = curr_almost;
+
+                best_movie = i+1;
+            }
+        }
+
+    }
+
+    print(best_movie);
 
 }
 

@@ -36,35 +36,57 @@ long long fast_power(long long base, long long power, long long  MOD=1e9+7ll){
 }
 
 
-const bool multipleTestCases = 1; 
+const bool multipleTestCases = 0; 
 
 void solve(){
   /*
+    without that magic poweder this is all just min(bi/ai) for all i
+    but with magic poweder we need to use it effeectively to incresae the total cookies ot be baked
+
+    if we make X cookies then x-1 cookie also possible,
+    whcih means monotonic property ,binary search possible
+
+
 
   */
 
-  int n,k;cin>>n>>k;
-  vll arr(n);
-  f(i,0,n)cin>>arr[i];
+    ll n,k;cin>>n>>k;
+    vll a(n),b(n);
+    f(i,0,n)cin>>a[i];
+    f(i,0,n)cin>>b[i];
 
 
-  sort(all(arr));
+    auto check  = [&](ll x){
 
-  vll pref(n+1,0);
-  f(i,0,n)
-    pref[i+1] += pref[i] + arr[i];
+        ll power_req = 0;
+        f(i,0,n){
+            ll req = x * a[i];
+            if(req > b[i]){
+                power_req +=  (req - b[i]);
+            }
+
+            if(power_req > k)return false;
+        }
+        return power_req <= k;
+
+    };
 
 
-  ll ans = 0;
-  f(i,0,k+1){
-    int mn = i * 2;
-    int mx = k- i;
+    ll low=0,high=1e9;
 
-    ans = max(ans, pref[n - mx] - pref[mn]);
+    while(low<=high){
+        ll mid = low+(high-low)/2;
 
-  }
+        if(check(mid)){
+            low = mid+1;
+        }
+        else{
+            high = mid-1;
+        }
+    }
 
-  print(ans);
+
+    print(low-1);
 
 }
 

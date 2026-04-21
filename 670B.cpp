@@ -36,35 +36,36 @@ long long fast_power(long long base, long long power, long long  MOD=1e9+7ll){
 }
 
 
-const bool multipleTestCases = 1; 
+const bool multipleTestCases = 0; 
 
 void solve(){
   /*
+    since doing root(2k) gives whichi bloc the number mst be into
+
+    1               1   
+    1 2             2 3
+    1 2 3           4 5 6
+    1 2 3 4         7 8 9 10
+
 
   */
 
-  int n,k;cin>>n>>k;
-  vll arr(n);
-  f(i,0,n)cin>>arr[i];
+    ll n,k;cin>>n>>k;
+    vll arr(n);
+    f(i,0,n)cin>>arr[i];
 
 
-  sort(all(arr));
 
-  vll pref(n+1,0);
-  f(i,0,n)
-    pref[i+1] += pref[i] + arr[i];
+    f(i,1,n+1){
+        if(k<= i){
+            break;
+        }
+        k-=i;
+    }
 
 
-  ll ans = 0;
-  f(i,0,k+1){
-    int mn = i * 2;
-    int mx = k- i;
+    print(arr[k-1]);
 
-    ans = max(ans, pref[n - mx] - pref[mn]);
-
-  }
-
-  print(ans);
 
 }
 

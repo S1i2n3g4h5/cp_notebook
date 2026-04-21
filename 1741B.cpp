@@ -43,28 +43,23 @@ void solve(){
 
   */
 
-  int n,k;cin>>n>>k;
-  vll arr(n);
-  f(i,0,n)cin>>arr[i];
+    ll n;cin>>n;
+
+    if(n==1 or n==3){
+        print(-1);
+        return;
+    }
 
 
-  sort(all(arr));
+    ll mid=n/2;
 
-  vll pref(n+1,0);
-  f(i,0,n)
-    pref[i+1] += pref[i] + arr[i];
-
-
-  ll ans = 0;
-  f(i,0,k+1){
-    int mn = i * 2;
-    int mx = k- i;
-
-    ans = max(ans, pref[n - mx] - pref[mn]);
-
-  }
-
-  print(ans);
+    f(i,mid+1,n+1){
+        cout << i << " ";
+    }
+    f(i,1,mid+1){
+        cout << i << " ";
+    }
+    cout << "\n";
 
 }
 

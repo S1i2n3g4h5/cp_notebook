@@ -40,31 +40,56 @@ const bool multipleTestCases = 1;
 
 void solve(){
   /*
-
+    brute forcing 
   */
 
-  int n,k;cin>>n>>k;
-  vll arr(n);
-  f(i,0,n)cin>>arr[i];
+    int n;cin>>n;
+    vll arr(n);
+    f(i,0,n)cin>>arr[i];
 
 
-  sort(all(arr));
+    ll ans = n;
+    ll first_seg_sum = 0;
+    f(i,0,n){
 
-  vll pref(n+1,0);
-  f(i,0,n)
-    pref[i+1] += pref[i] + arr[i];
+        first_seg_sum += arr[i];
+        ll curr_target = first_seg_sum;
+        ll max_split_len = i+1;
 
 
-  ll ans = 0;
-  f(i,0,k+1){
-    int mn = i * 2;
-    int mx = k- i;
+        ll tmpsm = 0;
+        ll tmpln = 0;
+        bool possible = true;
 
-    ans = max(ans, pref[n - mx] - pref[mn]);
+        f(j,i+1,n){
+            tmpsm += arr[j];
+            tmpln++;
 
-  }
+            if(tmpsm == curr_target){
+                max_split_len = max(max_split_len, tmpln);
 
-  print(ans);
+                tmpsm = 0;
+                tmpln = 0;
+            }
+            else if(tmpsm > curr_target){
+                possible = false;
+                break;
+            }
+        }
+
+
+        if(tmpsm > 0)
+            possible = false;
+
+        
+        if(possible){
+            ans = min(ans, max_split_len);
+        }
+
+    }
+
+    print(ans);
+
 
 }
 

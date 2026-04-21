@@ -43,28 +43,21 @@ void solve(){
 
   */
 
-  int n,k;cin>>n>>k;
-  vll arr(n);
-  f(i,0,n)cin>>arr[i];
+    int n;cin>>n;
+    string s;cin>>s;
 
+    char c = *min_element(all(s));
 
-  sort(all(arr));
+    int k=0;
+    f(i,0,n){
+        if(s[i] == c)
+            k=i;
+    }
 
-  vll pref(n+1,0);
-  f(i,0,n)
-    pref[i+1] += pref[i] + arr[i];
+    s = s[k] + s.substr(0,k) + s.substr(k+1);
+    
+    print(s);
 
-
-  ll ans = 0;
-  f(i,0,k+1){
-    int mn = i * 2;
-    int mx = k- i;
-
-    ans = max(ans, pref[n - mx] - pref[mn]);
-
-  }
-
-  print(ans);
 
 }
 
