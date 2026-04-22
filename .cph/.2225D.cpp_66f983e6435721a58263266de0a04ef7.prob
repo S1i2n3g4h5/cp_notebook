@@ -1,0 +1,1 @@
+{"name":"Local: 2225D","url":"d:\\cp_zoashro\\2225D.cpp","tests":[{"id":1776783936857,"input":"5\n5 5\n8 1\n15 8\n10 10\n5989566119 1996588700\n","output":"5\n5 5\n8 1\n15 8\n10 10\n5989566119 1996588700\n"}],"interactive":false,"memoryLimit":1024,"timeLimit":3000,"srcPath":"d:\\cp_zoashro\\2225D.cpp","group":"local","local":true}
