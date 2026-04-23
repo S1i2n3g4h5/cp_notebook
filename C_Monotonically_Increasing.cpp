@@ -35,60 +35,46 @@ long long fast_power(long long base, long long power, long long  MOD=1e9+7ll){
   return result;
 }
 
+const bool multipleTestCases = 0; 
 
-const bool multipleTestCases = 1; 
+
 
 void solve(){
   /*
-    antipalindrome conditions -
-        -> size even
-        -> all left,right pointer string index are differents
-
-    operation allowed- swap 2 chars
-
+    fantastic problem hidden as a bitmasking one
   */
 
-    int n;cin>>n;
-    string s;cin>>s;
+    int n,m;cin>>n>>m;
+
+    vector<vector<int>>ans;
+
+    for(int mask=0;mask < (1ll << m);mask++){
+
+        if(__builtin_popcount(mask) == n){
+
+            vector<int> seq;
+            f(i,0,m){
+                if((mask & (1<<i)))
+                    seq.pb(i+1);
+            }
 
 
-    if(n&1){
-      print(-1);
-      return;
+            ans.pb(seq);
+
+        }
+
     }
 
+    sort(all(ans));
+
+
+    for(auto x:ans){
+        for(auto y:x){
+            cout << y << " ";
+        }
+        cout << "\n";
+    }
     
-    vll fr(26,0);
-    for(char c:s){
-      fr[c-'a']++;
-    }
-
-    f(i,0,26){
-      if(fr[i] > n/2){
-        print(-1);
-        return;
-      }
-    }
-
-
-    // counting bar pair
-    ll ans=0;
-    vll bad_fr(26,0);
-    f(i,0,n/2){
-      if(s[i] == s[n-i-1]){
-        ans++;
-        bad_fr[s[i] -'a'] ++;
-
-      }
-    }
-
-
-    ll mx_bad_single = 0;
-    f(i,0,26)
-      mx_bad_single = max(mx_bad_single, bad_fr[i]);
-
-
-    print(max(mx_bad_single,(ans+1)/2));
 
 }
 

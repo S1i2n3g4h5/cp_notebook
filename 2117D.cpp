@@ -40,55 +40,28 @@ const bool multipleTestCases = 1;
 
 void solve(){
   /*
-    antipalindrome conditions -
-        -> size even
-        -> all left,right pointer string index are differents
+    in short the ai should be formed like this - 
+        ai  - (x * i) - (y * (n-i+1)) = 0
 
-    operation allowed- swap 2 chars
+    rearrranging this -
+        ai = i * (x - y) + y * (n + 1)
+
+    its very similar to this 
+        ai = m*i + c    --linear function
+
+    
 
   */
 
-    int n;cin>>n;
-    string s;cin>>s;
+    ll n;cin>>n;
+    vll arr(n);
+    f(i,0,n)cin>>arr[i];
+
+    ll g=arr[0];
+    f(i,1,n)g=__gcd(g,arr[i]);
 
 
-    if(n&1){
-      print(-1);
-      return;
-    }
-
-    
-    vll fr(26,0);
-    for(char c:s){
-      fr[c-'a']++;
-    }
-
-    f(i,0,26){
-      if(fr[i] > n/2){
-        print(-1);
-        return;
-      }
-    }
-
-
-    // counting bar pair
-    ll ans=0;
-    vll bad_fr(26,0);
-    f(i,0,n/2){
-      if(s[i] == s[n-i-1]){
-        ans++;
-        bad_fr[s[i] -'a'] ++;
-
-      }
-    }
-
-
-    ll mx_bad_single = 0;
-    f(i,0,26)
-      mx_bad_single = max(mx_bad_single, bad_fr[i]);
-
-
-    print(max(mx_bad_single,(ans+1)/2));
+    print(g);
 
 }
 
