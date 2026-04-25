@@ -36,15 +36,111 @@ long long fast_power(long long base, long long power, long long  MOD=1e9+7ll){
 }
 
 
-const bool multipleTestCases = 1; 
+const bool multipleTestCases = 0; 
 
 void solve(){
   /*
+    2 types of moves -
+        -> rearrange to q
+        -> rearrange to q^(-1)
+
+    and to make exactly k moves, its mossible that we reach s from q
+    withint some 5 forward/backwards stes and the remaining (k-t) must be even
+    hence then onl we can return to the same good output.
+
+    so when aplying the forward operation its like
+        q=2,3,4,1
+        this means that 2nd elemnt moves to 1st pos
+                        3rd elemnt moves to 2nd pos
+                        et.c.
+
+    for backkwardoperation- 
+        q=2,3,4,1
+        this means that 1 moves to 2nd elem,
+        2 moves to 3rd elemn ....
 
   */
 
+    ll n,k;cin>>n>>k;
+
+    vll q(n+1),s(n+1);
+    f(i,1,n+1)cin>>q[i];
+    f(i,1,n+1)cin>>s[i];
 
 
+    vll p(n+1,0);
+    f(i,1,n+1)p[i] = i;
+
+
+    // identity permutation?  but its mandatory to have atleast 1 move
+    if(s == p ){
+        print("NO");
+        return;
+    }
+
+
+    // forward;
+    int t_forward = -1;
+    f(j,1,k+1){
+        vll tmp(n+1,0);
+        f(i,1,n+1){
+            tmp[i] = p[q[i]];
+        }
+        p = tmp;
+
+        if(p == s){
+            t_forward = j;
+            break;
+        }
+
+
+    }
+
+
+    f(i,1,n+1)p[i] = i;
+
+    int t_backward = -1;
+    f(j,1,k+1){
+        vll tmp(n+1,0);
+        f(i,1,n+1){
+            tmp[q[i]] = p[i];
+        }
+        p = tmp;
+
+        if(p == s){
+            t_backward = j;
+            break;
+        }
+
+    }
+
+
+    // checking..
+    
+    bool can=false;
+
+    if(t_forward == k or t_backward == k)
+        can=true;
+    else{
+
+        if(t_forward == 1 and t_backward==1 and k>1){
+            can=false;
+        }
+        else{
+            if(t_forward != -1 and (k-t_forward)%2==0)
+                can=true;
+            if(t_backward!= -1 and (k - t_backward)%2==0)
+                can=true;
+
+
+        }
+
+    }
+    
+
+    if(can)
+        print("YES");
+    else print("NO");
 
 }
 

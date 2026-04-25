@@ -1,0 +1,1 @@
+{"name":"Local: 687265A","url":"d:\\cp_zoashro\\687265A.cpp","tests":[{"id":1777045000347,"input":"4\n3 1\naab\n4 1\naaaa\n5 2\nababa\n2 0\naa\n","output":"YES\nNO\nYES\nNO\n"}],"interactive":false,"memoryLimit":1024,"timeLimit":3000,"srcPath":"d:\\cp_zoashro\\687265A.cpp","group":"local","local":true}
