@@ -36,55 +36,70 @@ long long fast_power(long long base, long long power, long long  MOD=1e9+7ll){
 }
 
 
-const bool multipleTestCases = 1; 
+const bool multipleTestCases = 0; 
 
 void solve(){
   /*
-    selecting k/2 elems
+    given some a,b  whch we calc gcd
 
-    min size of a,b k/2;
+    needs to find the nearest valies gcd of a,b suhc that l<=gcd<=r
+    else -1
 
+    shortcut-> any number that divides a and b, must be a divisor of gcd(a,b);
+
+
+    so instead of scanning ranges one by one, we just get all the diisors form the gcd(a,b)
+    an djust check if there is any numer common between the diiosr meeting the range criteria
+        low <= divisor <= high
+
+    ------
+
+     according to the number theory its not imporant for just gor 2g or 3g.... to be divisble by a,b
+but instead that any diivsor of gcd(a,b) is also divisor of a,b
+whch puts us through valid answer
 
 
   */
 
-  int n,m,k;cin>>n>>m>>k;
-  vll a(n),b(m);
-  
-  f(i,0,n)cin>>a[i];
-  f(i,0,m)cin>>b[i];
+    ll a,b;cin>>a>>b;
+    ll q;cin>>q;
 
+    ll g = __gcd(a,b);
 
-  vector<bool>ina(k+1,false), inb(k+1, false);
-  f(i,0,n){
-    if(a[i] <=k)
-      ina[a[i]] = 1;
-  }
-  f(i,0,m){
-    if(b[i] <=k)
-      inb[b[i]] = 1;
-  }
-
-  int unqa=0,unqb=0;
-  f(i,1,k+1){
-    if(!ina[i] and !inb[i]){
-      print("NO");
-    
-      return;
+    vll divs;
+    for(ll i=1;i*i <= g;i++){
+        if(g%i == 0){
+            divs.pb(i);
+            if(i*i != g)divs.pb(g/i);
+        }
     }
-  
-    if(ina[i]) unqa++;
-    if(inb[i]) unqb++;
 
-  }
+    sort(all(divs));
 
 
-  if(unqa >= k/2 and unqb >= k/2){
-    print("YES");
-  }
-  else{
-    print("NO");
-  }
+    while(q--){
+        ll l,h;cin>>l>>h;
+
+        auto it = upper_bound(all(divs), h);
+
+        if(it == divs.begin()){
+            print(-1);
+        }
+        else{
+            it = prev(it);
+            if(*it >= l){
+                print(*it);
+
+            }
+            else{
+                print(-1);
+
+            }
+
+        }
+
+    }
+
 
 }
 

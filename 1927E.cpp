@@ -40,52 +40,38 @@ const bool multipleTestCases = 1;
 
 void solve(){
   /*
-    selecting k/2 elems
+    k - even
 
-    min size of a,b k/2;
+    k-level permutation ->   max(s) - min(s) <= 1 in the continuous k len subarray
+        sm -.ai,ai+1,....ai+k
+    si+1 - si = ai+k  - ai
 
 
+    and this value can be either 1 or -1  (zero or other impossible)
 
   */
 
-  int n,m,k;cin>>n>>m>>k;
-  vll a(n),b(m);
-  
-  f(i,0,n)cin>>a[i];
-  f(i,0,m)cin>>b[i];
+  ll n,k;cin>>n>>k;
 
 
-  vector<bool>ina(k+1,false), inb(k+1, false);
-  f(i,0,n){
-    if(a[i] <=k)
-      ina[a[i]] = 1;
-  }
-  f(i,0,m){
-    if(b[i] <=k)
-      inb[b[i]] = 1;
-  }
-
-  int unqa=0,unqb=0;
-  f(i,1,k+1){
-    if(!ina[i] and !inb[i]){
-      print("NO");
-    
-      return;
+    vll a(n);
+    ll left=1,right=n;
+    f(i,0,k){
+        if(i%2==0){
+            for(int j=i;j<n;j+=k){
+                a[j] = right--;
+            }
+        }
+        else{
+            for(int j=i;j<n;j+=k)
+                a[j] = left++;
+        }
     }
-  
-    if(ina[i]) unqa++;
-    if(inb[i]) unqb++;
-
-  }
 
 
-  if(unqa >= k/2 and unqb >= k/2){
-    print("YES");
-  }
-  else{
-    print("NO");
-  }
-
+    f(i,0,n)cout << a[i] << " ";
+    cout <<"\n";
+    
 }
 
 

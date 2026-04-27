@@ -36,55 +36,47 @@ long long fast_power(long long base, long long power, long long  MOD=1e9+7ll){
 }
 
 
-const bool multipleTestCases = 1; 
+const bool multipleTestCases = 0; 
 
 void solve(){
   /*
-    selecting k/2 elems
 
-    min size of a,b k/2;
+    greeedy fails here, hence dp works
+
+    cuz there could be sure a case where increaase sum at first for some cost can decrase a biggder sum later on
 
 
+    best_left-
+        + take the best prefix from i-1 and add arr[i];
+        + greedily decide replacing from i=1 till now with l is better
+    
+    best_right-
+        + take the best prefix from i+1  and arr arr[i]
+        + greediyl decide replacing all form i to n with r is better
 
   */
 
-  int n,m,k;cin>>n>>m>>k;
-  vll a(n),b(m);
-  
-  f(i,0,n)cin>>a[i];
-  f(i,0,m)cin>>b[i];
+    ll n,l,r;cin>>n>>l>>r;
+    vll arr(n+1,0);
+    f(i,1,1+n)cin>>arr[i];
 
-
-  vector<bool>ina(k+1,false), inb(k+1, false);
-  f(i,0,n){
-    if(a[i] <=k)
-      ina[a[i]] = 1;
-  }
-  f(i,0,m){
-    if(b[i] <=k)
-      inb[b[i]] = 1;
-  }
-
-  int unqa=0,unqb=0;
-  f(i,1,k+1){
-    if(!ina[i] and !inb[i]){
-      print("NO");
     
-      return;
+    vll best_left(n+2,0),best_right(n+2,0);
+
+    f(i,1,n+1){
+        best_left[i] = min(i*l, best_left[i-1] + arr[i]);
     }
-  
-    if(ina[i]) unqa++;
-    if(inb[i]) unqb++;
 
-  }
+    for(int i=n;i>=1;i--){
+        best_right[i] = min((ll)(n-i+1)*r, best_right[i+1] + arr[i]);
+    }
 
+    ll ans=1e18;
+    f(i,0,n+1){
+        ans = min(ans, best_left[i] + best_right[i+1]);
+    }
 
-  if(unqa >= k/2 and unqb >= k/2){
-    print("YES");
-  }
-  else{
-    print("NO");
-  }
+    print(ans);
 
 }
 

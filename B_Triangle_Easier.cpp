@@ -36,55 +36,35 @@ long long fast_power(long long base, long long power, long long  MOD=1e9+7ll){
 }
 
 
-const bool multipleTestCases = 1; 
+const bool multipleTestCases = 0; 
 
 void solve(){
   /*
-    selecting k/2 elems
-
-    min size of a,b k/2;
-
-
 
   */
 
-  int n,m,k;cin>>n>>m>>k;
-  vll a(n),b(m);
-  
-  f(i,0,n)cin>>a[i];
-  f(i,0,m)cin>>b[i];
+    int n;cin>>n;
+    int m;cin>>m;
+    int g[105][105];    
 
-
-  vector<bool>ina(k+1,false), inb(k+1, false);
-  f(i,0,n){
-    if(a[i] <=k)
-      ina[a[i]] = 1;
-  }
-  f(i,0,m){
-    if(b[i] <=k)
-      inb[b[i]] = 1;
-  }
-
-  int unqa=0,unqb=0;
-  f(i,1,k+1){
-    if(!ina[i] and !inb[i]){
-      print("NO");
-    
-      return;
+    f(i,0,m){
+        int x,y;cin>>x>>y;
+        g[x][y] = 1;
+        g[y][x] = 1;
     }
-  
-    if(ina[i]) unqa++;
-    if(inb[i]) unqb++;
 
-  }
+    int tot = 0;
 
+    f(i,1,n+1){
+        f(j,i+1,n+1){
+            f(k,j+1,n+1){
+                if(g[i][j] == 1 and g[j][k] == 1 and g[k][i] == 1)
+                    tot++;
+            }
+        }
+    }
 
-  if(unqa >= k/2 and unqb >= k/2){
-    print("YES");
-  }
-  else{
-    print("NO");
-  }
+    print(tot);
 
 }
 

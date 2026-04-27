@@ -36,55 +36,66 @@ long long fast_power(long long base, long long power, long long  MOD=1e9+7ll){
 }
 
 
-const bool multipleTestCases = 1; 
+const bool multipleTestCases = 0; 
 
 void solve(){
   /*
-    selecting k/2 elems
-
-    min size of a,b k/2;
-
-
 
   */
 
-  int n,m,k;cin>>n>>m>>k;
-  vll a(n),b(m);
-  
-  f(i,0,n)cin>>a[i];
-  f(i,0,m)cin>>b[i];
+    string myname;cin>>myname;
+    int n;cin>>n;
+
+    map<string,ll>scores;
+
+    f(i,0,n){
+        string name1,action,temp,name2;
+        cin>>name1>>action;
+
+        int points=0;
+        if(action == "posted"){
+            cin>>temp;
+            points = 15;
+        }
+        else if(action == "commented"){
+            cin>>temp;
+            points = 10;
+        }
+        else{
+            points = 5;
+        }
 
 
-  vector<bool>ina(k+1,false), inb(k+1, false);
-  f(i,0,n){
-    if(a[i] <=k)
-      ina[a[i]] = 1;
-  }
-  f(i,0,m){
-    if(b[i] <=k)
-      inb[b[i]] = 1;
-  }
+        cin >> name2;
+        name2 = name2.substr(0, name2.size() - 2);
+        
+        string trash;cin>>trash;
 
-  int unqa=0,unqb=0;
-  f(i,1,k+1){
-    if(!ina[i] and !inb[i]){
-      print("NO");
-    
-      return;
+        if(name1 != myname) scores[name1] += 0;
+        if(name2 != myname) scores[name2] +=0;
+
+
+        if(name1 == myname){
+            scores[name2] += points;
+        }
+        else if(name2 == myname){
+            scores[name1] += points;
+        }
+
     }
-  
-    if(ina[i]) unqa++;
-    if(inb[i]) unqb++;
 
-  }
+    vector<pair<string,int>> res(all(scores));
+    sort(all(res), [&](auto p1, auto p2){
+        if(p1.second != p2.second){
+            return p1.second > p2.second;
+        }
+        return p1.first< p2.first;
+    });
 
 
-  if(unqa >= k/2 and unqb >= k/2){
-    print("YES");
-  }
-  else{
-    print("NO");
-  }
+    for(auto p:res){
+        print(p.first);
+    }
 
 }
 
@@ -99,3 +110,6 @@ int main(){
   }
   return 0;
 }
+/*
+
+}*/
