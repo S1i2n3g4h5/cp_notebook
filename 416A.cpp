@@ -40,31 +40,36 @@ const bool multipleTestCases = 0;
 
 void solve(){
   /*
-    
+
   */
 
     int n;cin>>n;
-    int m;cin>>m;
-    int g[105][105];    
 
-    f(i,0,m){
-        int x,y;cin>>x>>y;
-        g[x][y] = 1;
-        g[y][x] = 1;
-    }
+    ll low=-2e9,high=2e9;
 
-    int tot = 0;
+    f(i,0,n){
+        string ops;cin>>ops;
+        ll num;cin>>num;
+        string yn;cin>>yn;
 
-    f(i,1,n+1){
-        f(j,i+1,n+1){
-            f(k,j+1,n+1){
-                if(g[i][j] == 1 and g[j][k] == 1 and g[k][i] == 1)
-                    tot++;
-            }
+        if(yn == "N"){
+            if(ops == ">=") ops = "<";
+            else if(ops == ">") ops = "<=";
+            else if(ops == "<=") ops = ">";
+            else if(ops == "<") ops = ">=";
         }
+
+
+        if(ops == ">=") low = max(low, num);
+        else if(ops == ">") low = max(low, num+1);
+        else if(ops == "<") high=  min(high, num-1);
+        else if(ops == "<=") high = min(high, num);
+
     }
 
-    print(tot);
+
+    if(low<=high) print(low);
+    else print("Impossible");
 
 }
 

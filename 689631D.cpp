@@ -36,35 +36,32 @@ long long fast_power(long long base, long long power, long long  MOD=1e9+7ll){
 }
 
 
-const bool multipleTestCases = 0; 
+const bool multipleTestCases = 1; 
 
 void solve(){
   /*
-    
+
   */
 
-    int n;cin>>n;
-    int m;cin>>m;
-    int g[105][105];    
+    ll n;cin>>n;
+    vll arr(n);
+    f(i,0,n)cin>>arr[i];
 
-    f(i,0,m){
-        int x,y;cin>>x>>y;
-        g[x][y] = 1;
-        g[y][x] = 1;
-    }
 
-    int tot = 0;
+    ll sm = accumulate(all(arr), 0ll);
+    
+    ll mx = *max_element(all(arr));
 
-    f(i,1,n+1){
-        f(j,i+1,n+1){
-            f(k,j+1,n+1){
-                if(g[i][j] == 1 and g[j][k] == 1 and g[k][i] == 1)
-                    tot++;
-            }
-        }
-    }
+    
+    ll sm_brk = (sm + (n-1) -1)/(n-1);
+    // print(mx, sm_brk);
 
-    print(tot);
+
+    ll brk_h = max(mx, sm_brk);
+
+    ll b1 = brk_h*n;
+
+    print(b1 - (brk_h+sm));
 
 }
 

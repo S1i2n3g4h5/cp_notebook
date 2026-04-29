@@ -36,35 +36,67 @@ long long fast_power(long long base, long long power, long long  MOD=1e9+7ll){
 }
 
 
-const bool multipleTestCases = 0; 
+const bool multipleTestCases = 1; 
 
 void solve(){
   /*
-    
+
   */
+    
+    ll n;cin>>n;
+    vll arr(n);
 
-    int n;cin>>n;
-    int m;cin>>m;
-    int g[105][105];    
-
-    f(i,0,m){
-        int x,y;cin>>x>>y;
-        g[x][y] = 1;
-        g[y][x] = 1;
+    ll mn = 2e9, mx=-1;
+    f(i,0,n){
+        cin>>arr[i];
+        mn = min(mn, arr[i]);
+        mx = max(arr[i], mx);
     }
 
-    int tot = 0;
 
-    f(i,1,n+1){
-        f(j,i+1,n+1){
-            f(k,j+1,n+1){
-                if(g[i][j] == 1 and g[j][k] == 1 and g[k][i] == 1)
-                    tot++;
+    if(mx ==mn){
+        print(0);
+        return;
+    }
+    else if(mn == 1){
+        print(-1);
+        return;
+    }
+
+
+    vector<pair<ll,ll>> ans;
+    while(1){
+        ll mn_idx= 0,mx_idx=0;
+
+        f(i,1,n){
+            if(arr[i] < arr[mn_idx])
+                mn_idx=i;
+            if(arr[i] > arr[mx_idx]){
+                mx_idx = i;
             }
         }
+        
+        if(mn_idx == mx_idx)break;
+        
+        
+        ll next = (arr[mx_idx] + arr[mn_idx] - 1)/arr[mn_idx];
+        print(mn_idx, mx_idx,next);
+        
+        // arr[mn_idx] = next;
+        arr[mx_idx] = next;
+
+        ans.pb({mx_idx+1, mn_idx+1});   
+        // cout << ans.back().first << ans.back().second << "\n";
+
     }
 
-    print(tot);
+
+    // print(ans.size());
+
+    // for(auto x:ans){
+    //     print(x.first, x.second);
+    // }
+
 
 }
 

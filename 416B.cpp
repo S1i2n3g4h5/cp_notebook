@@ -40,31 +40,31 @@ const bool multipleTestCases = 0;
 
 void solve(){
   /*
-    
+
   */
 
-    int n;cin>>n;
-    int m;cin>>m;
-    int g[105][105];    
+  int m,n;cin>>n>>m;
+  vll machines_finish(m,0);
+  f(i,0,n){
+    
+    ll ready_at=0;
+    f(j,0,m){
+      ll time_req;cin>>time_req;
 
-    f(i,0,m){
-        int x,y;cin>>x>>y;
-        g[x][y] = 1;
-        g[y][x] = 1;
+      ll st = max(ready_at, machines_finish[j]);
+
+      machines_finish[j] = time_req + st;
+
+      ready_at = machines_finish[j];
+
     }
 
-    int tot = 0;
+    cout << ready_at << " ";
 
-    f(i,1,n+1){
-        f(j,i+1,n+1){
-            f(k,j+1,n+1){
-                if(g[i][j] == 1 and g[j][k] == 1 and g[k][i] == 1)
-                    tot++;
-            }
-        }
-    }
+  }
 
-    print(tot);
+  
+  cout << "\n";
 
 }
 

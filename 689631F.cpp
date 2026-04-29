@@ -40,31 +40,35 @@ const bool multipleTestCases = 0;
 
 void solve(){
   /*
-    
+
   */
 
-    int n;cin>>n;
-    int m;cin>>m;
-    int g[105][105];    
+    ll x1,y1,x2,y2;cin>>x1>>y1>>x2>>y2;
+    ll n;cin>>n;
+    string s;cin>>s;
 
-    f(i,0,m){
-        int x,y;cin>>x>>y;
-        g[x][y] = 1;
-        g[y][x] = 1;
-    }
 
-    int tot = 0;
+    vll posx 
+    
+    auto check = [&](ll x) -> bool {
+        
+    };  
 
-    f(i,1,n+1){
-        f(j,i+1,n+1){
-            f(k,j+1,n+1){
-                if(g[i][j] == 1 and g[j][k] == 1 and g[k][i] == 1)
-                    tot++;
-            }
+
+    ll low=0,high=2e9;
+    while(low<=high){
+
+        ll mid = low + (high-low)/2;
+
+        if(check(mid)){
+            high = mid-1;
         }
+        else{
+            low = mid+1;
+        }
+
     }
 
-    print(tot);
 
 }
 
@@ -79,3 +83,42 @@ int main(){
   }
   return 0;
 }
+/*
+    vector<ll> px(n + 1, 0), py(n + 1, 0);
+    for (int i = 0; i < n; i++) {
+        px[i + 1] = px[i];
+        py[i + 1] = py[i];
+        if (s[i] == 'U') py[i + 1]++;
+        else if (s[i] == 'D') py[i + 1]--;
+        else if (s[i] == 'L') px[i + 1]--;
+        else if (s[i] == 'R') px[i + 1]++;
+    }
+
+    ll low = 0, high = 2e14, ans = -1;
+    while (low <= high) {
+        ll mid = low + (high - low) / 2;
+        ll k = mid / n;
+        ll r = mid % n;
+        ll windX = k * px[n] + px[r];
+        ll windY = k * py[n] + py[r];
+        ll currentX = x1 + windX;
+        ll currentY = y1 + windY;
+        
+        if (abs(x2 - currentX) + abs(y2 - currentY) <= mid) {
+            ans = mid;
+            high = mid - 1;
+        } else {
+            low = mid + 1;
+        }
+    }
+
+    cout << ans << endl;
+}
+
+int main() {
+    ios_base::sync_with_stdio(false);
+    cin.tie(NULL);
+    solve();
+    return 0;
+}
+*/

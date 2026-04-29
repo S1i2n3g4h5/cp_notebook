@@ -36,38 +36,59 @@ long long fast_power(long long base, long long power, long long  MOD=1e9+7ll){
 }
 
 
-const bool multipleTestCases = 0; 
+const bool multipleTestCases = 1; 
 
 void solve(){
   /*
-    
+
   */
 
-    int n;cin>>n;
-    int m;cin>>m;
-    int g[105][105];    
+  ll n;cin>>n;
+  vll  arr(n);
+  f(i,0,n)cin>>arr[i];
 
-    f(i,0,m){
-        int x,y;cin>>x>>y;
-        g[x][y] = 1;
-        g[y][x] = 1;
+    
+  // f(i,0,n){
+  //   f(j,0,n){
+  //     if(i!=j){
+
+  //       if((arr[i] ^ arr[j]) <= 3 and arr[i] < arr[j])
+  //         swap(arr[i], arr[j]);
+
+  //     }
+
+  //   }
+  // }
+
+
+  map<ll,vll>grp;
+  f(i,0,n){
+    grp[arr[i] >> 2].pb(i);
+
+  }
+
+  vll res(n);
+  for(auto x:grp){
+
+    vll vals;
+    
+    for(auto idx : x.second){
+      vals.pb(arr[idx]);
     }
 
-    int tot = 0;
+    sort(all(vals));
 
-    f(i,1,n+1){
-        f(j,i+1,n+1){
-            f(k,j+1,n+1){
-                if(g[i][j] == 1 and g[j][k] == 1 and g[k][i] == 1)
-                    tot++;
-            }
-        }
+    f(i,0,x.second.size()){
+      res[x.second[i]] = vals[i];
     }
+    
+  }
 
-    print(tot);
+    f(i,0,n)
+      cout <<res[i]<< " ";
+    cout <<"\n";
 
 }
-
 
 int main(){
   ios::sync_with_stdio(0);cin.tie(0);cout.tie(0);

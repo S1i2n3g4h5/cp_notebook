@@ -36,36 +36,50 @@ long long fast_power(long long base, long long power, long long  MOD=1e9+7ll){
 }
 
 
-const bool multipleTestCases = 0; 
+const bool multipleTestCases = 1; 
 
 void solve(){
   /*
-    
+
   */
 
     int n;cin>>n;
-    int m;cin>>m;
-    int g[105][105];    
+    vector<pair<int,int>> arr(n);
+    f(i,0,n)cin>>arr[i].first, arr[i].second =i;
 
-    f(i,0,m){
-        int x,y;cin>>x>>y;
-        g[x][y] = 1;
-        g[y][x] = 1;
-    }
+    sort(all(arr));
 
-    int tot = 0;
+    vll pf(n);
+    pf[0] = arr[0].first;
+    f(i,1,n)
+        pf[i] = pf[i-1] + arr[i].first;
 
-    f(i,1,n+1){
-        f(j,i+1,n+1){
-            f(k,j+1,n+1){
-                if(g[i][j] == 1 and g[j][k] == 1 and g[k][i] == 1)
-                    tot++;
-            }
+    
+
+    vll ans(n);
+    ans[n-1] = n-1;
+
+    for(int i=n-2;i>=0;i--){
+        if(pf[i] >= arr[i+1].first){
+            ans[i] = ans[i+1];
+        }
+        else{
+            ans[i] = i;
+
         }
     }
 
-    print(tot);
 
+
+    vll final(n);
+    f(i,0,n){
+        final[arr[i].second] = ans[i];
+    }
+
+
+    f(i,0,n)cout << final[i] << " ";
+    cout <<"\n";
+    
 }
 
 

@@ -36,38 +36,41 @@ long long fast_power(long long base, long long power, long long  MOD=1e9+7ll){
 }
 
 
-const bool multipleTestCases = 0; 
+const bool multipleTestCases = 1; 
 
 void solve(){
   /*
-    
+
   */
 
-    int n;cin>>n;
-    int m;cin>>m;
-    int g[105][105];    
+    ll a,b,c;cin>>a>>b>>c;
+    
+    
+    if((a+c) % (2*b) == 0){
+        print("YES");
 
-    f(i,0,m){
-        int x,y;cin>>x>>y;
-        g[x][y] = 1;
-        g[y][x] = 1;
+        return;
     }
 
-    int tot = 0;
+    
+    ll na = 2 * b - c;
+    if(na >0 and na % a == 0) {
+        print("YES");
 
-    f(i,1,n+1){
-        f(j,i+1,n+1){
-            f(k,j+1,n+1){
-                if(g[i][j] == 1 and g[j][k] == 1 and g[k][i] == 1)
-                    tot++;
-            }
-        }
+        return;
     }
 
-    print(tot);
+
+    ll nc = 2*b - a;
+
+    if(nc > 0  and nc % c == 0) {
+        print("YES");
+        return;
+    }
+
+    print("NO");
 
 }
-
 
 int main(){
   ios::sync_with_stdio(0);cin.tie(0);cout.tie(0);
@@ -79,3 +82,4 @@ int main(){
   }
   return 0;
 }
+

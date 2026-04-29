@@ -40,31 +40,70 @@ const bool multipleTestCases = 0;
 
 void solve(){
   /*
-    
+    we try putting the group to min able size so to have bigger space later
+
+
   */
 
+    struct Group{
+        int size,money,id;
+    };
+    struct Table{
+        int capacity,id;
+    };
+
+
     int n;cin>>n;
-    int m;cin>>m;
-    int g[105][105];    
-
-    f(i,0,m){
-        int x,y;cin>>x>>y;
-        g[x][y] = 1;
-        g[y][x] = 1;
+    vector<Group>arr(n);
+    f(i,0,n){
+        cin>>arr[i].size>>arr[i].money;
+        arr[i].id = i+1;
     }
+    int k;cin>>k;
+    vector<Table>tables(k);
+    f(i,0,k)cin>>tables[i].capacity,tables[i].id = i+1;
 
-    int tot = 0;
 
-    f(i,1,n+1){
-        f(j,i+1,n+1){
-            f(k,j+1,n+1){
-                if(g[i][j] == 1 and g[j][k] == 1 and g[k][i] == 1)
-                    tot++;
+    sort(all(arr), [&](auto a, auto b){
+        if(a.money != b.money)
+            return a.money > b.money;
+        return a.size < b.size;
+    });
+
+
+    sort(all(tables), [&](auto a, auto b){
+        return a.capacity < b.capacity;
+    });
+
+    vector<pair<int,int>>assignments;
+    vector<bool>table_occupied(k,false);
+
+    ll tot=0,count=0;
+    f(i,0,n){
+        int best_table = -1;
+
+        f(j,0,k){
+            if(!table_occupied[j] and tables[j].capacity >= arr[i].size){
+                best_table=j;
+                break;
             }
         }
+
+        if(best_table != -1){
+            table_occupied[best_table] = 1;
+            tot += arr[i].money;
+            count++;
+            
+            assignments.pb({arr[i].id, tables[best_table].id});
+
+        }
+
     }
 
-    print(tot);
+    print(count ,tot);
+    for(auto x:assignments){
+        print(x.first, x.second);
+    }
 
 }
 

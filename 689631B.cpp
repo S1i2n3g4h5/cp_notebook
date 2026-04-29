@@ -36,35 +36,38 @@ long long fast_power(long long base, long long power, long long  MOD=1e9+7ll){
 }
 
 
-const bool multipleTestCases = 0; 
+const bool multipleTestCases = 1; 
 
 void solve(){
   /*
-    
+
   */
 
-    int n;cin>>n;
-    int m;cin>>m;
-    int g[105][105];    
+    vector<string> arr(8);
+    f(i,0,8)cin>>arr[i];
+    
 
-    f(i,0,m){
-        int x,y;cin>>x>>y;
-        g[x][y] = 1;
-        g[y][x] = 1;
-    }
+    bool red_last = false;
 
-    int tot = 0;
+    f(i,0,8){
+        int rcnt=0;
+        f(j,0,8){
 
-    f(i,1,n+1){
-        f(j,i+1,n+1){
-            f(k,j+1,n+1){
-                if(g[i][j] == 1 and g[j][k] == 1 and g[k][i] == 1)
-                    tot++;
+            if(arr[i][j] == 'R'){
+                rcnt++;
             }
+
         }
+
+        if(rcnt == 8){
+            red_last=true;
+        }
+
     }
 
-    print(tot);
+    if(red_last) print("R");
+    else print("B");
+
 
 }
 
