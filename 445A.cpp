@@ -36,81 +36,38 @@ long long fast_power(long long base, long long power, long long  MOD=1e9+7ll){
 }
 
 
-const bool multipleTestCases = 1; 
+const bool multipleTestCases = 0; 
 
 void solve(){
   /*
-    since for k>=3, answer always 0
-    cuz, 
-        1st operation - x = ai-aj
-        2nd operation - y = ai-aj  (same diff again)
-        3rd operation - x-y  ( same diff gets cancelled, hence zero)
-
-    for k=1, double loops works perfectly
-
-    but the complex case is for the k=2;
-
-    but its easy for even thsi once we get the gist of the logic, 
-    so its like we do double loop i,j for clacuting  x = arr[j] - arr[i];
-
-    okay then we just find where this diff is localted into the sorted array,
-    then try to finding its diff from its just lower arr[i] <= diff   and just upper arr[i]>=diff
-        arrlower <= x <= arrupper
-
-    then just find the min diff from these
-    cuz the diff is min from the nerest numbers in sorted manner..
 
   */
 
-    int n,k;cin>>n>>k;
-    vll arr(n);
+    int n,m;cin>>n>>m;
+    vector<string>arr(n);
     f(i,0,n)cin>>arr[i];
 
-
-    if(k>=3){
-        print(0);
-        return;
-    }
-
-
-    sort(all(arr));
-
-    ll res = arr[1] - arr[0];
-
-    f(i,0,n-1){
-        res = min({res, arr[i], arr[i+1] - arr[i]});
-    }
-
-    if(k==1){
-        print(res);
-        return;
-    }
-
-
-    // k==2
+    int c=0;
     f(i,0,n){
-        f(j,i+1,n){
-            ll x = arr[j] - arr[i];
+        c = (i%2 ==0 ? 0 : 1);
+        f(j,0,m){
+            if(arr[i][j] == '.'){
 
-            
-            // simulating the 2nd operation move
-            // min(diff - arr[left])
-            auto it = lower_bound(all(arr), x);
-
-            if(it !=  arr.end()){
-                res = min(res, *it - x);
+                if(c==0){
+                    arr[i][j] = 'B';
+                }
+                else{
+                    arr[i][j] = 'W';
+                }
             }
 
-            if(it != arr.begin()){
-                res = min(res, x - *prev(it));
-            }
-
+            c^=1;
         }
+    }    
 
-    }
 
-    print(res);
-
+    f(i,0,n)
+        print(arr[i]);
 
 }
 

@@ -40,77 +40,77 @@ const bool multipleTestCases = 1;
 
 void solve(){
   /*
-    since for k>=3, answer always 0
-    cuz, 
-        1st operation - x = ai-aj
-        2nd operation - y = ai-aj  (same diff again)
-        3rd operation - x-y  ( same diff gets cancelled, hence zero)
+    the array b must be a subset of arry a, if not then its not possibel to have those eletns results equal a==b
 
-    for k=1, double loops works perfectly
+    and for replacing the most imp conditions to stay true is that ai<=bi  if not then its impossible
 
-    but the complex case is for the k=2;
+    we just search for both left and right side for the optimal path
 
-    but its easy for even thsi once we get the gist of the logic, 
-    so its like we do double loop i,j for clacuting  x = arr[j] - arr[i];
+    for the raoadblock conditions -
+        1. a[j] > b[i] - checks if a new max(arr[i]) found then its not possibel
+        2. b[j] < b[i] - lets say A=[10,2,2]   B=[10,5,10]
+                          hence if we apply ops [0,2] A=[10,10,10]but actually we wanted
+                          to have 5 in middle this is just what sit schecking.
+                          we cant carry big value across a spot where its suppose to stay small
 
-    okay then we just find where this diff is localted into the sorted array,
-    then try to finding its diff from its just lower arr[i] <= diff   and just upper arr[i]>=diff
-        arrlower <= x <= arrupper
-
-    then just find the min diff from these
-    cuz the diff is min from the nerest numbers in sorted manner..
 
   */
 
-    int n,k;cin>>n>>k;
-    vll arr(n);
-    f(i,0,n)cin>>arr[i];
+
+    int n;cin>>n;
+    vll a(n),b(n);
+    f(i,0,n)cin>>a[i];
+    f(i,0,n)cin>>b[i];
 
 
-    if(k>=3){
-        print(0);
-        return;
-    }
-
-
-    sort(all(arr));
-
-    ll res = arr[1] - arr[0];
-
-    f(i,0,n-1){
-        res = min({res, arr[i], arr[i+1] - arr[i]});
-    }
-
-    if(k==1){
-        print(res);
-        return;
-    }
-
-
-    // k==2
     f(i,0,n){
+
+        if(a[i] == b[i])continue;
+
+
+        if(a[i] > b[i]){
+            print("NO");
+            return;
+        }
+
+
+        bool found=0;
+
+
+        for(int j=i-1;j>=0;j--){
+            if(a[j] > b[i] or b[j] < b[i]){
+                break;
+            }
+        
+            if(a[j] == b[i]){
+                found=1;
+                break;
+            }
+        }
+
+
+        if(found)continue;
+
         f(j,i+1,n){
-            ll x = arr[j] - arr[i];
+            if(a[j] > b[i] or b[j] < b[i])
+                break;
 
-            
-            // simulating the 2nd operation move
-            // min(diff - arr[left])
-            auto it = lower_bound(all(arr), x);
-
-            if(it !=  arr.end()){
-                res = min(res, *it - x);
+            if(a[j] == b[i]){
+                found=1;
+                break;
             }
+        }
 
-            if(it != arr.begin()){
-                res = min(res, x - *prev(it));
-            }
 
+        if(!found){
+            print("NO");
+            return;
         }
 
     }
 
-    print(res);
 
+    print("YES");
 
 }
 
