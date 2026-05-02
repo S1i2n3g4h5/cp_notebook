@@ -42,28 +42,39 @@ void solve(){
   /*
 
   */
-
-  int n,d;cin>>n>>d;
-  vector<vector<int>> arr(n+1);
-  f(i,0,d){
-    int x,y;cin>>x>>y;
-
-    arr[x].pb(y);
-    arr[y].pb(x);
-
-  }
+    string s;cin>>s;
+    ll n;cin>>n;
 
 
-  f(i,1,n+1){
-    cout << arr[i].size() << " ";
-    sort(all(arr[i]));
-    for(auto x:arr[i]){
-      cout << x <<" ";
+    ll m=s.size();
+    ll curr_val=0;
+    f(i,0,m){
+        if(s[i] == '1'){
+            curr_val |= (1ll << (m-i-1));
+        }
+    }    
+
+
+    // print(curr_val);
+
+
+    if(curr_val > n){
+        print(-1);
+        return;
     }
-    cout <<"\n";
 
-  }
+    f(i,0,m){
+        if(s[i] == '?'){
+            ll bitval = (1ll << (m-i-1));
 
+            if(curr_val + bitval <= n)
+                curr_val += bitval;
+
+        }
+    }
+
+
+    print(curr_val);
 
 }
 

@@ -43,29 +43,56 @@ void solve(){
 
   */
 
-  int n,d;cin>>n>>d;
-  vector<vector<int>> arr(n+1);
-  f(i,0,d){
-    int x,y;cin>>x>>y;
+    string s,t;cin>>s>>t;
 
-    arr[x].pb(y);
-    arr[y].pb(x);
+    string chars= "atcoder";
 
-  }
+    vll mp1(26,0),mp2(26,0);
+    int sa=0,ta=0;
 
+    f(i,0,(int)s.size()){
+        if(s[i]>='a' and s[i]<='z'){
+            mp1[s[i]-'a']++;
+        }
+        else sa++;
 
-  f(i,1,n+1){
-    cout << arr[i].size() << " ";
-    sort(all(arr[i]));
-    for(auto x:arr[i]){
-      cout << x <<" ";
+        if(t[i]>='a' and t[i]<='z'){
+            mp2[t[i]-'a']++;
+        }
+        else ta++;
+
     }
-    cout <<"\n";
 
-  }
+    set<char>st(all(chars));
 
+    f(i,0,26){
+        char ch = char('a' +i);
 
-}
+        if(mp1[i] != mp2[i] and st.count(ch)){
+            if(mp1[i] > mp2[i]){
+                ta -= abs(mp1[i] - mp2[i]);
+            }
+            else{
+                sa -= abs(mp1[i] - mp2[i]);
+            }
+        }
+
+        else if(mp1[i] != mp2[i] and !st.count(ch)){
+            print("No");
+            return;
+        }
+
+    }
+
+    if(sa > -1 and ta>-1){
+
+        
+        print("Yes");
+    }
+    else
+        print("No");
+
+}   
 
 
 int main(){

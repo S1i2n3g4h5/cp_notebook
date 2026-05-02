@@ -36,33 +36,14 @@ long long fast_power(long long base, long long power, long long  MOD=1e9+7ll){
 }
 
 
-const bool multipleTestCases = 0; 
+const bool multipleTestCases = 1; 
 
 void solve(){
   /*
 
   */
 
-  int n,d;cin>>n>>d;
-  vector<vector<int>> arr(n+1);
-  f(i,0,d){
-    int x,y;cin>>x>>y;
 
-    arr[x].pb(y);
-    arr[y].pb(x);
-
-  }
-
-
-  f(i,1,n+1){
-    cout << arr[i].size() << " ";
-    sort(all(arr[i]));
-    for(auto x:arr[i]){
-      cout << x <<" ";
-    }
-    cout <<"\n";
-
-  }
 
 
 }

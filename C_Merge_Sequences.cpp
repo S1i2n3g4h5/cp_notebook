@@ -43,28 +43,36 @@ void solve(){
 
   */
 
-  int n,d;cin>>n>>d;
-  vector<vector<int>> arr(n+1);
-  f(i,0,d){
-    int x,y;cin>>x>>y;
+    int n,m;cin>>n>>m;
+    vll a(n),b(m);
+    f(i,0,n)cin>>a[i];
+    f(i,0,m)cin>>b[i];
 
-    arr[x].pb(y);
-    arr[y].pb(x);
+    vll c(n+m);
+    f(i,0,n){
+        c[i] = a[i];
+    }
+    f(i,0,m){
+        c[n+i] = b[i];
+    }
 
-  }
+
+    sort(all(c));
+    map<ll,int>mp;
+    f(i,0,n+m){
+        mp[c[i]] = i+1;
+    }
 
 
-  f(i,1,n+1){
-    cout << arr[i].size() << " ";
-    sort(all(arr[i]));
-    for(auto x:arr[i]){
-      cout << x <<" ";
+    f(i,0,n){
+        cout << mp[a[i]] << " ";
     }
     cout <<"\n";
-
-  }
-
-
+    f(i,0,m){
+        cout << mp[b[i]] << " ";
+    }
+    
+    cout <<"\n";
 }
 
 

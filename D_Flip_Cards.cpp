@@ -40,30 +40,52 @@ const bool multipleTestCases = 0;
 
 void solve(){
   /*
+    pretty good atcoder dp problem 
+    readll awesome
+
+    since here, to know the ways for n cards, we need ot know n-1 cards way
+    
 
   */
 
-  int n,d;cin>>n>>d;
-  vector<vector<int>> arr(n+1);
-  f(i,0,d){
-    int x,y;cin>>x>>y;
-
-    arr[x].pb(y);
-    arr[y].pb(x);
-
-  }
-
-
-  f(i,1,n+1){
-    cout << arr[i].size() << " ";
-    sort(all(arr[i]));
-    for(auto x:arr[i]){
-      cout << x <<" ";
+    int n;cin>>n;
+    vector<pair<ll,ll>>card(n);
+    f(i,0,n){
+        cin>>card[i].first>>card[i].second;
     }
-    cout <<"\n";
 
-  }
+    ll MOD = 998244353;
 
+
+    vector<vector<ll>>dp(n, vector<ll>(2,0));
+    dp[0][0] = 1;
+    dp[0][1] = 1;
+
+
+    f(i,1,n){
+        // front side
+        if(card[i].first != card[i-1].first){
+            dp[i][0] = (dp[i][0] + dp[i-1][0] )%MOD;
+        }
+
+        if(card[i].first != card[i-1].second){
+            dp[i][0] = (dp[i][0] + dp[i-1][1]) % MOD;
+        }
+
+
+        // back side
+        if(card[i].second != card[i-1].first){
+            dp[i][1] = (dp[i][1] + dp[i-1][0]) % MOD;
+        }   
+
+        if(card[i].second != card[i-1].second){
+            dp[i][1] = (dp[i][1] + dp[i-1][1]) % MOD;
+        }
+
+    }
+
+
+    print((1ll * dp[n-1][0] + dp[n-1][1])%MOD);
 
 }
 

@@ -40,30 +40,76 @@ const bool multipleTestCases = 0;
 
 void solve(){
   /*
+    brute forcing the wats to reaaced will result tle
+
+    hecnc doing dp
+
+    trying with pull dp, cuz intuitive,
+    as it eans that if im on some step i, asking is ther any way i could have landed here just now?
+    that is why the state is   (i - arr)
+
+
+    this solutino also psibel thorugh push dp aswell
 
   */
 
-  int n,d;cin>>n>>d;
-  vector<vector<int>> arr(n+1);
-  f(i,0,d){
-    int x,y;cin>>x>>y;
-
-    arr[x].pb(y);
-    arr[y].pb(x);
-
-  }
-
-
-  f(i,1,n+1){
-    cout << arr[i].size() << " ";
-    sort(all(arr[i]));
-    for(auto x:arr[i]){
-      cout << x <<" ";
+    int n;cin>>n;
+    vll a(n);
+    f(i,0,n)cin>>a[i];
+    int m;cin>>m;
+    
+    vector<bool>trap(100001,false);
+    f(i,0,m){
+        int x;cin>>x;
+        trap[x] = true;
     }
-    cout <<"\n";
 
-  }
+    int x;cin>>x;
 
+    vll dp(x+1,false);
+    dp[0] = 1;
+
+
+
+    // ##################################################
+    //       P U S H    D P  
+    // ##################################################
+    f(i,0,x+1){
+        if(!dp[i])continue;
+
+        for(auto jump : a){
+            int next_step = i+jump;
+
+            if(next_step <= x and !trap[next_step]){
+                dp[next_step] = true;
+            }
+        }
+
+    }    
+    
+    
+    
+    // ##################################################
+    //       P U L L   D P   
+    // ##################################################
+    // f(i,1,x+1){
+    //     if(trap[i]) continue;
+
+    //     for(auto jump:a){
+    //         if(i-jump >=0 and dp[i-jump]){
+    //             dp[i] = 1;
+                
+    //             break;
+    //         }
+    //     }
+
+    // }
+
+
+
+
+    if(dp[x]) print("Yes");
+    else print("No");
 
 }
 

@@ -43,27 +43,19 @@ void solve(){
 
   */
 
-  int n,d;cin>>n>>d;
-  vector<vector<int>> arr(n+1);
-  f(i,0,d){
-    int x,y;cin>>x>>y;
+    string s;cin>>s;
 
-    arr[x].pb(y);
-    arr[y].pb(x);
+    ll tot = 0;
+    int c=0;
 
-  }
-
-
-  f(i,1,n+1){
-    cout << arr[i].size() << " ";
-    sort(all(arr[i]));
-    for(auto x:arr[i]){
-      cout << x <<" ";
+    f(i,0,(ll)s.size()){
+        int v = s[i] - 'A' + 1;
+        
+        tot = tot*26 + v;
+    
     }
-    cout <<"\n";
 
-  }
-
+    print(tot);
 
 }
 

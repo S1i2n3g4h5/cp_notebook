@@ -43,27 +43,22 @@ void solve(){
 
   */
 
-  int n,d;cin>>n>>d;
-  vector<vector<int>> arr(n+1);
-  f(i,0,d){
-    int x,y;cin>>x>>y;
-
-    arr[x].pb(y);
-    arr[y].pb(x);
-
-  }
-
-
-  f(i,1,n+1){
-    cout << arr[i].size() << " ";
-    sort(all(arr[i]));
-    for(auto x:arr[i]){
-      cout << x <<" ";
+    int n;cin>>n;
+    
+    map<ll,ll>arr;
+    f(i,0,n){
+        int x;cin>>x;
+        arr[x]++;
     }
-    cout <<"\n";
 
-  }
+    ll ans=0;
 
+    for(auto x:arr){
+        if(x.second>1){
+            ans += x.second/2;
+        }
+    }
+    print(ans);
 
 }
 

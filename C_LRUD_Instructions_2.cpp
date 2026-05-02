@@ -43,26 +43,30 @@ void solve(){
 
   */
 
-  int n,d;cin>>n>>d;
-  vector<vector<int>> arr(n+1);
-  f(i,0,d){
-    int x,y;cin>>x>>y;
+    int n;cin>>n;
+    string s;cin>>s;
 
-    arr[x].pb(y);
-    arr[y].pb(x);
+    int x=0,y=0;
+    set<pair<int,int>>vst;
 
-  }
+    vst.insert({x,y});
 
+    for(char c:s){
+        if(c=='R')x++;
+        else if (c=='L')x--;
+        else if(c=='U')y++;
+        else y--;
 
-  f(i,1,n+1){
-    cout << arr[i].size() << " ";
-    sort(all(arr[i]));
-    for(auto x:arr[i]){
-      cout << x <<" ";
+        if(vst.count({x,y})){
+            print("Yes");
+            return;
+        }
+
+        vst.insert({x,y});
+
     }
-    cout <<"\n";
 
-  }
+    print("No");
 
 
 }

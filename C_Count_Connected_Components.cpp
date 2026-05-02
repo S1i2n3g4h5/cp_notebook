@@ -38,32 +38,48 @@ long long fast_power(long long base, long long power, long long  MOD=1e9+7ll){
 
 const bool multipleTestCases = 0; 
 
+
+void dfs(int i, auto&visit, auto & arr){
+
+    visit[i] = true;
+    for(auto x:arr[i]){
+        if(visit[x] == false){
+            dfs(x, visit, arr);
+        }
+    }
+
+}
+
 void solve(){
   /*
 
   */
 
-  int n,d;cin>>n>>d;
-  vector<vector<int>> arr(n+1);
-  f(i,0,d){
-    int x,y;cin>>x>>y;
+    int n,d;cin>>n>>d;
+    vector<vector<ll>>arr(n+1);
+    f(i,0,d){
+        int x,y;cin>>x>>y;
 
-    arr[x].pb(y);
-    arr[y].pb(x);
+        arr[x].pb(y);
+        arr[y].pb(x);
 
-  }
-
-
-  f(i,1,n+1){
-    cout << arr[i].size() << " ";
-    sort(all(arr[i]));
-    for(auto x:arr[i]){
-      cout << x <<" ";
     }
-    cout <<"\n";
 
-  }
+    vector<bool>visit(n+1, false);
 
+    int ans=0;
+
+    f(i,1,n+1){
+        if(!visit[i]){
+            dfs(i, visit,arr);
+
+            ans++;
+
+        }
+    }
+
+
+    print(ans);
 
 }
 

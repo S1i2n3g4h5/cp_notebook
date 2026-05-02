@@ -43,27 +43,44 @@ void solve(){
 
   */
 
-  int n,d;cin>>n>>d;
-  vector<vector<int>> arr(n+1);
-  f(i,0,d){
-    int x,y;cin>>x>>y;
+    int n,m;cin>>n>>m;
+    vector<vll>arr(m);
 
-    arr[x].pb(y);
-    arr[y].pb(x);
+    f(i,0,m){
+        int c;cin>>c;
 
-  }
-
-
-  f(i,1,n+1){
-    cout << arr[i].size() << " ";
-    sort(all(arr[i]));
-    for(auto x:arr[i]){
-      cout << x <<" ";
+        vll done;
+        f(j,0,c){
+            ll x;cin>>x;
+            done.pb(x);
+        }
+        arr[i] = done;
     }
-    cout <<"\n";
 
-  }
+    int ans=0;
 
+    for(int mask=0;mask<(1ll <<m);mask++){
+        vector<bool>done(n+1,false);
+        f(i,0,m){
+            if(mask & (1ll<<i)){
+
+                // filling in
+                for(int j=0;j<arr[i].size();j++){
+                    done[arr[i][j]]=1;
+                }
+
+            }
+        }
+
+        bool alldone=true;
+        f(i,1,n+1)alldone &= done[i];
+
+        if(alldone)
+            ans++;
+
+    }
+
+    print(ans);
 
 }
 
