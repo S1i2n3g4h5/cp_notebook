@@ -36,34 +36,59 @@ long long fast_power(long long base, long long power, long long  MOD=1e9+7ll){
 }
 
 
-const bool multipleTestCases = 0; 
+const bool multipleTestCases = 1; 
 
 void solve(){
   /*
 
   */
 
-  ll a,b,c,d,e,f;cin>>a>>b>>c>>d>>e>>f;
-
-  ll M = 998244353;
-
-
-
-  ll term1 = (a % M);
-  term1 = (term1 * (b % M)) % M;
-  term1 = (term1 * (c % M)) % M;
+  int n;cin>>n;
+  vll arr(2*n);
+  vector<vll>pos(n);
+  f(i,0,2*n){
+    cin>>arr[i];
+    pos[arr[i]].pb(i);
+  }
 
 
-  ll term2 = (d % M);
-  term2 = (term2 * (e % M)) % M;
-  term2 = (term2 * (f % M)) % M;
+  ll ans=0;
+
+  vector<double> cntr;
+  cntr.pb(pos[0][0]);
+  cntr.pb(pos[0][1]);
+  cntr.pb((pos[0][0] + pos[0][1]) / 2.0);
+
+  
+  for(auto x:cntr){
+    ll currmex=0;
+    vector<bool>found(n,false);
+
+    int l,r;
+    if(x == (int)x){
+      l = r = (int)x;
+    }
+    else{
+      l = (int)x;
+      r = l+1;
+    }
 
 
-  ll ans = (term1 - term2 + M) % M;
+    while(l>=0 and r<2*n and arr[l] == arr[r]){
+      found[arr[l]] = 1;
+      while(currmex < n and found[currmex]){
+        currmex++;
+      }
 
+      l--;
+      r++;
+    }
+
+    ans = max(ans, currmex);
+
+  }
 
   print(ans);
-
 
 }
 

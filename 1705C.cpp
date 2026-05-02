@@ -36,33 +36,28 @@ long long fast_power(long long base, long long power, long long  MOD=1e9+7ll){
 }
 
 
-const bool multipleTestCases = 0; 
+const bool multipleTestCases = 1; 
 
 void solve(){
   /*
+    so kind of tracing back k should work,
+    as the string is bilt on pervious strings, so straring from left is emaningiless instead
+    going backwards
+
+    keep finding the knew until knew <=n;
+    
 
   */
 
-  ll a,b,c,d,e,f;cin>>a>>b>>c>>d>>e>>f;
-
-  ll M = 998244353;
-
-
-
-  ll term1 = (a % M);
-  term1 = (term1 * (b % M)) % M;
-  term1 = (term1 * (c % M)) % M;
+    int n,c,q;cin>>n>>c>>q;
+    string s;cin>>s;
+    vector<pair<int,int>>copy(c);
+    f(i,0,c)cin>>copy[i].first >>copy[i].second;
+    vll query(q);
+    f(i,0,q)cin>>query[i];
 
 
-  ll term2 = (d % M);
-  term2 = (term2 * (e % M)) % M;
-  term2 = (term2 * (f % M)) % M;
 
-
-  ll ans = (term1 - term2 + M) % M;
-
-
-  print(ans);
 
 
 }

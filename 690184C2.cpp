@@ -36,33 +36,78 @@ long long fast_power(long long base, long long power, long long  MOD=1e9+7ll){
 }
 
 
-const bool multipleTestCases = 0; 
+const bool multipleTestCases = 1; 
+
+map<ll,ll>memo;
+
+
+ll explore(ll n, ll d, map<ll,ll>& memo){
+    if(n == 1){
+        return 0ll;
+    }
+    if (n<1) return 2e18+5;
+
+    if(memo.count(n)) return memo[n];
+
+    ll ans = 2e18+5;
+
+
+    if((n-1)%d == 0){
+        ans = min(ans, (n-1ll)/d);
+    }
+
+    if(n%2 ==0){
+        ll res = explore(n/2, d, memo);
+        if(res != 2e18+5){
+            ans = min(ans, res+1);
+        }
+
+        if(n-d >=1){
+            ll res2 = explore(n-d, d, memo);
+            if(res2 != 2e18+5){
+                ans = min(ans, res2 + 1);
+            }
+        }
+    }
+    else{
+        if((d%2 != 0) and n-d>=1){
+            ll res = explore((n-d), d, memo);
+            if(res != 2e18+5){
+                ans = min(ans, res+1);
+            }
+        }
+
+    }
+
+
+
+    return memo[n] = ans;
+
+}
+
+
 
 void solve(){
   /*
 
   */
 
-  ll a,b,c,d,e,f;cin>>a>>b>>c>>d>>e>>f;
+    ll n,d;cin>>n>>d;
 
-  ll M = 998244353;
+    memo.clear();
 
+    if(n%2 !=0 and d%2==0 and (n-1)%d != 0){
+        print("NO");
+        return;
+    }
 
+    
+    ll ans = (explore(n,d, memo));
 
-  ll term1 = (a % M);
-  term1 = (term1 * (b % M)) % M;
-  term1 = (term1 * (c % M)) % M;
-
-
-  ll term2 = (d % M);
-  term2 = (term2 * (e % M)) % M;
-  term2 = (term2 * (f % M)) % M;
-
-
-  ll ans = (term1 - term2 + M) % M;
-
-
-  print(ans);
+    if(ans >= 2e18+5)print("NO");
+    else{
+        print("YES", ans);
+    }
 
 
 }

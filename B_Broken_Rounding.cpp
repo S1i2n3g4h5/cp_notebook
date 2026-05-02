@@ -52,16 +52,20 @@ void solve(){
   
   f(i,0,k){
     p*=10;
+    print("---------\n");
 
+    print("power -",p);
     ll digit = (x%p) / (p/10);
+    print(x%p, p - x%p, digit);
     if(digit >= 5)  
       x += (p - (x%p));
     else
       x -= (x%p);
 
+    print("new x - ", x);
   }
 
-  print(x);
+  // print(x);
 
 }
 

@@ -36,34 +36,31 @@ long long fast_power(long long base, long long power, long long  MOD=1e9+7ll){
 }
 
 
-const bool multipleTestCases = 0; 
+const bool multipleTestCases = 1; 
 
 void solve(){
   /*
 
   */
 
-  ll a,b,c,d,e,f;cin>>a>>b>>c>>d>>e>>f;
+    ll n;cin>>n;
+    vll arr(n);
+    f(i,0,n)cin>>arr[i];
 
-  ll M = 998244353;
+    vll d6,d2,d3,other;
+    f(i,0,n){
+        if(arr[i] %6 ==0)d6.pb(arr[i]);
+        else if(arr[i] %2 ==0)d2.pb(arr[i]);
+        else if(arr[i]%3 ==0)d3.pb(arr[i]);
+        else other.pb(arr[i]);
+    }
 
+    for(auto x:d6)cout << x << " ";
+    for(auto x:d2)cout << x << " ";
+    for(auto x:other)cout << x << " ";
+    for(auto x:d3)cout << x << " ";
 
-
-  ll term1 = (a % M);
-  term1 = (term1 * (b % M)) % M;
-  term1 = (term1 * (c % M)) % M;
-
-
-  ll term2 = (d % M);
-  term2 = (term2 * (e % M)) % M;
-  term2 = (term2 * (f % M)) % M;
-
-
-  ll ans = (term1 - term2 + M) % M;
-
-
-  print(ans);
-
+    cout <<"\n";
 
 }
 

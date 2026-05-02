@@ -73,7 +73,7 @@ void solve(){
         return true;
     };
 
-    f(i,0,s.size()-10+1){
+    f(i,0,s.size()-10+1){ 
         string sub = s.substr(i,10);
         if(valid(sub)){
             cnt[sub]++;

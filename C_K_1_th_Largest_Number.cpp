@@ -43,27 +43,26 @@ void solve(){
 
   */
 
-  ll a,b,c,d,e,f;cin>>a>>b>>c>>d>>e>>f;
+    int n;cin>>n;
+    vll arr(n);
+    map<ll,int>fr;
 
-  ll M = 998244353;
+    f(i,0,n){
+        cin>>arr[i];
+        fr[arr[i]]++;
+    }
 
-
-
-  ll term1 = (a % M);
-  term1 = (term1 * (b % M)) % M;
-  term1 = (term1 * (c % M)) % M;
-
-
-  ll term2 = (d % M);
-  term2 = (term2 * (e % M)) % M;
-  term2 = (term2 * (f % M)) % M;
-
-
-  ll ans = (term1 - term2 + M) % M;
+    vll ans(n,0);
+    int k=0;
+    for(auto it=fr.rbegin(); it!= fr.rend(); it++){
+        ans[k] = it->second;
+        k++;
+    }
 
 
-  print(ans);
-
+    f(i,0,n){
+        print(ans[i]);
+    }
 
 }
 

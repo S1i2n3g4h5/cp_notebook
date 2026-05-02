@@ -40,30 +40,30 @@ const bool multipleTestCases = 0;
 
 void solve(){
   /*
+    so in short the equatio showing the base system converions type somethign
+
+    like is it possible to sshow, m = sum from i=0 to 100 (ci * w^i)
+
+    
 
   */
 
-  ll a,b,c,d,e,f;cin>>a>>b>>c>>d>>e>>f;
+    ll n;cin>>n;
 
-  ll M = 998244353;
-
-
-
-  ll term1 = (a % M);
-  term1 = (term1 * (b % M)) % M;
-  term1 = (term1 * (c % M)) % M;
+    
+    if(n<=9){
+        print(n);
+        return;
+    }
 
 
-  ll term2 = (d % M);
-  term2 = (term2 * (e % M)) % M;
-  term2 = (term2 * (f % M)) % M;
+    ll tot = 0;
 
+    for(ll pw=1;pw<=n;pw*=10){
+        tot += n-pw+1;
+    }
 
-  ll ans = (term1 - term2 + M) % M;
-
-
-  print(ans);
-
+    print(tot);
 
 }
 

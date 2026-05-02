@@ -43,27 +43,27 @@ void solve(){
 
   */
 
-  ll a,b,c,d,e,f;cin>>a>>b>>c>>d>>e>>f;
+    int n;cin>>n;
 
-  ll M = 998244353;
-
-
-
-  ll term1 = (a % M);
-  term1 = (term1 * (b % M)) % M;
-  term1 = (term1 * (c % M)) % M;
+    vector<vll> arr(n);
+    f(i,0,n){
+        int a,b,x,y;cin>>a>>b>>x>>y;
+        arr[i] = {a,b,x,y};
+    }
 
 
-  ll term2 = (d % M);
-  term2 = (term2 * (e % M)) % M;
-  term2 = (term2 * (f % M)) % M;
+    ll tot=0;
+    for(auto x: arr){
+        ll x1=x[0];
+        ll x2=x[2];
+        ll y1=x[1];
+        ll y2=x[3];
 
+        tot += (x2 - x1 + 1) *(y2-y1+1);
 
-  ll ans = (term1 - term2 + M) % M;
+    }
 
-
-  print(ans);
-
+    print(tot);
 
 }
 

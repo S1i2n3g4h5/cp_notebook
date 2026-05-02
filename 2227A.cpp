@@ -36,34 +36,17 @@ long long fast_power(long long base, long long power, long long  MOD=1e9+7ll){
 }
 
 
-const bool multipleTestCases = 0; 
+const bool multipleTestCases = 1; 
 
 void solve(){
   /*
 
   */
 
-  ll a,b,c,d,e,f;cin>>a>>b>>c>>d>>e>>f;
+    ll x,y;cin>>x>>y;
 
-  ll M = 998244353;
-
-
-
-  ll term1 = (a % M);
-  term1 = (term1 * (b % M)) % M;
-  term1 = (term1 * (c % M)) % M;
-
-
-  ll term2 = (d % M);
-  term2 = (term2 * (e % M)) % M;
-  term2 = (term2 * (f % M)) % M;
-
-
-  ll ans = (term1 - term2 + M) % M;
-
-
-  print(ans);
-
+    if(x%2 !=0 and y%2 !=0)print("NO");
+    else print("YES");
 
 }
 

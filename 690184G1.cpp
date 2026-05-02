@@ -43,27 +43,44 @@ void solve(){
 
   */
 
-  ll a,b,c,d,e,f;cin>>a>>b>>c>>d>>e>>f;
-
-  ll M = 998244353;
-
+    ll n,k,d;cin>>n>>k>>d;
+    string s;cin>>s;
 
 
-  ll term1 = (a % M);
-  term1 = (term1 * (b % M)) % M;
-  term1 = (term1 * (c % M)) % M;
+    // vll arr(n,0);
+    vll arr(n,1);
+    for(int i=n-1;i>=0;i--){
+        // print("-----\n");
+        // print(i+d, s[i], s[i+d]);
+        
+        if(i+d<n and s[i] == s[i+d]){
+            arr[i] = arr[i+d] + 1 ;
+        
+        }
+
+        // print(arr[i], arr[i+d]);
+    }
 
 
-  ll term2 = (d % M);
-  term2 = (term2 * (e % M)) % M;
-  term2 = (term2 * (f % M)) % M;
+    ll ans=0;
+    // ll ans=1;
+
+    ll curr=0;
+    f(i,0,n){
+        if(arr[i] >=k){
+            curr++;
+
+            ans = max(ans, curr);
+
+        }
+        else{
+            curr=0;
+
+        }
+    }
 
 
-  ll ans = (term1 - term2 + M) % M;
-
-
-  print(ans);
-
+    print(ans);
 
 }
 

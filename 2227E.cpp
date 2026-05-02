@@ -36,34 +36,61 @@ long long fast_power(long long base, long long power, long long  MOD=1e9+7ll){
 }
 
 
-const bool multipleTestCases = 0; 
+const bool multipleTestCases = 1; 
 
 void solve(){
   /*
+    since the column i t height h only be blocked from sliding right if only every cool to its right is atelast>=h height
 
+    then claculaing the first occurance fo the a[i] which is causing big traffic jam to its left
+
+    and then for destroying the 1 cube, we try destryong that which is the bottleneck
+    and making sure we ont delete a[k] > smin[k]  cuz this wont result anything as its already sliding
+    but instead we remove the one -> a[k] == smin[k];
+  
   */
 
-  ll a,b,c,d,e,f;cin>>a>>b>>c>>d>>e>>f;
-
-  ll M = 998244353;
-
-
-
-  ll term1 = (a % M);
-  term1 = (term1 * (b % M)) % M;
-  term1 = (term1 * (c % M)) % M;
+  int n;cin>>n;
+  vll arr(n+1,0);
+  f(i,1,n+1)cin>>arr[i];
 
 
-  ll term2 = (d % M);
-  term2 = (term2 * (e % M)) % M;
-  term2 = (term2 * (f % M)) % M;
+  vll smin(n+2,2e9);
+  for(int i=n;i>=1;i--){
+    smin[i] = min(arr[i], smin[i+1]);
+  }  
 
 
-  ll ans = (term1 - term2 + M) % M;
+  // base oves
+  ll base =0;
+  f(i,1,n+1){
+    base += (arr[i] - smin[i]);
+  }
 
 
-  print(ans);
+  // finding the bottlenecks
+  vll focc(n+2,-1);
+  f(i,1,n+1){
+    if(smin[i] <= n and focc[smin[i]] == -1){
+      focc[smin[i]] = i;
+    }
+  }
 
+
+  ll max_gain=0;
+  f(i,1,n+1){
+    if(arr[i] == smin[i]){
+
+      int l = focc[smin[i]];
+      ll gain = i - l;
+
+      max_gain = max(max_gain, gain);
+
+    }
+  }
+
+
+  print(base + max_gain);
 
 }
 
