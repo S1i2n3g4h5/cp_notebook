@@ -40,29 +40,48 @@ const bool multipleTestCases = 0;
 
 void solve(){
   /*
-    so its kind of knapsack, since constraints low, can do this 
 
-    dp states -
-        - programmers considered
-        - lines written
-        - total bugs accumulated
+    for the spitter we cant add another spitter to the similar leve or end
+    and also we only got 1 spitter of each kind
+    hence cant use a k spitter more than 1 time
 
-    but ig we can avoid this 1st state cuz that only 
-    depends on i-1 th programmers and current programer'previous states
+    and using the splinteter from largest to min to satisfy the requirement
 
-    hcn to more optimize we remove the 1st state and now only left with 2 states
+    ap formula used - (first + last)/2
 
-    dp[i][j] - number of ways to write j lines with k bugs
 
   */
-        
-    int n,m,b,mod;cin>>n>>m>>b>>mod;
-    vll arr(n);
-    f(i,0,n)cin>>arr[i];
+
+    ll n,k;cin>>n>>k;
 
 
+    ll tot = 1 + (k*(k-1)/2);
+    if(tot < n){
+        print(-1);
+        return;
+    }
 
 
+    
+    auto check = [&](ll x){
+        return  (2*k - x -1)*x >= 2*(n-1);
+    };
+
+
+    ll ans=-1;
+    ll low=0,high=k-1;
+    while(low<=high){
+        ll mid = low + (high - low)/2;
+
+        if(check(mid)){
+            high = mid-1;
+        }
+        else{
+            low=mid+1;
+        }
+    }
+
+    print(low);
 
 }
 

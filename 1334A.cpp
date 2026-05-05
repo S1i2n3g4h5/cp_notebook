@@ -36,32 +36,29 @@ long long fast_power(long long base, long long power, long long  MOD=1e9+7ll){
 }
 
 
-const bool multipleTestCases = 0; 
+const bool multipleTestCases = 1; 
 
 void solve(){
   /*
-    so its kind of knapsack, since constraints low, can do this 
-
-    dp states -
-        - programmers considered
-        - lines written
-        - total bugs accumulated
-
-    but ig we can avoid this 1st state cuz that only 
-    depends on i-1 th programmers and current programer'previous states
-
-    hcn to more optimize we remove the 1st state and now only left with 2 states
-
-    dp[i][j] - number of ways to write j lines with k bugs
 
   */
-        
-    int n,m,b,mod;cin>>n>>m>>b>>mod;
-    vll arr(n);
-    f(i,0,n)cin>>arr[i];
 
+    int n;cin>>n;
 
+    int a=0,b=0;
+    bool ans=true;
+    f(i,0,n){
+        int x,y;cin>>x>>y;
 
+        if(x<a or y<b or y-b > x-a){
+            ans=false;
+        }
+
+        a=x;
+        b=y;
+
+    }
+    print(ans ? "YES" : "NO");
 
 
 }
