@@ -43,23 +43,36 @@ void solve(){
 
   */
 
-
     ll n;cin>>n;
-    vll p(n);
-    f(i,0,n)cin>>p[i];
+    vll arr(n);
+    f(i,0,n)cin>>arr[i];
 
+    vll p(n+1,0);
+    f(i,0,n)
+        p[i+1] = p[i] + arr[i];
+    
 
+    vll m(n+1);
+    m[n] = p[n];
+    
+    int idx = n - 1;
+    
+    while(idx >= 1) {
+        m[idx] = max(m[idx+1], p[idx]);
+        idx--;
+    
+    }
+    
+    
     ll ans=0;
-    f(i,0,n){
-        if(p[i] == i+1)continue;
 
-        ans = __gcd(ans, abs(p[i] - (i+1)));
+    f(i, 0, n){
+        if(p[i] < m[i+1]) 
+            ans++;
     }
 
-
-
     print(ans);
-    
+
 }
 
 

@@ -39,27 +39,44 @@ long long fast_power(long long base, long long power, long long  MOD=1e9+7ll){
 const bool multipleTestCases = 1; 
 
 void solve(){
-  /*
+  /*    
+    recreate array from the given done operations on array a
+
+    here is the frequency pattern to be obsererd
+    like lets say array =[a1,a2,a3...] sorted into ascending then
+    a1 compared with n-1
+    a2 compared with n-2
+    ...
+
+    position n-1,n-2...
+
+    to find direclt the size of a - n^2-n-2m;
 
   */
 
+    int n;cin>>n;
 
-    ll n;cin>>n;
-    vll p(n);
-    f(i,0,n)cin>>p[i];
-
-
-    ll ans=0;
-    f(i,0,n){
-        if(p[i] == i+1)continue;
-
-        ans = __gcd(ans, abs(p[i] - (i+1)));
-    }
+    int m = n*(n-1)/2;
+    vll b(m);
+    f(i,0,m)cin>>b[i];
 
 
-
-    print(ans);
+    sort(all(b));
     
+
+    vll a(n,0);
+    int curr=0;
+    f(i,0,n-1){
+        a[i] = b[curr];
+        curr += (n- (i+1));
+    }
+    a[n-1] = 1e9;
+
+    f(i,0,n){
+        cout << a[i] << " ";
+    }
+    cout <<"\n";
+
 }
 
 

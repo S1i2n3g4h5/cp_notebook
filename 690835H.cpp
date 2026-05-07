@@ -36,30 +36,61 @@ long long fast_power(long long base, long long power, long long  MOD=1e9+7ll){
 }
 
 
-const bool multipleTestCases = 1; 
+const bool multipleTestCases = 0; 
 
 void solve(){
   /*
 
+
   */
 
-
     ll n;cin>>n;
-    vll p(n);
-    f(i,0,n)cin>>p[i];
+    vector<string>arr(n);
+    f(i,0,n)cin>>arr[i];
 
 
-    ll ans=0;
+    map<string,int>cnt;
     f(i,0,n){
-        if(p[i] == i+1)continue;
+        set<string> seen;
 
-        ans = __gcd(ans, abs(p[i] - (i+1)));
+        f(j,1,10){
+            f(start,0,9-j+1){
+                seen.insert(arr[i].substr(start, j));
+                // print(arr[i].substr(start,j));
+            }
+        }
+
+        for(string s:seen){
+            cnt[s]++;
+        }
     }
 
 
+    f(i,0,n){
+        bool done=false;
 
-    print(ans);
+        string best = "";
     
+        f(j,1,10){
+            f(start,0,9-j+1){
+                string sub = arr[i].substr(start, j);
+
+                if(cnt[sub] == 1){
+                    print(sub);
+                    done=true;
+
+                    break;
+
+                }
+
+            }
+
+            if(done) break;
+
+        }
+    
+    }
+
 }
 
 

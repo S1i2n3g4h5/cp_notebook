@@ -43,23 +43,55 @@ void solve(){
 
   */
 
-
     ll n;cin>>n;
-    vll p(n);
-    f(i,0,n)cin>>p[i];
-
-
-    ll ans=0;
+    vll arr(n);
+    ll mn_val = 0;
+    bool has_zero=false;
+    
     f(i,0,n){
-        if(p[i] == i+1)continue;
+        cin>>arr[i];
+        
+        if(arr[i] == 0){
+            has_zero=true;
+        }
 
-        ans = __gcd(ans, abs(p[i] - (i+1)));
+        if(arr[i] > mn_val){
+            mn_val = arr[i];
+            
+        }
+    }
+    
+
+    //#########################################################3
+    //#########################################################3
+    sort(all(arr));
+    
+    
+    ll mxlmt = 0;
+    f(i,0,n){
+        if(arr[i] == mxlmt){
+            mxlmt++;
+        }
+    }
+    
+    // print(mxlmt);
+    // sort(all(arr));
+
+    ll tot = (mxlmt*(mxlmt + 1))/2;
+    ll sm_mex=0;
+
+    if(mn_val >= mxlmt){
+        sm_mex = tot + ((n-mxlmt) * mxlmt - mxlmt);
+        
+    }
+    else{
+        sm_mex = tot + (n-mxlmt)*mxlmt - mn_val;
+
     }
 
 
+    print(n*mn_val + sm_mex);
 
-    print(ans);
-    
 }
 
 

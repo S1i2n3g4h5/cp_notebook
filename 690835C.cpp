@@ -36,7 +36,7 @@ long long fast_power(long long base, long long power, long long  MOD=1e9+7ll){
 }
 
 
-const bool multipleTestCases = 1; 
+const bool multipleTestCases = 0; 
 
 void solve(){
   /*
@@ -45,21 +45,22 @@ void solve(){
 
 
     ll n;cin>>n;
-    vll p(n);
-    f(i,0,n)cin>>p[i];
+    vll arr(n);
+    f(i,0,n)cin>>arr[i];
 
 
-    ll ans=0;
+    ll mx=1;
+
+    map<ll,ll>mp;
     f(i,0,n){
-        if(p[i] == i+1)continue;
+        mp[arr[i]]++;
 
-        ans = __gcd(ans, abs(p[i] - (i+1)));
+        mx = max(mx, mp[arr[i]]);
     }
 
 
+    print(mx);
 
-    print(ans);
-    
 }
 
 

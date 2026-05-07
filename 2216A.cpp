@@ -40,26 +40,45 @@ const bool multipleTestCases = 1;
 
 void solve(){
   /*
+    moving from last to k+1 is optimal
 
+    like moving k-1 to k 
+    then k-2 to k-1 to k etc....
   */
 
+    int n,k;cin>>n>>k;
+    vll arr(k+1),b(n);
+    f(i,1,k+1)cin>>arr[i];
+    f(i,0,n)cin>>b[i];
 
-    ll n;cin>>n;
-    vll p(n);
-    f(i,0,n)cin>>p[i];
+    vll ops;
+    bool chg=false;
 
+    while(chg){
+        chg=false;
 
-    ll ans=0;
-    f(i,0,n){
-        if(p[i] == i+1)continue;
+        for(int target_lvl = k;target_lvl>=1;target_lvl--){
+            f(i,0,n){
+                if(b[i] == target_lvl){
+                    int into = b[i] +1;
 
-        ans = __gcd(ans, abs(p[i] - (i+1)));
+                    if(into == k+1 or count(all(b), into) < arr[into]){
+                        b[i]++;
+
+                        ops.pb(i+1);
+                        chg=true;
+                    }
+                }
+            }
+        }
     }
 
 
+    print(ops.size());
+    for(auto x:ops)cout << x << " ";
+    cout <<"\n";
 
-    print(ans);
-    
+
 }
 
 

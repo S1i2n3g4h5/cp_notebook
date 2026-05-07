@@ -36,30 +36,52 @@ long long fast_power(long long base, long long power, long long  MOD=1e9+7ll){
 }
 
 
-const bool multipleTestCases = 1; 
+const bool multipleTestCases = 0; 
 
 void solve(){
   /*
+    before replying to query 
+    we get to reorder anyhow in whcih the maximum possible sum of queries is obtained
+
+    so it slike-  position covered by most intervals get largest value from array
+    or so called difference array
+
+
 
   */
 
-
-    ll n;cin>>n;
-    vll p(n);
-    f(i,0,n)cin>>p[i];
-
-
-    ll ans=0;
-    f(i,0,n){
-        if(p[i] == i+1)continue;
-
-        ans = __gcd(ans, abs(p[i] - (i+1)));
+    ll n,q;cin>>n>>q;
+    vll arr(n);
+    f(i,0,n)cin>>arr[i];
+    vector<pair<ll,ll>>queries(q);
+    f(i,0,q){
+        ll l,r;cin>>l>>r;
+        queries[i]  = {l,r};
     }
 
 
+    vll freq(n+2,0);
+    f(i,0,q){
+        freq[queries[i].first]++;
+        freq[queries[i].second + 1]--;
+    }
+    f(i,1,n+1){
+        freq[i] += freq[i-1];
+    }
+
+
+    sort(all(arr));
+    sort(freq.begin()+1, freq.begin()+n+1);
+
+    ll ans=0;
+
+    f(i,0,n){
+        ans += arr[i] * freq[i+1];
+    }
 
     print(ans);
-    
+
+
 }
 
 

@@ -40,26 +40,30 @@ const bool multipleTestCases = 1;
 
 void solve(){
   /*
+    only possble cases - t,h,u,th,tu,hu,thu
+
+    only T has pocket to save from this and that
+
+    t with u - decrease by 2
+    t wiht h - decrease by 1
+    t wiht t - decr by 1
+    h and u - doenst decrease, only wokrs with pairing T
+
+    so if enough Ts then its - 2t+2u+2h
 
   */
 
+    ll t,h,u;cin>>t>>h>>u;
 
-    ll n;cin>>n;
-    vll p(n);
-    f(i,0,n)cin>>p[i];
+    if(t > u + 2*h){
+        print(2*t + 2*u + 3*h + 1);
 
-
-    ll ans=0;
-    f(i,0,n){
-        if(p[i] == i+1)continue;
-
-        ans = __gcd(ans, abs(p[i] - (i+1)));
+    }
+    else{
+        print(2*t + 3*u + 3*h - min(t,u));
     }
 
 
-
-    print(ans);
-    
 }
 
 

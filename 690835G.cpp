@@ -36,30 +36,44 @@ long long fast_power(long long base, long long power, long long  MOD=1e9+7ll){
 }
 
 
-const bool multipleTestCases = 1; 
+const bool multipleTestCases = 0; 
 
 void solve(){
   /*
 
   */
 
-
     ll n;cin>>n;
-    vll p(n);
-    f(i,0,n)cin>>p[i];
 
 
-    ll ans=0;
-    f(i,0,n){
-        if(p[i] == i+1)continue;
+    ll totlen=1;
 
-        ans = __gcd(ans, abs(p[i] - (i+1)));
+    while(true){
+        ll count = (1 << totlen);
+
+        if(n <= count)
+            break;
+
+        n -= count;
+        totlen++;
     }
 
 
+    n--;
+
+    string ans="";
+    for(int i=totlen-1;i>=0;i--){
+        if((n>>i) & 1){
+            ans += '2';
+        }
+        else    
+            ans += '1';
+
+    }
+
 
     print(ans);
-    
+
 }
 
 

@@ -43,23 +43,69 @@ void solve(){
 
   */
 
-
     ll n;cin>>n;
-    vll p(n);
-    f(i,0,n)cin>>p[i];
+    string a,b;cin>>a>>b;
 
-
-    ll ans=0;
+    ll totopen=0;
     f(i,0,n){
-        if(p[i] == i+1)continue;
+        if(a[i] =='(')
+            totopen++;
+            
+        if(b[i] == '(')
+            totopen++;
+    }
 
-        ans = __gcd(ans, abs(p[i] - (i+1)));
+    // print(totopen);
+
+    if(totopen != n){
+        print("NO");
+        return;
+    }
+
+    
+    ll pa=0,pb=0;
+    f(i,0,n){
+        if(a[i] == b[i]){
+            if(a[i] == '('){
+                pa++;
+                pb++;
+            }
+            else{
+                pa--;
+                pb--;
+            }
+        }
+        else{
+            if(pa<= pb){
+                pa++;
+                
+                pb--;
+            }
+            else{
+                pa--;
+                pb++;
+
+            }
+        }
+
+        if(pa<0 or pb<0){
+            print("NO");
+            
+            return;
+        }
     }
 
 
+    // print("YES");
 
-    print(ans);
-    
+    if(pa==0 and pb==0){
+        print("YES");
+
+    }   
+    else{
+        print("NO");
+    } 
+
 }
 
 

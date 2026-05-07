@@ -36,30 +36,46 @@ long long fast_power(long long base, long long power, long long  MOD=1e9+7ll){
 }
 
 
-const bool multipleTestCases = 1; 
+const bool multipleTestCases = 0; 
 
 void solve(){
   /*
 
   */
 
+    ll n,m;cin>>n>>m;
+    vector<pair<ll,ll>>arr(m);
+    f(i,0,m)cin>>arr[i].first>>arr[i].second;
 
-    ll n;cin>>n;
-    vll p(n);
-    f(i,0,n)cin>>p[i];
+
+    set<int> cand;
+    f(i,1,101){
+
+        bool ok=true;
+        for(auto [k,f]:arr){
+            int floor = (k-1)/i+1;
+
+            if(floor != f){
+                ok=false;
+                break;
+            }
+        }
 
 
-    ll ans=0;
-    f(i,0,n){
-        if(p[i] == i+1)continue;
+        if(ok){
+            int ans = (n-1)/i+1;
+            cand.insert(ans);
+        }
+    } 
 
-        ans = __gcd(ans, abs(p[i] - (i+1)));
+    
+    if(cand.size()==1){
+        print(*cand.begin());
+    }
+    else{
+        print(-1);
     }
 
-
-
-    print(ans);
-    
 }
 
 

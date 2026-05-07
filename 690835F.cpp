@@ -36,29 +36,72 @@ long long fast_power(long long base, long long power, long long  MOD=1e9+7ll){
 }
 
 
-const bool multipleTestCases = 1; 
+const bool multipleTestCases = 0; 
 
 void solve(){
   /*
 
   */
 
+  string s;cin>>s;
 
-    ll n;cin>>n;
-    vll p(n);
-    f(i,0,n)cin>>p[i];
+    ll n = s.size();  
+    vector<char> st;
+    
+    
+    bool wrong= false;
 
+    string allops = "+-*/";
 
-    ll ans=0;
-    f(i,0,n){
-        if(p[i] == i+1)continue;
+    for(auto ch:s){
+        // print("---------------");
+        // print("char  -  ", ch);
 
-        ans = __gcd(ans, abs(p[i] - (i+1)));
+        if(ch ==')'){
+            bool ops=false;
+
+            while(!st.empty() and st.back() != '('){
+                char top = st.back();
+                // print("--> ", top);
+                
+                if(allops.find(top) != string::npos){
+                    ops = 1;
+                    // print("operatoin found")
+                }
+
+                st.pop_back();
+
+            }
+
+            if(!st.empty()){
+                // print("popped last");
+
+                st.pop_back();
+            }
+    
+            if(!ops){
+                wrong = true;
+
+                break;
+            }
+
+        }
+
+        else{
+            st.push_back(ch);
+
+        }
+
     }
 
 
+    if(wrong){
+        print("Yes");
 
-    print(ans);
+    }
+    else{
+        print("No");
+    }
     
 }
 

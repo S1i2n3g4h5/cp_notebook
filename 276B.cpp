@@ -44,22 +44,8 @@ void solve(){
   */
 
 
-    ll n;cin>>n;
-    vll p(n);
-    f(i,0,n)cin>>p[i];
 
 
-    ll ans=0;
-    f(i,0,n){
-        if(p[i] == i+1)continue;
-
-        ans = __gcd(ans, abs(p[i] - (i+1)));
-    }
-
-
-
-    print(ans);
-    
 }
 
 

@@ -43,23 +43,33 @@ void solve(){
 
   */
 
-
     ll n;cin>>n;
-    vll p(n);
-    f(i,0,n)cin>>p[i];
-
-
-    ll ans=0;
+    vector<pair<ll,ll>>arr(n);
     f(i,0,n){
-        if(p[i] == i+1)continue;
-
-        ans = __gcd(ans, abs(p[i] - (i+1)));
+        ll l,r;cin>>l>>r;
+        arr[i] = {l,r};
     }
 
 
+    ll curr=1;
+    f(i,0,n){
+        ll act = max(curr, arr[i].first);
 
-    print(ans);
+        if(act <= arr[i].second){
+            cout << act << " ";
+
+            curr = act + 1;
+
+        }
+        else{
+            cout << 0 << " ";
+        }
+        
+    }
+
+    cout << "\n";
     
+
 }
 
 

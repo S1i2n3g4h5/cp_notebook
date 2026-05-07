@@ -36,30 +36,56 @@ long long fast_power(long long base, long long power, long long  MOD=1e9+7ll){
 }
 
 
-const bool multipleTestCases = 1; 
+const bool multipleTestCases = 0; 
 
 void solve(){
   /*
 
   */
 
+    string s;cin>>s;
 
-    ll n;cin>>n;
-    vll p(n);
-    f(i,0,n)cin>>p[i];
+    int n=s.size();
+
+    vector<bool>insertspace(n,false);
+
+    string vowels = "aeiou";
+    auto is_consonant = [&](char ch){      
+        return (vowels.find(ch) == string::npos);
+    };
 
 
-    ll ans=0;
+    int const_cnt=0;
+    set<char>st;
+
     f(i,0,n){
-        if(p[i] == i+1)continue;
+        if(vowels.find(s[i]) != string::npos){
+            st.clear();
+            const_cnt = 0;
 
-        ans = __gcd(ans, abs(p[i] - (i+1)));
+        }
+        else{
+            const_cnt += (is_consonant(s[i]) ? 1 : 0);
+            st.insert(s[i]);
+
+            if(const_cnt>=3 and st.size()>1){
+                st.clear();
+                const_cnt=0;
+
+                // adding space
+                cout << " "<<s[i];
+                
+                st.insert(s[i]);
+                const_cnt += (is_consonant(s[i]) ? 1:0);
+
+                continue;
+            }            
+        }
+        cout << s[i];
+
     }
 
 
-
-    print(ans);
-    
 }
 
 
@@ -72,4 +98,4 @@ int main(){
       solve();
   }
   return 0;
-}
+}   

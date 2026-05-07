@@ -36,30 +36,45 @@ long long fast_power(long long base, long long power, long long  MOD=1e9+7ll){
 }
 
 
-const bool multipleTestCases = 1; 
+const bool multipleTestCases = 0; 
 
 void solve(){
   /*
+    we only ccare for lements [median, n]
+
+    cuz this only decides which is media when distributing the data clearly
+
+    
 
   */
 
+    ll n,k;cin>>n>>k;
+    vll arr(n);
+    f(i,0,n)cin>>arr[i];
 
-    ll n;cin>>n;
-    vll p(n);
-    f(i,0,n)cin>>p[i];
 
+    sort(all(arr));
 
-    ll ans=0;
-    f(i,0,n){
-        if(p[i] == i+1)continue;
+    ll cnt=1;
+    f(i,n/2,n-1){
+        ll gap = arr[i+1] - arr[i];
 
-        ans = __gcd(ans, abs(p[i] - (i+1)));
+        ll cost = gap*cnt;
+
+        if(k>=cost){
+            k -= cost;
+            cnt++;
+        }
+        else{
+            print(arr[i] + (k/cnt));
+            return;
+        }
+
     }
 
 
+    print(arr[n-1] + (k/cnt));
 
-    print(ans);
-    
 }
 
 
