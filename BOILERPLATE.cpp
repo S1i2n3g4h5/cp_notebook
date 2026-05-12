@@ -40,10 +40,18 @@ const bool multipleTestCases = 0;
 
 void solve(){
   /*
+    matrix way
+
+    adjancy list
+
+
 
   */
 
-
+  ll n,m;cin >>n>>m;
+  
+  
+  
 
 
 }

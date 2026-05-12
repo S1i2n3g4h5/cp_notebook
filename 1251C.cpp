@@ -36,54 +36,54 @@ long long fast_power(long long base, long long power, long long  MOD=1e9+7ll){
 }
 
 
-const bool multipleTestCases = 0; 
+const bool multipleTestCases = 1; 
 
 void solve(){
   /*
-    we only ccare for lements [median, n]
+    swapping adjacenet different parity digts onlys
 
-    cuz this only decides which is media when distributing the data clearly
+    2pointer eazy
 
+    cuz if idffernet parity the numer can walk to any as long as parity mantained
+
+    
 
 
   */
 
-    ll n,k;cin>>n>>k;
-    vll arr(n);
-    f(i,0,n)cin>>arr[i];
+    string s;cin>>s;
+    int n=s.size();
 
-
-    sort(all(arr));
-
-
-    auto check = [&](ll x){
-
-        ll moves=0;
-        f(i,n/2,n){
-            if(x - arr[i] > 0)
-                moves += (x - arr[i]);
-
-            if(moves>k)return false;
-        }
-
-        return moves <= k;
-
-    };
-
-
-    ll low=1, high=2e9;
-    while(low <= high){
-        ll mid = low + (high -low)/2;
-
-        if(check(mid)){
-            low = mid+1;
-        }
-        else    
-            high = mid-1;
+    string even="",odd="";
+    for(auto c:s){
+        if((c-'0') %2==0)
+            even += c;
+        else 
+            odd += c;
     }
 
 
-    print(low-1);
+    string res="";
+    int i=0,j=0;
+
+    while(i<even.size() and j<odd.size()){
+        if (even[i] < odd[j]){
+            res += even[i++];
+        }
+        else
+            res += odd[j++];
+    }
+
+
+    while(i<even.size())
+        res+=even[i++];
+
+        
+    while(j<odd.size())
+        res+=odd[j++];
+
+
+    print(res);
 
 }
 

@@ -40,50 +40,27 @@ const bool multipleTestCases = 0;
 
 void solve(){
   /*
-    we only ccare for lements [median, n]
-
-    cuz this only decides which is media when distributing the data clearly
-
-
 
   */
 
-    ll n,k;cin>>n>>k;
-    vll arr(n);
-    f(i,0,n)cin>>arr[i];
+    int a1,a2,a3;cin>>a1>>a2>>a3;
+    int b1,b2,b3;cin>>b1>>b2>>b3;
+    int n;cin>>n;
 
 
-    sort(all(arr));
+    ll totcup=a1+a2+a3;
+    ll totmedal=b1+b2+b3;
 
 
-    auto check = [&](ll x){
+    // ceil
+    ll shelvcup = (totcup + 4)/5;
+    ll shelvmedal = (totmedal+ 9)/10;
 
-        ll moves=0;
-        f(i,n/2,n){
-            if(x - arr[i] > 0)
-                moves += (x - arr[i]);
-
-            if(moves>k)return false;
-        }
-
-        return moves <= k;
-
-    };
-
-
-    ll low=1, high=2e9;
-    while(low <= high){
-        ll mid = low + (high -low)/2;
-
-        if(check(mid)){
-            low = mid+1;
-        }
-        else    
-            high = mid-1;
+    if(shelvcup+shelvmedal <= n){
+        print("YES");
     }
-
-
-    print(low-1);
+    else
+        print("NO");
 
 }
 

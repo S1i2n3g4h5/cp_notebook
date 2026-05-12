@@ -40,50 +40,59 @@ const bool multipleTestCases = 0;
 
 void solve(){
   /*
-    we only ccare for lements [median, n]
-
-    cuz this only decides which is media when distributing the data clearly
-
-
 
   */
 
-    ll n,k;cin>>n>>k;
-    vll arr(n);
-    f(i,0,n)cin>>arr[i];
+    int n;cin>>n;vll a(n);
+    f(i,0,n)cin>>a[i];
+    int m;cin>>m;vll b(m);
+    f(i,0,m)cin>>b[i];
 
 
-    sort(all(arr));
+    // same?
+    if(n==m and a==b){
+        print(n);
+        return;
+    }
 
-
-    auto check = [&](ll x){
-
-        ll moves=0;
-        f(i,n/2,n){
-            if(x - arr[i] > 0)
-                moves += (x - arr[i]);
-
-            if(moves>k)return false;
-        }
-
-        return moves <= k;
-
-    };
-
-
-    ll low=1, high=2e9;
-    while(low <= high){
-        ll mid = low + (high -low)/2;
-
-        if(check(mid)){
-            low = mid+1;
-        }
-        else    
-            high = mid-1;
+    // wrong case?
+    ll tota = accumulate(all(a),0ll);
+    ll totb = accumulate(all(b),0ll);
+    if(tota != totb){
+        print(-1);
+        return;
     }
 
 
-    print(low-1);
+    // progressing . .   .
+    int i=0,j=0;
+    ll suma=0, sumb=0;
+    int count=0;
+
+    while (i < n && j < m) {
+        if(suma == 0) 
+            suma += a[i++];
+        if(sumb == 0) 
+            sumb += b[j++];
+
+
+        while(suma != sumb and (i < n or j < m)) {
+            if(suma < sumb and i < n) {
+                suma += a[i++];
+            } 
+            else if(sumb < suma  and  j < m) {
+                sumb += b[j++];
+            }
+        }
+
+        if(suma == sumb){
+            count++;
+            suma = 0;
+            sumb = 0;
+        }
+    }
+
+    print(count);
 
 }
 

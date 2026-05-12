@@ -40,50 +40,18 @@ const bool multipleTestCases = 0;
 
 void solve(){
   /*
-    we only ccare for lements [median, n]
-
-    cuz this only decides which is media when distributing the data clearly
-
-
 
   */
 
-    ll n,k;cin>>n>>k;
-    vll arr(n);
-    f(i,0,n)cin>>arr[i];
-
-
-    sort(all(arr));
-
-
-    auto check = [&](ll x){
-
-        ll moves=0;
-        f(i,n/2,n){
-            if(x - arr[i] > 0)
-                moves += (x - arr[i]);
-
-            if(moves>k)return false;
+    int n;cin>>n;
+    vector<vll>arr(n, vector<ll>(n,-1));
+    f(i,0,n){
+        f(j,0,n){
+            cin>>arr[i][j];
         }
-
-        return moves <= k;
-
-    };
-
-
-    ll low=1, high=2e9;
-    while(low <= high){
-        ll mid = low + (high -low)/2;
-
-        if(check(mid)){
-            low = mid+1;
-        }
-        else    
-            high = mid-1;
     }
 
 
-    print(low-1);
 
 }
 

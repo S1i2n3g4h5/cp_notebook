@@ -38,52 +38,67 @@ long long fast_power(long long base, long long power, long long  MOD=1e9+7ll){
 
 const bool multipleTestCases = 0; 
 
+ll func(int n, vll&arr, int l, int r, ll base){
+  if(l>r)return 0ll;
+
+  ll hmin = arr[l];
+  f(i,l+1,r+1){
+    hmin = min(hmin, arr[i]);
+  }
+
+
+  ll vertical_cost = r-l+1;
+
+  ll horizontal_cost = hmin - base;
+  f(i,l,r+1){
+    if(arr[i] > hmin){
+      int start=i,end=i;
+
+      while(end<=r and end<n and arr[end] > hmin){
+        end++;
+      }
+
+
+      horizontal_cost += func(n,arr, start,end-1,hmin);
+
+      i=end-1;
+    }
+  }
+
+  return min(horizontal_cost, vertical_cost);
+  
+}
+
 void solve(){
   /*
-    we only ccare for lements [median, n]
+    [[ multiple times painting same 1meter is allowed ]]
+    [[  constraints are low  for o(n^2) or maybe somethign recursion ]]
 
-    cuz this only decides which is media when distributing the data clearly
+    3 strategies- vertical or horizonotal plan or verticla+horizontal
+    
+    for vetical, cost = r-l+1
+    for horizontal its - first calcauting base comlpete row (by finding the min arri)
+        then 2 otions - horizontal agian or vertical
+
+    so more like recursion thing
 
 
+    ---- 
+    actually its got divide-and-conqueror tag, so make sure to remember these types of patterns
 
-  */
+    1. paint every plank vertical 
+    2. find shortest plank (hmin), painting hmin horizontal stroke across entire range l,r
 
-    ll n,k;cin>>n>>k;
+
+  */    
+
+    int n;cin>>n;
     vll arr(n);
     f(i,0,n)cin>>arr[i];
 
 
-    sort(all(arr));
+    print(func(n, arr, 0, n-1, 0));
 
-
-    auto check = [&](ll x){
-
-        ll moves=0;
-        f(i,n/2,n){
-            if(x - arr[i] > 0)
-                moves += (x - arr[i]);
-
-            if(moves>k)return false;
-        }
-
-        return moves <= k;
-
-    };
-
-
-    ll low=1, high=2e9;
-    while(low <= high){
-        ll mid = low + (high -low)/2;
-
-        if(check(mid)){
-            low = mid+1;
-        }
-        else    
-            high = mid-1;
-    }
-
-
-    print(low-1);
 
 }
 

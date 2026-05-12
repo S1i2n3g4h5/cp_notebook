@@ -36,54 +36,62 @@ long long fast_power(long long base, long long power, long long  MOD=1e9+7ll){
 }
 
 
-const bool multipleTestCases = 0; 
+const bool multipleTestCases = 1; 
 
 void solve(){
   /*
-    we only ccare for lements [median, n]
+    we need to focus on saving the max houses which measn if the virus is as far as away hence we take time to solve this thiing
 
-    cuz this only decides which is media when distributing the data clearly
-
+    hence will be required to find the gaps values and solve for the max gap possibel
+    and trying to simulate till how many hoses will b esaved, cuz 1 infection affecting 2 houses nearby 
 
 
   */
 
-    ll n,k;cin>>n>>k;
-    vll arr(n);
-    f(i,0,n)cin>>arr[i];
-
+    ll n,m;cin>>n>>m;
+    vll arr(m);
+    f(i,0,m)cin>>arr[i];
 
     sort(all(arr));
 
+    vll gaps;
+    f(i,1,m){
+        gaps.pb(arr[i] - arr[i-1] - 1);
+    }
+    gaps.pb((n - arr[m-1]) + arr[0] -1);
 
-    auto check = [&](ll x){
 
-        ll moves=0;
-        f(i,n/2,n){
-            if(x - arr[i] > 0)
-                moves += (x - arr[i]);
+    sort(rall(gaps));
 
-            if(moves>k)return false;
+
+    int saved=0;
+    int curday=0;
+
+    f(i,0,gaps.size()){
+        ll diff = gaps[i] - 2*curday;
+
+
+        if(diff <= 0){
+            break;
         }
+        else{
+            if(diff == 1 or diff==2){
+                saved++;
+                
+                curday++;
+            }
+            else{
+                saved += (diff - 1);
 
-        return moves <= k;
+                curday += 2;
+            }
+        } 
 
-    };
 
-
-    ll low=1, high=2e9;
-    while(low <= high){
-        ll mid = low + (high -low)/2;
-
-        if(check(mid)){
-            low = mid+1;
-        }
-        else    
-            high = mid-1;
     }
 
 
-    print(low-1);
+    print(n - saved);
 
 }
 

@@ -36,54 +36,53 @@ long long fast_power(long long base, long long power, long long  MOD=1e9+7ll){
 }
 
 
-const bool multipleTestCases = 0; 
+const bool multipleTestCases = 1; 
 
 void solve(){
   /*
-    we only ccare for lements [median, n]
+    its basic gredy opertion only
 
-    cuz this only decides which is media when distributing the data clearly
-
-
+    nothing much
 
   */
 
-    ll n,k;cin>>n>>k;
-    vll arr(n);
-    f(i,0,n)cin>>arr[i];
-
-
-    sort(all(arr));
-
-
-    auto check = [&](ll x){
-
-        ll moves=0;
-        f(i,n/2,n){
-            if(x - arr[i] > 0)
-                moves += (x - arr[i]);
-
-            if(moves>k)return false;
+    int n;cin>>n;
+    vll a(n),b(n);
+    f(i,0,n)cin>>a[i];
+    f(i,0,n)cin>>b[i];
+    
+    map<ll,int>mp;
+    f(i,0,n){
+        if(a[i] != b[i]){
+            mp[b[i]]++;
         }
-
-        return moves <= k;
-
-    };
-
-
-    ll low=1, high=2e9;
-    while(low <= high){
-        ll mid = low + (high -low)/2;
-
-        if(check(mid)){
-            low = mid+1;
-        }
-        else    
-            high = mid-1;
     }
 
 
-    print(low-1);
+    int m;cin>>m;
+    vll d(m);
+    f(i,0,m)cin>>d[i];
+    map<ll,int>available;
+    f(i,0,m)
+        available[d[i]]++;
+
+        
+
+    set<ll>belem(all(b));
+    if(belem.find(d[m-1]) == belem.end()){
+        print("NO");
+        return;
+    }
+
+
+    for(auto x:mp){
+        if(available[x.first] < x.second){
+            print("NO");
+            return;
+        }
+    }
+
+    print("YES");
 
 }
 

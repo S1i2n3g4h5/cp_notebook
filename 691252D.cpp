@@ -38,52 +38,49 @@ long long fast_power(long long base, long long power, long long  MOD=1e9+7ll){
 
 const bool multipleTestCases = 0; 
 
-void solve(){
-  /*
-    we only ccare for lements [median, n]
 
-    cuz this only decides which is media when distributing the data clearly
+ll memo[1002][1002];
 
+ll func(int idx, ll remweight, ll n, vll&weight, vll&v){
+    if(idx == n or remweight==0){
+        
+        return 0;
+    }
 
-
-  */
-
-    ll n,k;cin>>n>>k;
-    vll arr(n);
-    f(i,0,n)cin>>arr[i];
-
-
-    sort(all(arr));
-
-
-    auto check = [&](ll x){
-
-        ll moves=0;
-        f(i,n/2,n){
-            if(x - arr[i] > 0)
-                moves += (x - arr[i]);
-
-            if(moves>k)return false;
-        }
-
-        return moves <= k;
-
-    };
-
-
-    ll low=1, high=2e9;
-    while(low <= high){
-        ll mid = low + (high -low)/2;
-
-        if(check(mid)){
-            low = mid+1;
-        }
-        else    
-            high = mid-1;
+    if(memo[idx][remweight] != -1){
+        return memo[idx][remweight];
+    
     }
 
 
-    print(low-1);
+    // ll skip = func(idx+2, remweight, n,weight,v);
+    ll skip = func(idx+1, remweight, n,weight,v);
+
+    
+    ll take=0;
+    if(weight[idx] <= remweight){
+        take  = v[idx] + func(idx+1, remweight - weight[idx], n,weight,v);
+    }
+    
+    return memo[idx][remweight] = max(skip, take);
+}
+
+void solve(){
+  /*
+
+  */
+
+    ll n,w;cin>>n>>w;
+    vll weight(n),v(n);
+
+    f(i,0,n)cin>>weight[i];
+    f(i,0,n)cin>>v[i];
+    
+    
+    memset(memo, -1,sizeof(memo));
+
+
+    print(func(0,w,n,weight,v));
 
 }
 

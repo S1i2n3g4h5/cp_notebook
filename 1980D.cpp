@@ -36,54 +36,61 @@ long long fast_power(long long base, long long power, long long  MOD=1e9+7ll){
 }
 
 
-const bool multipleTestCases = 0; 
+const bool multipleTestCases = 1; 
 
-void solve(){
-  /*
-    we only ccare for lements [median, n]
-
-    cuz this only decides which is media when distributing the data clearly
-
-
-
-  */
-
-    ll n,k;cin>>n>>k;
-    vll arr(n);
-    f(i,0,n)cin>>arr[i];
-
-
-    sort(all(arr));
-
-
-    auto check = [&](ll x){
-
-        ll moves=0;
-        f(i,n/2,n){
-            if(x - arr[i] > 0)
-                moves += (x - arr[i]);
-
-            if(moves>k)return false;
+bool check(int idx, int n, vll&arr){
+    vll b;
+    f(i,0,n){
+        if(i!=idx){
+            b.pb(arr[i]);
         }
-
-        return moves <= k;
-
-    };
-
-
-    ll low=1, high=2e9;
-    while(low <= high){
-        ll mid = low + (high -low)/2;
-
-        if(check(mid)){
-            low = mid+1;
-        }
-        else    
-            high = mid-1;
     }
 
 
-    print(low-1);
+    int last_gcd=0;
+    f(i,0,n-2){
+        int curr = __gcd(b[i], b[i+1]);
+
+        if(curr < last_gcd)
+            return false;
+
+        last_gcd = curr;
+    }
+
+    return true;
+
+}
+
+
+void solve(){
+  /*
+
+  */
+
+    int n;cin>>n;
+    vll arr(n);
+    f(i,0,n)cin>>arr[i];
+
+    int idx=-1;
+    f(i,0,n-2){
+        if(__gcd(arr[i], arr[i+1]) > __gcd(arr[i+1],arr[i+2])){
+            idx=i;
+            break;
+        }
+    }
+
+
+    if(idx==-1){
+        print("YES");
+        return;
+    }
+
+
+    if(check(idx,n,arr) or check(idx+1,n,arr) or check(idx+2,n,arr)){
+        print("YES");
+    }
+    else
+        print("NO");
 
 }
 

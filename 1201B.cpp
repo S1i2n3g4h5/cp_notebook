@@ -40,50 +40,35 @@ const bool multipleTestCases = 0;
 
 void solve(){
   /*
-    we only ccare for lements [median, n]
+    2 conditions to satisfy for being the tto drop the array elemtns to zero
+        - sum must be even
+        - 2*max <= sm
 
-    cuz this only decides which is media when distributing the data clearly
+    1st condition is intuitive but for the 2nd condition we need to do some proofs-
 
-
+    for the 2nd condition, since we are pairing up then, if maxelemnt needs more than 50% it means we wont have any pairs left to pair it up with
+    hence checking this condition is useful and important to make sure all the paris are there to evnetually make it zero
+    
 
   */
-
-    ll n,k;cin>>n>>k;
+    int n;cin>>n;
     vll arr(n);
     f(i,0,n)cin>>arr[i];
 
 
-    sort(all(arr));
+    ll sm = accumulate(all(arr),0ll);
+    ll mx = *max_element(all(arr));
 
 
-    auto check = [&](ll x){
+    if(sm%2 != 0 or sm < 2*mx){
+        print("NO");
 
-        ll moves=0;
-        f(i,n/2,n){
-            if(x - arr[i] > 0)
-                moves += (x - arr[i]);
-
-            if(moves>k)return false;
-        }
-
-        return moves <= k;
-
-    };
-
-
-    ll low=1, high=2e9;
-    while(low <= high){
-        ll mid = low + (high -low)/2;
-
-        if(check(mid)){
-            low = mid+1;
-        }
-        else    
-            high = mid-1;
+    }
+    else{
+        print("YES");
     }
 
 
-    print(low-1);
 
 }
 

@@ -36,54 +36,56 @@ long long fast_power(long long base, long long power, long long  MOD=1e9+7ll){
 }
 
 
-const bool multipleTestCases = 0; 
+const bool multipleTestCases = 1; 
 
 void solve(){
   /*
-    we only ccare for lements [median, n]
+    alice maximize, bob minimize
 
-    cuz this only decides which is media when distributing the data clearly
+    duplicates are avaialbe hence choosing becoming actual game
+
+    unumbers wiht freq 1, are rare and nede to protect but they become the har limit
+    cuz bob will destroy the very 2nd he get the opportuniyty
 
 
+    so instead of actualliny doing implemetaion simulation we can just 
+    assume that alice saving the most imporatant number first, like thsoe having fr 1 or 2 or more
+    depending on siwtching turns aucalmtilly, we just need to ensure that the main conditions of fr 0 or 1 are satisfied proeprly
+    
 
   */
 
-    ll n,k;cin>>n>>k;
+    int n;cin>>n;
     vll arr(n);
-    f(i,0,n)cin>>arr[i];
-
-
-    sort(all(arr));
-
-
-    auto check = [&](ll x){
-
-        ll moves=0;
-        f(i,n/2,n){
-            if(x - arr[i] > 0)
-                moves += (x - arr[i]);
-
-            if(moves>k)return false;
-        }
-
-        return moves <= k;
-
-    };
-
-
-    ll low=1, high=2e9;
-    while(low <= high){
-        ll mid = low + (high -low)/2;
-
-        if(check(mid)){
-            low = mid+1;
-        }
-        else    
-            high = mid-1;
+    map<ll,int>mp;
+    f(i,0,n){
+        cin>>arr[i];
+        mp[arr[i]]++;
     }
 
 
-    print(low-1);
+    int strike=0;
+    ll mex=0;
+
+    f(i,0,n+1){
+        int fr = mp[i];
+
+        if(fr==0){
+            break;
+        }
+        else if(fr==1){
+            // freq 1 is important but bob wil ltake that sooner or later
+            strike++;
+
+            if(strike==2){
+                break;
+            }
+        }
+
+        mex = i+1;
+    }
+
+    print(mex);
 
 }
 

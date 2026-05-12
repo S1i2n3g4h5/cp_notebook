@@ -38,52 +38,35 @@ long long fast_power(long long base, long long power, long long  MOD=1e9+7ll){
 
 const bool multipleTestCases = 0; 
 
+int dp[1000000] = {-1};
+
+ll func(int idx, vll&arr){
+    if(idx >= arr.size()){
+        return 0;
+    }
+
+    if(dp[idx]!=-1)return dp[idx];
+
+
+    ll take = arr[idx] + func(idx + 2, arr);
+
+    ll nottake = func(idx+1, arr);
+    
+    
+    return dp[idx] = max(take, nottake);
+}
+
 void solve(){
   /*
-    we only ccare for lements [median, n]
-
-    cuz this only decides which is media when distributing the data clearly
-
-
 
   */
 
-    ll n,k;cin>>n>>k;
+    int n;cin>>n;
     vll arr(n);
     f(i,0,n)cin>>arr[i];
 
 
-    sort(all(arr));
-
-
-    auto check = [&](ll x){
-
-        ll moves=0;
-        f(i,n/2,n){
-            if(x - arr[i] > 0)
-                moves += (x - arr[i]);
-
-            if(moves>k)return false;
-        }
-
-        return moves <= k;
-
-    };
-
-
-    ll low=1, high=2e9;
-    while(low <= high){
-        ll mid = low + (high -low)/2;
-
-        if(check(mid)){
-            low = mid+1;
-        }
-        else    
-            high = mid-1;
-    }
-
-
-    print(low-1);
+    print(func(0, arr));
 
 }
 

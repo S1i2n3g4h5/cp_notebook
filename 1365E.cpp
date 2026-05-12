@@ -40,50 +40,46 @@ const bool multipleTestCases = 0;
 
 void solve(){
   /*
-    we only ccare for lements [median, n]
+    since due to the constraint - max(1,|s|-2)
+    its really good tradeoff and cosntraint
 
-    cuz this only decides which is media when distributing the data clearly
+    cuz its not alwa the case that more elemtns means maximium sum or bit
 
+    but here due to thte constrain given we cna apply for 3 length elemts
+    where atleast 1 will have that 1 bit set
 
+    
 
   */
 
-    ll n,k;cin>>n>>k;
+    ll n;cin>>n;
     vll arr(n);
     f(i,0,n)cin>>arr[i];
 
 
-    sort(all(arr));
+    if(n==1){
+        print(arr[0]);
+        return;
+    }
+    else if(n==2){
+        print(arr[0] | arr[1]);
+        return;
+    }
+    
 
+    ll mx=0;
+    f(i,0,n){
+        f(j,i+1,n){
+            f(k,j+1,n){
+                ll curr = arr[i]|arr[j]|arr[k];
 
-    auto check = [&](ll x){
-
-        ll moves=0;
-        f(i,n/2,n){
-            if(x - arr[i] > 0)
-                moves += (x - arr[i]);
-
-            if(moves>k)return false;
+                mx = max(curr, mx);
+            }
         }
-
-        return moves <= k;
-
-    };
-
-
-    ll low=1, high=2e9;
-    while(low <= high){
-        ll mid = low + (high -low)/2;
-
-        if(check(mid)){
-            low = mid+1;
-        }
-        else    
-            high = mid-1;
     }
 
 
-    print(low-1);
+    print(mx);
 
 }
 

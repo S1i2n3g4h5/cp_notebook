@@ -40,50 +40,48 @@ const bool multipleTestCases = 0;
 
 void solve(){
   /*
-    we only ccare for lements [median, n]
-
-    cuz this only decides which is media when distributing the data clearly
-
-
+    automaton - deletion any char
+    array - swapping 2 chars from a string s
+    both - doing both operations
 
   */
 
-    ll n,k;cin>>n>>k;
-    vll arr(n);
-    f(i,0,n)cin>>arr[i];
+    string s,t;cin>>s>>t;
 
 
-    sort(all(arr));
+    // is subsequence?
+    int i=0,j=0;
+    while(i<s.size() and j<t.size()){
+        if(s[i] == t[j])j++;
+        i++;
+    }
+    bool automaton = j == t.size();
+    
 
+    vll cnts(26,0), cntt(26,0);
+    for(char c:s)cnts[c - 'a']++;
+    for(char c:t)cntt[c - 'a']++;
 
-    auto check = [&](ll x){
-
-        ll moves=0;
-        f(i,n/2,n){
-            if(x - arr[i] > 0)
-                moves += (x - arr[i]);
-
-            if(moves>k)return false;
+    bool enough=true;
+    f(i,0,26){
+        if(cnts[i] < cntt[i]){
+            enough=false;
+            break;
         }
-
-        return moves <= k;
-
-    };
-
-
-    ll low=1, high=2e9;
-    while(low <= high){
-        ll mid = low + (high -low)/2;
-
-        if(check(mid)){
-            low = mid+1;
-        }
-        else    
-            high = mid-1;
     }
 
-
-    print(low-1);
+    if(!enough){
+        print("need tree");
+    }
+    else if(automaton){
+        print("automaton");
+    }
+    else if(s.size() == t.size()){
+        print("array");
+    }
+    else{
+        print("both");
+    }
 
 }
 

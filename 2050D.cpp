@@ -36,54 +36,49 @@ long long fast_power(long long base, long long power, long long  MOD=1e9+7ll){
 }
 
 
-const bool multipleTestCases = 0; 
+const bool multipleTestCases = 1; 
 
 void solve(){
   /*
-    we only ccare for lements [median, n]
+    swapping is done wiht the left of current elemnt
+    choosing anytig except 0 or leftmost number
 
-    cuz this only decides which is media when distributing the data clearly
-
-
+    and since the max possible distance on can go it atmst 9 positions
+    so it slike a window of 9 to ensure which goes where
 
   */
 
-    ll n,k;cin>>n>>k;
-    vll arr(n);
-    f(i,0,n)cin>>arr[i];
+    string s;cin>>s;
+    int n=s.size();
 
 
-    sort(all(arr));
+    f(i,0,n){
+        int best_digit=(s[i] - '0');
+        int best_idx=i;
 
+        f(j,i+1,min(i+10,n)){
+            int currdigit = (s[j] - '0');
+            int potential_val = currdigit - (j-i);
+            if(potential_val <= 0){
+                continue;
+            }
 
-    auto check = [&](ll x){
-
-        ll moves=0;
-        f(i,n/2,n){
-            if(x - arr[i] > 0)
-                moves += (x - arr[i]);
-
-            if(moves>k)return false;
+            if(potential_val > best_digit){
+                best_digit = potential_val;
+                best_idx = j;
+            } 
         }
 
-        return moves <= k;
-
-    };
-
-
-    ll low=1, high=2e9;
-    while(low <= high){
-        ll mid = low + (high -low)/2;
-
-        if(check(mid)){
-            low = mid+1;
+        // moving
+        if(best_idx != -1){
+            s.erase(s.begin() + best_idx);
+            s.insert(s.begin() + i, (char)(best_digit + '0'));
         }
-        else    
-            high = mid-1;
+
     }
 
 
-    print(low-1);
+    print(s);
 
 }
 
@@ -97,4 +92,4 @@ int main(){
       solve();
   }
   return 0;
-}
+} 

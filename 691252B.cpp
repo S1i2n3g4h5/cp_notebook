@@ -38,52 +38,56 @@ long long fast_power(long long base, long long power, long long  MOD=1e9+7ll){
 
 const bool multipleTestCases = 0; 
 
+ll memo[10000005];
+
+
+ll func(int idx, int start, vll&arr){
+  if(idx < start)
+    return 0;
+  else if(idx == start) {
+    return arr[start];
+  }
+
+  if(memo[idx]!=-1){
+    return memo[idx];
+  }
+
+  ll pick = arr[idx] + func(idx-2, start,arr);
+
+  ll notpick = func(idx-1, start,arr);
+
+  return memo[idx] = max(pick, notpick);
+
+
+}
+
+
 void solve(){
   /*
-    we only ccare for lements [median, n]
-
-    cuz this only decides which is media when distributing the data clearly
-
-
+    2 cases -
+      1. rob from 1 to n-1 houses
+      2. rob from 2 to n houses
 
   */
 
-    ll n,k;cin>>n>>k;
-    vll arr(n);
-    f(i,0,n)cin>>arr[i];
+  ll n;cin>>n;
+  vll arr(n);
+  f(i,0,n)cin>>arr[i];
 
 
-    sort(all(arr));
+  if(n==1){
+    print(arr[0]);
+    return;
+  }
 
+  memset(memo, -1, sizeof(memo));
+  ll ans1 = func(n-2, 0,arr);
 
-    auto check = [&](ll x){
+  memset(memo, -1, sizeof(memo));
+  ll ans2 = func(n-1, 1,arr);
+  
 
-        ll moves=0;
-        f(i,n/2,n){
-            if(x - arr[i] > 0)
-                moves += (x - arr[i]);
-
-            if(moves>k)return false;
-        }
-
-        return moves <= k;
-
-    };
-
-
-    ll low=1, high=2e9;
-    while(low <= high){
-        ll mid = low + (high -low)/2;
-
-        if(check(mid)){
-            low = mid+1;
-        }
-        else    
-            high = mid-1;
-    }
-
-
-    print(low-1);
+  print(max(ans1, ans2));
 
 }
 

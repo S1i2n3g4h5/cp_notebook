@@ -38,52 +38,39 @@ long long fast_power(long long base, long long power, long long  MOD=1e9+7ll){
 
 const bool multipleTestCases = 0; 
 
+
+map<ll,ll>memo[30];
+
+ll func(int idx, ll sm, ll target, vll&arr){
+    if(idx == arr.size()){
+       return sm==target;
+    }
+
+    if(memo[idx].count(sm))return memo[idx][sm];
+
+
+    ll p = func(idx+1,sm + arr[idx], target, arr);
+    ll n = func(idx+1,sm - arr[idx], target, arr);
+
+    
+    return memo[idx][sm] = p+n;
+}
+
+
 void solve(){
   /*
-    we only ccare for lements [median, n]
-
-    cuz this only decides which is media when distributing the data clearly
-
-
 
   */
 
-    ll n,k;cin>>n>>k;
-    vll arr(n);
-    f(i,0,n)cin>>arr[i];
+  ll n,s;cin>>n>>s;
+  vll arr(n);
+  f(i,0,n)cin>>arr[i];
 
-
-    sort(all(arr));
-
-
-    auto check = [&](ll x){
-
-        ll moves=0;
-        f(i,n/2,n){
-            if(x - arr[i] > 0)
-                moves += (x - arr[i]);
-
-            if(moves>k)return false;
-        }
-
-        return moves <= k;
-
-    };
-
-
-    ll low=1, high=2e9;
-    while(low <= high){
-        ll mid = low + (high -low)/2;
-
-        if(check(mid)){
-            low = mid+1;
-        }
-        else    
-            high = mid-1;
+    f(i,0,n+1){
+        memo[i].clear();
     }
 
-
-    print(low-1);
+  print(func(0,0,s,arr));
 
 }
 

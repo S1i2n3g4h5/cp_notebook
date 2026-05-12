@@ -38,53 +38,50 @@ long long fast_power(long long base, long long power, long long  MOD=1e9+7ll){
 
 const bool multipleTestCases = 0; 
 
-void solve(){
-  /*
-    we only ccare for lements [median, n]
 
-    cuz this only decides which is media when distributing the data clearly
+ll func(int i, bool intrade, int n, vll&prices, ll k, vector<vll>&memo){
+    if(i>= n or k<=0){
+        return 0ll;
+    }
 
-
-
-  */
-
-    ll n,k;cin>>n>>k;
-    vll arr(n);
-    f(i,0,n)cin>>arr[i];
-
-
-    sort(all(arr));
-
-
-    auto check = [&](ll x){
-
-        ll moves=0;
-        f(i,n/2,n){
-            if(x - arr[i] > 0)
-                moves += (x - arr[i]);
-
-            if(moves>k)return false;
-        }
-
-        return moves <= k;
-
-    };
-
-
-    ll low=1, high=2e9;
-    while(low <= high){
-        ll mid = low + (high -low)/2;
-
-        if(check(mid)){
-            low = mid+1;
-        }
-        else    
-            high = mid-1;
+    if(memo[i][k] != -1){
+        return memo[i][k];
     }
 
 
-    print(low-1);
+    ll buy=0;
+    if(!intrade){
+        buy = -prices[i] + func(i+1, true, n, prices, k, memo);
+    }
+    else{
+        buy = prices[i] + func(i+1, false, n, prices, k-1, memo);
+    }
 
+
+    ll skip = func(i+1, intrade, n, prices, k, memo);
+
+    
+    return memo[i][k] = max(buy,skip);
+}
+
+void solve(){
+  /*
+  
+    dp[i][j] = using j transactios for day[i]
+
+  */
+    ll n,k;cin>>n>>k;
+    vll prices(n);
+    f(i,0,n)cin>>prices[i];
+
+
+    vector<vll>memo(n+1, vll(k+1,-1));
+
+    
+    func(0, false, n, prices, k, memo);
+    
+    print(memo[0][k] >= 1e9 ? -1 : memo[0][k]);
+    
 }
 
 

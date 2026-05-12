@@ -40,51 +40,55 @@ const bool multipleTestCases = 0;
 
 void solve(){
   /*
-    we only ccare for lements [median, n]
+    n*m table consisting of build where value = i*j
 
-    cuz this only decides which is media when distributing the data clearly
+       1  2  3  4  5
+    1  1  2  3  4  5
+    2  2  4  6  8  10
+    3  3  6  9  12 15
+    4  4  8  12 16 20
+
+
+    since building the whole table doesnt seem very feasible, 
+    we can use binary search maybe cuz the values in tables increase as we go rihgt and hence
+    binary search can keep a counter of how many done
+
+    i*j <= X
+    j <= X/i   ->    count of such number in row i is -> min(m, x/i);
 
 
 
   */
 
-    ll n,k;cin>>n>>k;
-    vll arr(n);
-    f(i,0,n)cin>>arr[i];
-
-
-    sort(all(arr));
+    ll n,m,k;cin>>n>>m>>k;
 
 
     auto check = [&](ll x){
-
-        ll moves=0;
-        f(i,n/2,n){
-            if(x - arr[i] > 0)
-                moves += (x - arr[i]);
-
-            if(moves>k)return false;
+        ll tot=0;
+        f(i,1,n+1){
+            tot += min(m, (ll)x/i);
         }
 
-        return moves <= k;
-
+        return tot >= k;
     };
 
+    
 
-    ll low=1, high=2e9;
-    while(low <= high){
-        ll mid = low + (high -low)/2;
+    ll low=1,high=n*m;
+    while(low<=high){
+        ll mid = low + (high-low)/2;
 
         if(check(mid)){
+
+            high = mid-1;
+        }
+        else{
             low = mid+1;
         }
-        else    
-            high = mid-1;
     }
 
-
-    print(low-1);
-
+    print(high +1);
+    
 }
 
 

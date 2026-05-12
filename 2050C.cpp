@@ -36,54 +36,51 @@ long long fast_power(long long base, long long power, long long  MOD=1e9+7ll){
 }
 
 
-const bool multipleTestCases = 0; 
+const bool multipleTestCases = 1; 
 
 void solve(){
   /*
-    we only ccare for lements [median, n]
-
-    cuz this only decides which is media when distributing the data clearly
+    divisibility property - sum must be divisible by 9
+    valid vals to change - {2,3}  -> {4,9}
+    hence finding the right combintion of these vvlaues form the string will be useful
 
 
 
   */
 
-    ll n,k;cin>>n>>k;
-    vll arr(n);
-    f(i,0,n)cin>>arr[i];
+    string s;cin>>s;
+    int n=s.size();
 
-
-    sort(all(arr));
-
-
-    auto check = [&](ll x){
-
-        ll moves=0;
-        f(i,n/2,n){
-            if(x - arr[i] > 0)
-                moves += (x - arr[i]);
-
-            if(moves>k)return false;
-        }
-
-        return moves <= k;
-
-    };
-
-
-    ll low=1, high=2e9;
-    while(low <= high){
-        ll mid = low + (high -low)/2;
-
-        if(check(mid)){
-            low = mid+1;
-        }
-        else    
-            high = mid-1;
+    ll _2 = 0, _3 =0;
+    ll tot=0;
+    f(i,0,n){
+        tot += (s[i] - '0');
+        if(s[i] == '2') _2++;
+        else if(s[i] == '3') _3++;
     }
 
 
-    print(low-1);
+    // already divisble?
+    if(tot%9 == 0){
+        print("YES");
+        return;
+    }
+
+
+    bool possible=false;
+    f(i,0,min(10ll,_2)+1){
+        f(j,0,min(10ll,_3)+1){
+
+            if((tot + (2*i + 6*j))%9 == 0){
+                print("YES");
+                return;
+            }
+
+        }
+    }
+
+
+    print("NO");
 
 }
 

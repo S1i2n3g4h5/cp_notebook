@@ -36,54 +36,35 @@ long long fast_power(long long base, long long power, long long  MOD=1e9+7ll){
 }
 
 
-const bool multipleTestCases = 0; 
+const bool multipleTestCases = 1; 
 
 void solve(){
   /*
-    we only ccare for lements [median, n]
+    since on matter how we slice the the string for "A" mutiplicaiton 
+    we get same result, like if we slice single chars at a time then its (l=10)- 1a +1a+1a...1n = 10a
+        if we delte whole string -> l=10 -> 10a
 
-    cuz this only decides which is media when distributing the data clearly
+    there no space for optimization into "a" so "a" acts as constant which cant be changed
 
-
+    ---
+    
+    now coming for "b" variable, cuz its added per operation hence optimizing here
+    1. if b is positive we just wnat as many b hence delting one at a time -> n*b
+    2. if b is negative we want few b's as possible -> so grouping chars and deleting, hence (m/2+1)    
+        even though m is denoting the total groups,we doing m/2+1 cuz after delteing 1 group, other groups merge, hence the operatison are not tooal groups but m/2 +1
+        
 
   */
 
-    ll n,k;cin>>n>>k;
-    vll arr(n);
-    f(i,0,n)cin>>arr[i];
+    int n,a,b;cin>>n>>a>>b;
+    string s;cin>>s;
+      
+
+    int m = unique(all(s)) - s.begin();
+
+    print(n*a + max(n*b, (m/2+1)*b));
 
 
-    sort(all(arr));
-
-
-    auto check = [&](ll x){
-
-        ll moves=0;
-        f(i,n/2,n){
-            if(x - arr[i] > 0)
-                moves += (x - arr[i]);
-
-            if(moves>k)return false;
-        }
-
-        return moves <= k;
-
-    };
-
-
-    ll low=1, high=2e9;
-    while(low <= high){
-        ll mid = low + (high -low)/2;
-
-        if(check(mid)){
-            low = mid+1;
-        }
-        else    
-            high = mid-1;
-    }
-
-
-    print(low-1);
 
 }
 

@@ -40,50 +40,36 @@ const bool multipleTestCases = 0;
 
 void solve(){
   /*
-    we only ccare for lements [median, n]
+    finding most frequenct k and where to shift left or rihgt
 
-    cuz this only decides which is media when distributing the data clearly
-
-
+    then finding its optial pairs equal
 
   */
 
-    ll n,k;cin>>n>>k;
-    vll arr(n);
-    f(i,0,n)cin>>arr[i];
+    int n;cin>>n;
+    vll a(n),b(n);
+    f(i,0,n)cin>>a[i];
+    f(i,0,n)cin>>b[i];
 
 
-    sort(all(arr));
+    vll posa(n+1);
+    f(i,0,n)
+        posa[a[i]] = i;
 
+    
+    vll shift(n,0);
+    f(i,0,n){
+        int val = b[i];
+        int originalpos = posa[val];
 
-    auto check = [&](ll x){
+        int k = (originalpos - i + n)%n;
 
-        ll moves=0;
-        f(i,n/2,n){
-            if(x - arr[i] > 0)
-                moves += (x - arr[i]);
-
-            if(moves>k)return false;
-        }
-
-        return moves <= k;
-
-    };
-
-
-    ll low=1, high=2e9;
-    while(low <= high){
-        ll mid = low + (high -low)/2;
-
-        if(check(mid)){
-            low = mid+1;
-        }
-        else    
-            high = mid-1;
+        shift[k]++;
     }
 
 
-    print(low-1);
+    
+    print(*max_element(all(shift)));
 
 }
 

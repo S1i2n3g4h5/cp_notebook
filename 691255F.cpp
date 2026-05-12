@@ -38,52 +38,51 @@ long long fast_power(long long base, long long power, long long  MOD=1e9+7ll){
 
 const bool multipleTestCases = 0; 
 
+
 void solve(){
-  /*
-    we only ccare for lements [median, n]
+  /*    
 
-    cuz this only decides which is media when distributing the data clearly
-
+  dp[0][0] = reaching stair with last jump3
+  
+  dp[0][1] = reaaching stair with last jump!=3 using step1/2 
 
 
   */
 
-    ll n,k;cin>>n>>k;
-    vll arr(n);
-    f(i,0,n)cin>>arr[i];
+    ll n;cin>>n;
+
+    ll MOD = 1e9+7;
 
 
-    sort(all(arr));
+    // vector<vector<ll>>dp(n+1,vector<ll>(n+1,0ll));
+    vector<vector<ll>>dp(2,vector<ll>(n+1,0ll));
 
+    
+    dp[0][0] = 1;
+    // dp[0][1] = 1;
 
-    auto check = [&](ll x){
+    f(i,1,n+1){
 
-        ll moves=0;
-        f(i,n/2,n){
-            if(x - arr[i] > 0)
-                moves += (x - arr[i]);
+        if(i>=1){
+            dp[0][i] = (dp[0][i] + dp[0][i-1] + dp[1][i-1])%MOD;
 
-            if(moves>k)return false;
         }
 
-        return moves <= k;
-
-    };
-
-
-    ll low=1, high=2e9;
-    while(low <= high){
-        ll mid = low + (high -low)/2;
-
-        if(check(mid)){
-            low = mid+1;
+        if(i>=2){
+            dp[0][i] = (dp[0][i] + dp[0][i-2] + dp[1][i-2]) %MOD;
         }
-        else    
-            high = mid-1;
+
+        if(i>=3){
+            dp[1][i] = dp[0][i-3];
+        }
+        
+        // print(dp[0][i], ", ", dp[1][i]);
+
     }
 
+    // print(dp[0][n] + dp[1][n]);
 
-    print(low-1);
+    print(((dp[0][n] + dp[1][n]) % MOD));
 
 }
 

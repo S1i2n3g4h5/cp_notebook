@@ -38,52 +38,39 @@ long long fast_power(long long base, long long power, long long  MOD=1e9+7ll){
 
 const bool multipleTestCases = 0; 
 
+
 void solve(){
   /*
-    we only ccare for lements [median, n]
-
-    cuz this only decides which is media when distributing the data clearly
-
-
 
   */
 
-    ll n,k;cin>>n>>k;
-    vll arr(n);
-    f(i,0,n)cin>>arr[i];
+    ll n,sum;cin>>n>>sum;
+    vll coins(n);
+    f(i,0,n)cin>>coins[i];
+
+    vll dp(sum+1, 1e9);
+
+    dp[0] = 0;
 
 
-    sort(all(arr));
+    f(i,0,n){
+        ll coin = coins[i];
 
+        f(j,coin, sum+1){
+            if(dp[j - coin] + 1 < dp[j]){
+                
+                dp[j] = dp[j - coin] +1;
 
-    auto check = [&](ll x){
-
-        ll moves=0;
-        f(i,n/2,n){
-            if(x - arr[i] > 0)
-                moves += (x - arr[i]);
-
-            if(moves>k)return false;
+            }
         }
-
-        return moves <= k;
-
-    };
-
-
-    ll low=1, high=2e9;
-    while(low <= high){
-        ll mid = low + (high -low)/2;
-
-        if(check(mid)){
-            low = mid+1;
-        }
-        else    
-            high = mid-1;
     }
 
-
-    print(low-1);
+    if(dp[sum] >= 1e9){
+        print(-1);
+    }
+    else{
+        print(dp[sum]);
+    }
 
 }
 
