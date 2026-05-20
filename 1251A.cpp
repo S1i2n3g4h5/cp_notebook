@@ -36,38 +36,39 @@ long long fast_power(long long base, long long power, long long  MOD=1e9+7ll){
 }
 
 
-const bool multipleTestCases = 0; 
+const bool multipleTestCases = 1; 
 
 void solve(){
   /*
 
   */
 
-  string s;cin>>s;
-  ll n=s.size();
+    string s;cin>>s;
 
+    int n=s.size();
 
-  map<char,int>mp;
-  f(i,0,n){
-    mp[s[i]] += 1;
-  }
+    vector<bool>ans(26,false);
+    f(i,0,n){
+        int j=i;
+        while(j+1<n and s[j+1] == s[i]){
+            j++;
 
+        }
 
-  ll oddfreq=0;
-  for(auto x:mp){
-    if(x.second%2 == 1){
-      oddfreq++;
+        if((j-i)%2 ==0 ){
+            ans[s[i] - 'a']=1;
+
+        }
+
+        i=j;
     }
-  }
 
+    f(i,0,26){
+        if(ans[i])
+            cout << (char)(i+'a');
+    }
 
-  if(oddfreq <= 1 or oddfreq %2 != 0){
-    print("First");
-  }
-  else{
-    print("Second");
-  }
-  
+    cout <<"\n";
 }
 
 

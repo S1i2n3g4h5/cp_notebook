@@ -40,34 +40,19 @@ const bool multipleTestCases = 0;
 
 void solve(){
   /*
-
+    provide easy accedpted soluton.
+    like 1200 rated beginner only
+    no advance stuff or data structre
   */
 
-  string s;cin>>s;
-  ll n=s.size();
+
+    ll n,K;cin>>n>>K;
+    vll arr(n);
+    f(i,0,n)cin>>arr[i];
 
 
-  map<char,int>mp;
-  f(i,0,n){
-    mp[s[i]] += 1;
-  }
+    
 
-
-  ll oddfreq=0;
-  for(auto x:mp){
-    if(x.second%2 == 1){
-      oddfreq++;
-    }
-  }
-
-
-  if(oddfreq <= 1 or oddfreq %2 != 0){
-    print("First");
-  }
-  else{
-    print("Second");
-  }
-  
 }
 
 

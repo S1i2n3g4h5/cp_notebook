@@ -36,38 +36,65 @@ long long fast_power(long long base, long long power, long long  MOD=1e9+7ll){
 }
 
 
-const bool multipleTestCases = 0; 
+const bool multipleTestCases = 1; 
 
 void solve(){
   /*
+    onyl characters are 0 and 1 for sorting
+    so if we know that the index of last zeor (zn) and the index of first one (onei)
+    then if zn<on then no sorting requreid as its already sorted
+
+
+    doing brute force simulation will result into TLE
+    but simulation will be done
+
+    precomputation can bwe reuqired to claualte all the zero one possitions 
 
   */
 
-  string s;cin>>s;
-  ll n=s.size();
-
-
-  map<char,int>mp;
-  f(i,0,n){
-    mp[s[i]] += 1;
-  }
-
-
-  ll oddfreq=0;
-  for(auto x:mp){
-    if(x.second%2 == 1){
-      oddfreq++;
+    int n,m;cin>>n>>m;
+    string s;cin>>s;
+    vector<pll> arr(m);
+    f(i,0,m){
+        cin>>arr[i].first>>arr[i].second;
     }
-  }
 
 
-  if(oddfreq <= 1 or oddfreq %2 != 0){
-    print("First");
-  }
-  else{
-    print("Second");
-  }
-  
+    vll next_one(n), prev_zero(n);
+
+    int last_one=n;
+    for(int i=n-1;i>=0;i--){
+        if(s[i] =='1')last_one = i;
+        next_one[i] = last_one;
+    }
+
+    int last_zero=-1;
+    f(i,0,n){
+        if(s[i] == '0') last_zero=i;
+        prev_zero[i] = last_zero;
+    }
+
+
+    set<pll>ans;
+    f(i,0,m){
+        ll l = arr[i].first - 1;
+        ll r = arr[i].second - 1;
+
+        ll st = next_one[l];
+        ll ed = prev_zero[r];
+
+        if(st >= ed){
+            ans.insert({-1,-1});
+        }
+        else{
+            ans.insert({st,ed});
+        }
+
+    }
+
+
+    print(ans.size());
+
 }
 
 

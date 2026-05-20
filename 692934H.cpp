@@ -43,31 +43,38 @@ void solve(){
 
   */
 
-  string s;cin>>s;
-  ll n=s.size();
-
-
-  map<char,int>mp;
-  f(i,0,n){
-    mp[s[i]] += 1;
-  }
-
-
-  ll oddfreq=0;
-  for(auto x:mp){
-    if(x.second%2 == 1){
-      oddfreq++;
+    ll n;cin>>n;
+    vector<pair<ll,ll>> arr(n);
+    f(i,0,n){
+        cin>>arr[i].first;
+        arr[i].second = i;
     }
-  }
+
+    sort(all(arr));
 
 
-  if(oddfreq <= 1 or oddfreq %2 != 0){
-    print("First");
-  }
-  else{
-    print("Second");
-  }
-  
+    vll p(n);
+    f(i,0,n){
+        p[arr[i].second] = i;
+    }
+
+    vector<bool> vis(n, false);
+    int cycles = 0;
+    f(i, 0, n){
+        if(!vis[i]){
+            cycles++;
+            int curr = i;
+            while(!vis[curr]){
+                vis[curr] = true;
+                
+                curr = p[curr];
+            }
+        }
+    }
+    
+
+    print(n - cycles);
+
 }
 
 

@@ -36,38 +36,67 @@ long long fast_power(long long base, long long power, long long  MOD=1e9+7ll){
 }
 
 
-const bool multipleTestCases = 0; 
+const bool multipleTestCases = 1; 
 
 void solve(){
   /*
 
   */
 
-  string s;cin>>s;
-  ll n=s.size();
+    int n;cin>>n;
+    vll arr(n);
+    f(i,0,n)cin>>arr[i];
+
+    sort(all(arr));
 
 
-  map<char,int>mp;
-  f(i,0,n){
-    mp[s[i]] += 1;
-  }
+    if(n&1){
 
-
-  ll oddfreq=0;
-  for(auto x:mp){
-    if(x.second%2 == 1){
-      oddfreq++;
+        print("NO");
+        return;
     }
-  }
 
 
-  if(oddfreq <= 1 or oddfreq %2 != 0){
-    print("First");
-  }
-  else{
-    print("Second");
-  }
-  
+    vll res(n);
+    
+    int j=0;
+    for(int i=0;i<n/2;i++){
+        res[j] = arr[i];
+        j+=2;
+    }
+
+    j=1;
+    for(int i=n/2;i<n;i++){
+        res[j] = arr[i];
+        j+=2;
+    }
+
+
+    bool ok=true;
+    f(i,0,n){
+        ll prev = res[(i-1+n)%n];
+        ll curr = res[i];
+        ll next = res[(i+1+n)%n];
+
+
+        bool is_peak = (curr > prev && curr > next);
+        bool is_valley = (curr < prev && curr < next);
+
+        if (!is_peak && !is_valley) {
+            ok = false;
+            break;
+        }
+
+    }
+    
+    if (!ok) {
+        print("NO");
+        return;
+    }
+    print("YES");
+    f(i,0,n)cout << res [i] << " ";
+    cout <<"\n";
+
 }
 
 

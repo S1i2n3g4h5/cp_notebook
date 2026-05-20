@@ -36,38 +36,50 @@ long long fast_power(long long base, long long power, long long  MOD=1e9+7ll){
 }
 
 
-const bool multipleTestCases = 0; 
+const bool multipleTestCases = 1; 
 
 void solve(){
   /*
+    odd lengt strings are good for us cuz tehy got 1 extra character at disposal which can be anywher
+
+    also not that if we got some string 2 we can always do spaping as many time as required to make the 
+    0,1 at right place. 
+    
+    the question aks to make all strings palindom.
+
+    so instead of going to check eahc, just checking the invariant here
+    ?
 
   */
 
-  string s;cin>>s;
-  ll n=s.size();
+    int n;cin>>n;
+    vector<string>arr(n);
+    f(i,0,n)cin>>arr[i];
 
+    
+    int odd=0,evengood=0,evenbad=0;
+    f(i,0,n){
+        
+        if(arr[i].size()%2 == 1)
+            odd++;
+        else{
+            int zerocnt = count(all(arr[i]), '0');
+            if(zerocnt%2 ==0)
+                evengood++;
+            else 
+                evenbad++;
+        }
 
-  map<char,int>mp;
-  f(i,0,n){
-    mp[s[i]] += 1;
-  }
-
-
-  ll oddfreq=0;
-  for(auto x:mp){
-    if(x.second%2 == 1){
-      oddfreq++;
     }
-  }
 
 
-  if(oddfreq <= 1 or oddfreq %2 != 0){
-    print("First");
-  }
-  else{
-    print("Second");
-  }
-  
+    if(odd ==0 and evenbad%2 ==1){
+        print(n-1);
+    }
+    else{
+        print(n);
+    }
+    
 }
 
 

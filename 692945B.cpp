@@ -43,31 +43,53 @@ void solve(){
 
   */
 
-  string s;cin>>s;
-  ll n=s.size();
-
-
-  map<char,int>mp;
-  f(i,0,n){
-    mp[s[i]] += 1;
-  }
-
-
-  ll oddfreq=0;
-  for(auto x:mp){
-    if(x.second%2 == 1){
-      oddfreq++;
+    ll n,q;cin>>n>>q;
+    vector<pll>arr(q);
+    f(i,0,q){
+        cin>>arr[i].first>>arr[i].second;
     }
-  }
 
 
-  if(oddfreq <= 1 or oddfreq %2 != 0){
-    print("First");
-  }
-  else{
-    print("Second");
-  }
-  
+    ll L=1,R=n;
+    f(i,0,q){
+        if(arr[i].second < R)
+            R = arr[i].second;
+        
+        if(arr[i].first > L){
+            L = arr[i].first;
+        
+        }       
+            
+    }
+
+
+    // print(L,R);
+
+    // ll ans = (L <=R ? R-L+1 : 0);
+    ll ans = max(0ll, R-L+1);
+
+    vll p(n);
+    // ll iptr=0, jptr = n-1;
+    ll iptr=0, jptr = ans;
+
+    f(i,0,n){
+        int chk = i+1;
+        
+        if(chk >= L and chk <= R){
+            p[i] = iptr++;
+        }            
+        else{
+            p[i] = jptr++;
+            // p[i] = jptr--;
+        }
+    }
+
+
+    print(ans);
+    f(i,0,n)
+        cout << p[i] << " ";
+    cout << "\n";
+
 }
 
 

@@ -43,31 +43,47 @@ void solve(){
 
   */
 
-  string s;cin>>s;
-  ll n=s.size();
+    ll n,q;cin>>n>>q;
+    vll a(n+1);
+    vector<bool> present(n+1,false);
 
-
-  map<char,int>mp;
-  f(i,0,n){
-    mp[s[i]] += 1;
-  }
-
-
-  ll oddfreq=0;
-  for(auto x:mp){
-    if(x.second%2 == 1){
-      oddfreq++;
+    f(i,1,n+1){
+        cin >> a[i];
+        if(a[i] <=n){
+            present[a[i]] = 1;
+        }
     }
-  }
 
 
-  if(oddfreq <= 1 or oddfreq %2 != 0){
-    print("First");
-  }
-  else{
-    print("Second");
-  }
-  
+    int total_mex=0;
+    while(total_mex <= n and present[total_mex]){
+        total_mex++;
+    }
+
+    
+    // vector<int> pre(n+1);
+    vll pre(n+2);
+    pre[1] = total_mex;
+    f(i,1,n+1){
+        ll val = (a[i]<=n) ? a[i] : n+1;
+        pre[i+1] = min(pre[i], val);
+    }
+
+
+    vll suf(n+2);
+    suf[n] = total_mex;
+    for(int i=n; i>=1;--i) {
+        ll val = (a[i] <= n) ? a[i] : n+1;
+        suf[i-1] = min(suf[i], val);
+    }
+
+
+    f(k,0,q){
+        ll l,r;cin >> l >> r;
+
+        print(min(pre[l], suf[r]));
+    }
+
 }
 
 

@@ -43,31 +43,17 @@ void solve(){
 
   */
 
-  string s;cin>>s;
-  ll n=s.size();
+    ll n,k;cin>>n>>k;
+    vll arr(n);
+    f(i,0,n)cin>>arr[i];
 
-
-  map<char,int>mp;
-  f(i,0,n){
-    mp[s[i]] += 1;
-  }
-
-
-  ll oddfreq=0;
-  for(auto x:mp){
-    if(x.second%2 == 1){
-      oddfreq++;
+    sort(all(arr));
+    long long Min = LLONG_MAX;
+    for(int i=0; i<=n-k; i++){
+        Min = min(Min, arr[i+k-1]-arr[i]);
     }
-  }
 
-
-  if(oddfreq <= 1 or oddfreq %2 != 0){
-    print("First");
-  }
-  else{
-    print("Second");
-  }
-  
+    cout << Min;
 }
 
 

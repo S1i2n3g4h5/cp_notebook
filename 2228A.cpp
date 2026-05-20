@@ -36,38 +36,43 @@ long long fast_power(long long base, long long power, long long  MOD=1e9+7ll){
 }
 
 
-const bool multipleTestCases = 0; 
+const bool multipleTestCases = 1; 
 
 void solve(){
   /*
+    0 giving free operaiton 
+    rest are 3, 1+1+1, 1+2
+
+
 
   */
+    ll n;cin>>n;
 
-  string s;cin>>s;
-  ll n=s.size();
-
-
-  map<char,int>mp;
-  f(i,0,n){
-    mp[s[i]] += 1;
-  }
-
-
-  ll oddfreq=0;
-  for(auto x:mp){
-    if(x.second%2 == 1){
-      oddfreq++;
+    ll c0=0, c1=0, c2=0;
+    f(i,0,n){
+        ll x;cin>>x;
+        if(x%3 ==0)c0++;
+        else if(x%3 == 1)c1++;
+        else c2++;
     }
-  }
 
 
-  if(oddfreq <= 1 or oddfreq %2 != 0){
-    print("First");
-  }
-  else{
-    print("Second");
-  }
-  
+    ll ans=c0;
+
+    // 1+2  or 2+1
+    ll pairs = min(c1,c2);
+    ans += pairs;
+
+    c1 -= pairs;
+    c2 -= pairs;
+
+    ans += (c1/3);
+    ans += (c2/3);
+
+
+    print(ans);
+
+
 }
 
 

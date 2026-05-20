@@ -43,13 +43,30 @@ void solve(){
     
   */
 
-    int n;cin>>n;
-    vll arr(n);
-    f(i,0,n)cin>>arr[i];
+  int n;cin>>n;
+  vll arr(n);
+  f(i,0,n)cin>>arr[i];
 
 
+  ll total_health = 0;
+  priority_queue<ll,vll, greater<ll>>pq;
 
 
+  f(i,0,n){
+    pq.push(arr[i]);
+    
+    total_health += arr[i];
+    
+    if(total_health < 0){
+      ll rem = pq.top(); pq.pop();
+      total_health -= rem;
+    }
+
+
+  }
+
+
+  print(pq.size());
 
 }
 

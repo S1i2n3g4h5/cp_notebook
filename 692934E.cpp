@@ -43,31 +43,17 @@ void solve(){
 
   */
 
-  string s;cin>>s;
-  ll n=s.size();
-
-
-  map<char,int>mp;
-  f(i,0,n){
-    mp[s[i]] += 1;
-  }
-
-
-  ll oddfreq=0;
-  for(auto x:mp){
-    if(x.second%2 == 1){
-      oddfreq++;
+  ll n,q;cin>>n>>q;
+  vll arr(n);
+  f(i,0,n)cin>>arr[i];
+    vector<pair<ll,ll>> queries(q);
+    f(i,0,q){
+        cin>>queries[i].first>>queries[i].second;
     }
-  }
+    
+    
 
 
-  if(oddfreq <= 1 or oddfreq %2 != 0){
-    print("First");
-  }
-  else{
-    print("Second");
-  }
-  
 }
 
 

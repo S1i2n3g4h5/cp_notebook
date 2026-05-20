@@ -36,39 +36,62 @@ long long fast_power(long long base, long long power, long long  MOD=1e9+7ll){
 }
 
 
-const bool multipleTestCases = 0; 
+const bool multipleTestCases = 1; 
 
 void solve(){
   /*
 
   */
 
-  string s;cin>>s;
-  ll n=s.size();
+    ll n;cin>>n;
+    vll arr(n);
+    f(i,0,n)cin>>arr[i];
 
 
-  map<char,int>mp;
-  f(i,0,n){
-    mp[s[i]] += 1;
-  }
-
-
-  ll oddfreq=0;
-  for(auto x:mp){
-    if(x.second%2 == 1){
-      oddfreq++;
+    vll newarr;
+    
+    ll ones=0;
+    f(i,0,n){
+        if(arr[i] == 1){
+            ones++;
+        }
+        else{
+            newarr.pb(arr[i]);
+        }
     }
-  }
 
 
-  if(oddfreq <= 1 or oddfreq %2 != 0){
-    print("First");
-  }
-  else{
-    print("Second");
-  }
-  
+    if(newarr.empty()){
+        print(0);
+        return;
+    }
+
+
+    // sort(all(newarr));
+    
+    ll ans;
+    if(newarr.size() <= 1){
+        // ans = newarr[newarr.size()-1] + min(ones, newarr[0]/2);
+        ans = newarr[0] + min(ones, newarr[0]/2);
+    }
+    else{
+        ll mx=0, baselen=0;
+        
+        // sort(all(newarr));
+
+        f(i,0,newarr.size()){
+            mx += (newarr[i] - 2)/2;
+            baselen += newarr[i];
+        }
+
+        ans = baselen + min(ones, mx);
+    }
+
+
+    if(ans>=3)print(ans);
+    else print(0);
 }
+
 
 
 int main(){

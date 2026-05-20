@@ -36,38 +36,50 @@ long long fast_power(long long base, long long power, long long  MOD=1e9+7ll){
 }
 
 
-const bool multipleTestCases = 0; 
+const bool multipleTestCases = 1; 
 
 void solve(){
   /*
+    there is monotonicity in this, cuz if defeatred in x+1 turns the we cant defeat in x or x-1 turns;
+
+    X - turns to be used;
 
   */
 
-  string s;cin>>s;
-  ll n=s.size();
+    ll h,n;cin>>h>>n;
+    vector<pll>arr(n);
+    f(i,0,n)cin>>arr[i].first;
+    f(i,0,n)cin>>arr[i].second;
 
 
-  map<char,int>mp;
-  f(i,0,n){
-    mp[s[i]] += 1;
-  }
+    auto check = [&](ll x){
+        ll damage=0;
+        f(i,0,n){
+            ll attacks = 1 + (x-1)/arr[i].second;
+
+            // overflow bound
+            if(arr[i].first >= (h - damage + attacks -1)/attacks)
+                return true;
+
+            damage += arr[i].first * attacks;
+        }
+        return damage >= h;
+
+    };
 
 
-  ll oddfreq=0;
-  for(auto x:mp){
-    if(x.second%2 == 1){
-      oddfreq++;
+    ll low=1,high=1e13;
+    while(low <= high){
+        ll mid = low + (high - low)/2;
+
+        if(check(mid))
+            high = mid-1;
+        else
+            low = mid+1;
     }
-  }
 
+    print(high+1);
 
-  if(oddfreq <= 1 or oddfreq %2 != 0){
-    print("First");
-  }
-  else{
-    print("Second");
-  }
-  
 }
 
 

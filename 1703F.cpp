@@ -36,38 +36,45 @@ long long fast_power(long long base, long long power, long long  MOD=1e9+7ll){
 }
 
 
-const bool multipleTestCases = 0; 
+const bool multipleTestCases = 1; 
 
 void solve(){
   /*
+    conditions - 
+        i<j
+        ai<i and aj<j
+        aj>i
 
+
+    
   */
 
-  string s;cin>>s;
-  ll n=s.size();
+    ll n;cin>>n;
+    vll arr(n+1);
+    f(i,1,n+1)cin>>arr[i];
 
 
-  map<char,int>mp;
-  f(i,0,n){
-    mp[s[i]] += 1;
-  }
-
-
-  ll oddfreq=0;
-  for(auto x:mp){
-    if(x.second%2 == 1){
-      oddfreq++;
+    vll validpairs;
+    f(i,1,n+1){
+        if(arr[i] < i)
+            validpairs.pb(i);
     }
-  }
 
 
-  if(oddfreq <= 1 or oddfreq %2 != 0){
-    print("First");
-  }
-  else{
-    print("Second");
-  }
-  
+    ll ans=0;
+
+    f(i,0,validpairs.size()){
+        ll curridx = validpairs[i];
+        ll target = arr[curridx];
+
+        auto it = upper_bound(all(validpairs), target-1);
+
+        ans += (it - validpairs.begin());
+    }
+
+
+    print(ans);
+
 }
 
 
