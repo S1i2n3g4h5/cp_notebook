@@ -40,44 +40,37 @@ const bool multipleTestCases = 1;
 
 void solve(){
   /*
-    digits - 1,2,3,4
 
-    last 2 digits 0 or div by 4 then its divisible by 4
-
-    
+    due to tie condition the lenght of the array doenst matter
+    the only thing matter is that, on alice turn the largest number must be even else take bob's score away.
+    similarly vice versa for the bob's turn;
 
   */
 
-    string s;cin>>s;
-    ll n = s.size();
+    ll n;cin>>n;
+    vll arr(n);
+    f(i,0,n)cin>>arr[i];
 
-  
-    ll tot13=0;
- 
+
+    sort(rall(arr));
+
+    ll alice=0,bob=0;
+
     f(i,0,n){
-        if(s[i] == '1' or s[i] == '3'){
-            tot13++;
+        ll curr = arr[i];
+
+        if(i%2 == 0 and curr%2 ==0){
+            alice += curr;
+        }
+        else if(i&1 and curr&1){
+            bob += curr;
         }
     }
 
+    if(alice == bob)print("Tie");
+    else if(alice > bob)print("Alice");
+    else print("Bob");
 
-    ll curr2=0, cur13=tot13;
-
-    ll ans = tot13;
-    
-    f(i,0,n){
-        if(s[i] == '2'){
-            curr2++;
-        }
-        else if(s[i] == '1' or s[i] =='3'){
-            cur13 --;
-        }
-
-        ans = max(ans, curr2 + cur13);
-    }
-
-
-    print(n - ans);
 
 }
 

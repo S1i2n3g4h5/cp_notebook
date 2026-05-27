@@ -40,44 +40,56 @@ const bool multipleTestCases = 1;
 
 void solve(){
   /*
-    digits - 1,2,3,4
+    cn be divided into 2 teams, one whichstays the same and another one which needs to be added +k into
 
-    last 2 digits 0 or div by 4 then its divisible by 4
-
-    
 
   */
 
-    string s;cin>>s;
-    ll n = s.size();
+    ll n;cin>>n;
+    vll arr(n);
+    f(i,0,n)cin>>arr[i];
 
-  
-    ll tot13=0;
- 
+    vector<bool>isteamA(n, false);
+    ll currmx = -1;
+    vll teamB;
+    ll min_k = 0;
     f(i,0,n){
-        if(s[i] == '1' or s[i] == '3'){
-            tot13++;
+        if(arr[i] >= currmx){
+            isteamA[i] = true;
+            currmx = arr[i];
+
+        }
+        else{
+            teamB.pb(arr[i]);
+            min_k = max(min_k, currmx - arr[i]);
         }
     }
 
 
-    ll curr2=0, cur13=tot13;
-
-    ll ans = tot13;
-    
-    f(i,0,n){
-        if(s[i] == '2'){
-            curr2++;
+    f(i,1,teamB.size()){
+        if(teamB[i] < teamB[i-1]){
+            print("NO");
+            
+            return;
         }
-        else if(s[i] == '1' or s[i] =='3'){
-            cur13 --;
-        }
-
-        ans = max(ans, curr2 + cur13);
     }
 
 
-    print(n - ans);
+    ll max_k = 2e9, nextteama = 2e9;
+    for(int i=n-1;i>=0;i--){
+        if(isteamA[i]){
+            nextteama = arr[i];
+
+        }
+        else{
+            max_k = max(max_k, nextteama - arr[i]);
+        }
+    }
+
+
+    if(min_k <= max_k)print("YES");
+    else
+        print("NO");
 
 }
 

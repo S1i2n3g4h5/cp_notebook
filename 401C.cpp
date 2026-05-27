@@ -36,48 +36,60 @@ long long fast_power(long long base, long long power, long long  MOD=1e9+7ll){
 }
 
 
-const bool multipleTestCases = 1; 
+const bool multipleTestCases = 0; 
 
 void solve(){
   /*
-    digits - 1,2,3,4
 
-    last 2 digits 0 or div by 4 then its divisible by 4
+    no 00 allowed, no 111 allowed
 
-    
+    since max consecutive ones are alloewd to be 11, hence we required n+1 spaces between 11_11
+    and hence we only can put 2 ones, so 2*(n+1)>= m
+    this fformula measn we got enough zeores to avoid building 111
 
   */
 
-    string s;cin>>s;
-    ll n = s.size();
 
-  
-    ll tot13=0;
- 
-    f(i,0,n){
-        if(s[i] == '1' or s[i] == '3'){
-            tot13++;
-        }
+    ll n,m;cin>>n>>m;
+
+
+    if(m<n-1 or m > 2*(n+1)){
+        print(-1);
+        return;
     }
 
 
-    ll curr2=0, cur13=tot13;
-
-    ll ans = tot13;
     
-    f(i,0,n){
-        if(s[i] == '2'){
-            curr2++;
+    while(n>0 or m>0){
+        if(m>n){
+            if(n>0){
+                cout << "110";
+                m-=2;
+                n--;
+            }
+            else{
+                if(m==2){
+                    cout << "11";
+                    m-=2;
+                }
+                else{
+                    cout << "1";
+                    m--;
+                }
+            }
         }
-        else if(s[i] == '1' or s[i] =='3'){
-            cur13 --;
+        else if(m==n){
+            cout <<"10";
+            m--; 
+            n--;
         }
-
-        ans = max(ans, curr2 + cur13);
+        else{
+            cout << "0";
+            n--;
+        }
     }
-
-
-    print(n - ans);
+    
+    cout << "\n";
 
 }
 

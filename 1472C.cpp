@@ -40,44 +40,30 @@ const bool multipleTestCases = 1;
 
 void solve(){
   /*
-    digits - 1,2,3,4
 
-    last 2 digits 0 or div by 4 then its divisible by 4
+    dp is one way but there is very similar way of it too
 
-    
+    like backkward dp... :)
 
   */
 
-    string s;cin>>s;
-    ll n = s.size();
-
-  
-    ll tot13=0;
- 
-    f(i,0,n){
-        if(s[i] == '1' or s[i] == '3'){
-            tot13++;
-        }
-    }
+    ll n;cin>>n;
+    vll arr(n+1);
+    f(i,1,n+1)cin>>arr[i];
 
 
-    ll curr2=0, cur13=tot13;
-
-    ll ans = tot13;
+    ll score=0;
+    for(int i=n;i>=1;i--){
+        ll nextidx = i + arr[i];
     
-    f(i,0,n){
-        if(s[i] == '2'){
-            curr2++;
-        }
-        else if(s[i] == '1' or s[i] =='3'){
-            cur13 --;
+        if(nextidx <= n){
+            arr[i] += arr[nextidx];
         }
 
-        ans = max(ans, curr2 + cur13);
+        score = max(score, arr[i]);
     }
 
-
-    print(n - ans);
+    print(score);
 
 }
 

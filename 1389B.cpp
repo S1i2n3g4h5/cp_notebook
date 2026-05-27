@@ -40,44 +40,57 @@ const bool multipleTestCases = 1;
 
 void solve(){
   /*
-    digits - 1,2,3,4
+    k -> max number of total moves
+    z -> no more than z moves to left  (contraints range - [0, min(5,k)])
 
-    last 2 digits 0 or div by 4 then its divisible by 4
+    for maximizing the back-n-forth for scoring maxxing, we need to find the adjacent
+    pair giving max sum and we d backforth there only ofr leftover moves
 
+    we can do normal looping fr this thing
+    ad as for the z condtion, we can loop over cuz its samll and check which giving best answer
     
-
   */
 
-    string s;cin>>s;
-    ll n = s.size();
-
-  
-    ll tot13=0;
- 
+    ll n,k,z;cin>>n>>k>>z;
+    vll arr(n);
+    ll mx=-1e5, mn=1e5;
+    ll currmoves=0;
     f(i,0,n){
-        if(s[i] == '1' or s[i] == '3'){
-            tot13++;
+        cin>>arr[i];
+        if(currmoves<k){
+            currmoves++;
+
+            mn = min(mn, arr[i]);
+            mx = max(mx, arr[i]);
         }
     }
 
 
-    ll curr2=0, cur13=tot13;
+    ll score=0;
 
-    ll ans = tot13;
-    
-    f(i,0,n){
-        if(s[i] == '2'){
-            curr2++;
-        }
-        else if(s[i] == '1' or s[i] =='3'){
-            cur13 --;
+    f(t,0,z+1){
+        ll end_idx = k-2*t;
+
+        if(end_idx < 0){
+            continue;
         }
 
-        ans = max(ans, curr2 + cur13);
+
+        ll base_sum = accumulate(arr.begin(), arr.begin() + end_idx + 1, 0ll);
+
+        ll max_pair = -1e5;
+        f(i,0,end_idx + 1){
+            if(i+1<n){
+                max_pair = max(max_pair, arr[i] + arr[i+1]);
+            }
+        }
+
+
+        score = max(score, base_sum +  t*max_pair);
+
     }
 
-
-    print(n - ans);
+    print(score);
 
 }
 

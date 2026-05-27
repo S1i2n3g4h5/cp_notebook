@@ -40,44 +40,37 @@ const bool multipleTestCases = 1;
 
 void solve(){
   /*
-    digits - 1,2,3,4
+    main sip points used for a block of consecutive ones
 
-    last 2 digits 0 or div by 4 then its divisible by 4
 
-    
 
   */
 
-    string s;cin>>s;
-    ll n = s.size();
+    ll n;cin>>n;
+    vll arr(n);
+    f(i,0,n)cin>>arr[i];
 
-  
-    ll tot13=0;
- 
-    f(i,0,n){
-        if(s[i] == '1' or s[i] == '3'){
-            tot13++;
-        }
+
+    ll ans=0;
+
+    if(arr[0] == 1)
+        ans++;
+
+
+    f(i,1,n){
+        if(arr[i] == 0)continue;
+
+        int j =i;
+        while(j<n and arr[j] == 1) j++;
+
+        int len = j-i;
+
+        ans += len/3;
+
+        i=j-1;
     }
 
-
-    ll curr2=0, cur13=tot13;
-
-    ll ans = tot13;
-    
-    f(i,0,n){
-        if(s[i] == '2'){
-            curr2++;
-        }
-        else if(s[i] == '1' or s[i] =='3'){
-            cur13 --;
-        }
-
-        ans = max(ans, curr2 + cur13);
-    }
-
-
-    print(n - ans);
+    print(ans);
 
 }
 

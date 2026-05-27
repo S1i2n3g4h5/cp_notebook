@@ -40,44 +40,49 @@ const bool multipleTestCases = 1;
 
 void solve(){
   /*
-    digits - 1,2,3,4
+    major invariant is the string to be alternating in order to be equla
+    from left and riht shift
 
-    last 2 digits 0 or div by 4 then its divisible by 4
+    that is ti == ti+2
 
-    
 
   */
 
     string s;cin>>s;
-    ll n = s.size();
+    ll n= s.size();
 
-  
-    ll tot13=0;
- 
-    f(i,0,n){
-        if(s[i] == '1' or s[i] == '3'){
-            tot13++;
+    ll ans=n;
+
+    for(char x='0';x<='9';x++){
+        for(char y='0';y<='9';y++){
+            int currlen = 0;
+
+            // alternating xyxyxyx
+            char expected_char = x;
+
+            f(i,0,n){
+                if(s[i] == expected_char){
+                    currlen++;
+
+                    if(expected_char == x)
+                        expected_char = y;
+                    else
+                        expected_char = x;
+                }
+            }
+
+            // for odd length,dropping last charr
+            if(x!= y and currlen%2 != 0){
+                currlen--;
+            }
+
+            ans = min(ans, n - currlen);
+
         }
     }
 
 
-    ll curr2=0, cur13=tot13;
-
-    ll ans = tot13;
-    
-    f(i,0,n){
-        if(s[i] == '2'){
-            curr2++;
-        }
-        else if(s[i] == '1' or s[i] =='3'){
-            cur13 --;
-        }
-
-        ans = max(ans, curr2 + cur13);
-    }
-
-
-    print(n - ans);
+    print(ans);
 
 }
 

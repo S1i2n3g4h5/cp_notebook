@@ -40,44 +40,39 @@ const bool multipleTestCases = 1;
 
 void solve(){
   /*
-    digits - 1,2,3,4
+    since the realtino is ->
+        max - min = gcd(arr)
 
-    last 2 digits 0 or div by 4 then its divisible by 4
+    we now that gcd(arr) diides both max,min aswell, hence it will divide max-min realtion aswell
+    and since gcd has to divide min perfectly gcd can nver be greater than min.
+        gcd <= min
 
-    
+        => max - min = gcd
+        => max - min <= min
+        => max <= 2min
+
+    and also that max vlaue cant be <= min(arr), cuz then the array conditions wont satisfy
+
+    possible vals for max -> {m,2m}   m->min
+
+    also following this condiiton we cancheck there should not be more or less than 2 distinct numbers int he selected array range, cuz that can disort the gcd
+
 
   */
 
-    string s;cin>>s;
-    ll n = s.size();
+    ll n;cin>>n;
+    vll arr(n);
+    f(i,0,n)cin>>arr[i];
 
-  
-    ll tot13=0;
- 
-    f(i,0,n){
-        if(s[i] == '1' or s[i] == '3'){
-            tot13++;
-        }
+
+    ll ans=0;
+
+    f(i,0,n-1){
+        if(arr[i] % (arr[i] - arr[i+1]) == 0)
+            ans++;
     }
 
-
-    ll curr2=0, cur13=tot13;
-
-    ll ans = tot13;
-    
-    f(i,0,n){
-        if(s[i] == '2'){
-            curr2++;
-        }
-        else if(s[i] == '1' or s[i] =='3'){
-            cur13 --;
-        }
-
-        ans = max(ans, curr2 + cur13);
-    }
-
-
-    print(n - ans);
+    print(ans);
 
 }
 

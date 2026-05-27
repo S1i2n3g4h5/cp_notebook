@@ -40,44 +40,59 @@ const bool multipleTestCases = 1;
 
 void solve(){
   /*
-    digits - 1,2,3,4
-
-    last 2 digits 0 or div by 4 then its divisible by 4
-
-    
 
   */
 
+    ll n;cin>>n;
     string s;cin>>s;
-    ll n = s.size();
 
-  
-    ll tot13=0;
- 
+    vll ans(n);
+    vll zeroends,oneends;
+    ll id_counter=0;
+
     f(i,0,n){
-        if(s[i] == '1' or s[i] == '3'){
-            tot13++;
+        if(s[i] == '0'){
+            if(oneends.empty()){
+                id_counter++;
+                ans[i] = id_counter;
+
+                zeroends.pb(id_counter);
+
+            }
+            else{
+                int target_id = oneends.back();
+
+                oneends.pop_back();
+
+                ans[i] = target_id;
+                zeroends.pb(target_id);
+            }
+        }
+        else{
+            if(zeroends.empty()){
+                id_counter++;
+                ans[i] = id_counter;
+
+                oneends.pb(id_counter);
+            }
+            else{
+                int target_id = zeroends.back();
+                zeroends.pop_back();
+
+                ans[i] = target_id;
+
+                oneends.pb(target_id);
+            }
         }
     }
 
 
-    ll curr2=0, cur13=tot13;
-
-    ll ans = tot13;
-    
+    print(id_counter);
     f(i,0,n){
-        if(s[i] == '2'){
-            curr2++;
-        }
-        else if(s[i] == '1' or s[i] =='3'){
-            cur13 --;
-        }
-
-        ans = max(ans, curr2 + cur13);
+        cout << ans[i] << " ";
     }
+    cout <<"\n";
 
-
-    print(n - ans);
 
 }
 

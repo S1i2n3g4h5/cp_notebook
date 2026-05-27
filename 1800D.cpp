@@ -40,44 +40,26 @@ const bool multipleTestCases = 1;
 
 void solve(){
   /*
-    digits - 1,2,3,4
 
-    last 2 digits 0 or div by 4 then its divisible by 4
+    even if going witht the intuion of choosing 2 difference consecutive chars wont suffice fr asnwe
+    cuz cases like aba   having 2 version but same sinle reuslt only
 
+    this isuse can we solved by checking s[i] != s[i+2];
     
-
   */
 
+    ll n;cin>>n;
     string s;cin>>s;
-    ll n = s.size();
 
-  
-    ll tot13=0;
- 
-    f(i,0,n){
-        if(s[i] == '1' or s[i] == '3'){
-            tot13++;
-        }
+
+    int ans=n;
+    f(i,0,n-2){
+        if(s[i] == s[i+2])
+            ans--;
     }
 
 
-    ll curr2=0, cur13=tot13;
-
-    ll ans = tot13;
-    
-    f(i,0,n){
-        if(s[i] == '2'){
-            curr2++;
-        }
-        else if(s[i] == '1' or s[i] =='3'){
-            cur13 --;
-        }
-
-        ans = max(ans, curr2 + cur13);
-    }
-
-
-    print(n - ans);
+    print(ans - 1);
 
 }
 

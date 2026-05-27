@@ -40,45 +40,26 @@ const bool multipleTestCases = 1;
 
 void solve(){
   /*
-    digits - 1,2,3,4
-
-    last 2 digits 0 or div by 4 then its divisible by 4
-
-    
 
   */
 
-    string s;cin>>s;
-    ll n = s.size();
+    ll n;cin>>n;
+    vll a(n),b(n);
+    f(i,0,n)cin>>a[i];
+    f(i,0,n)cin>>b[i];
 
-  
-    ll tot13=0;
- 
+
+    ll mna = *min_element(all(a));
+    ll mnb = *min_element(all(b));
+
+
+    ll ans=0;
+
     f(i,0,n){
-        if(s[i] == '1' or s[i] == '3'){
-            tot13++;
-        }
+        ans += max(a[i] - mna, b[i] - mnb);
     }
 
-
-    ll curr2=0, cur13=tot13;
-
-    ll ans = tot13;
-    
-    f(i,0,n){
-        if(s[i] == '2'){
-            curr2++;
-        }
-        else if(s[i] == '1' or s[i] =='3'){
-            cur13 --;
-        }
-
-        ans = max(ans, curr2 + cur13);
-    }
-
-
-    print(n - ans);
-
+    print(ans);
 }
 
 

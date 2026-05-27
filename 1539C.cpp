@@ -36,48 +36,50 @@ long long fast_power(long long base, long long power, long long  MOD=1e9+7ll){
 }
 
 
-const bool multipleTestCases = 1; 
+const bool multipleTestCases = 0; 
 
 void solve(){
   /*
-    digits - 1,2,3,4
+    greedily selecting the constraints over avalues
 
-    last 2 digits 0 or div by 4 then its divisible by 4
-
-    
+    and choosing till merging not possible
 
   */
 
-    string s;cin>>s;
-    ll n = s.size();
+    ll n,k,x;cin>>n>>k>>x;
+    vll arr(n);
+    f(i,0,n)cin>>arr[i];
 
-  
-    ll tot13=0;
- 
-    f(i,0,n){
-        if(s[i] == '1' or s[i] == '3'){
-            tot13++;
+    sort(all(arr));
+
+    vll gaps;
+    f(i,1,n){
+        ll diff = arr[i] - arr[i-1];
+
+        if(diff > x){
+            ll cost = (diff - 1)/x;
+            gaps.pb(cost);
         }
     }
 
 
-    ll curr2=0, cur13=tot13;
+    sort(all(gaps));
 
-    ll ans = tot13;
-    
-    f(i,0,n){
-        if(s[i] == '2'){
-            curr2++;
-        }
-        else if(s[i] == '1' or s[i] =='3'){
-            cur13 --;
-        }
 
-        ans = max(ans, curr2 + cur13);
+    ll tot=gaps.size()+1;
+    for(auto cost:gaps){
+        if(k >= cost){
+            // merging
+            k -= cost;
+            tot--;
+        }
+        else{
+            break;
+        }
     }
 
 
-    print(n - ans);
+    print(tot);
 
 }
 

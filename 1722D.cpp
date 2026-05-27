@@ -40,44 +40,54 @@ const bool multipleTestCases = 1;
 
 void solve(){
   /*
-    digits - 1,2,3,4
+    chose mid point and change
 
-    last 2 digits 0 or div by 4 then its divisible by 4
+    we can compare the current gain vs inversion gain like when flipped
+    and see which contributing more to what
 
-    
+
 
   */
 
+    ll n;cin>>n;
     string s;cin>>s;
-    ll n = s.size();
 
-  
-    ll tot13=0;
- 
+
+    // curr score
+    vll ops;
+    ll currscore=0;
     f(i,0,n){
-        if(s[i] == '1' or s[i] == '3'){
-            tot13++;
+        ll lval=i, rval=n-i-1;
+
+
+        if(s[i] == 'L'){
+            currscore += (i);
+
+            if(rval > lval)
+                ops.pb(rval - lval);
+        }
+        else{
+            currscore += (n-i-1);
+
+            if(rval < lval)
+                ops.pb(lval - rval );
         }
     }
 
+    sort(rall(ops));
 
-    ll curr2=0, cur13=tot13;
+    int gainidx=0;
+    f(k,1,n+1){
+        if(gainidx < ops.size()){
 
-    ll ans = tot13;
-    
-    f(i,0,n){
-        if(s[i] == '2'){
-            curr2++;
-        }
-        else if(s[i] == '1' or s[i] =='3'){
-            cur13 --;
+            currscore += ops[gainidx++];
+
         }
 
-        ans = max(ans, curr2 + cur13);
+        cout << currscore << " ";
+
     }
-
-
-    print(n - ans);
+    cout << "\n";
 
 }
 

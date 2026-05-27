@@ -36,48 +36,36 @@ long long fast_power(long long base, long long power, long long  MOD=1e9+7ll){
 }
 
 
-const bool multipleTestCases = 1; 
+const bool multipleTestCases = 0; 
 
 void solve(){
   /*
-    digits - 1,2,3,4
+    maxmium beauty of sacending sequence
 
-    last 2 digits 0 or div by 4 then its divisible by 4
-
-    
+    bij+1 - bij = ij+1  - ij
+    bij+1 - ij+1 = bij - ij
 
   */
 
-    string s;cin>>s;
-    ll n = s.size();
+    ll n;cin>>n;
+    vll arr(n);
+    f(i,0,n)cin>>arr[i];
 
-  
-    ll tot13=0;
- 
+
+    map<ll,ll>beautysm;
     f(i,0,n){
-        if(s[i] == '1' or s[i] == '3'){
-            tot13++;
-        }
+        ll diff = arr[i] - i;
+        beautysm[diff] += arr[i];
     }
 
 
-    ll curr2=0, cur13=tot13;
-
-    ll ans = tot13;
-    
-    f(i,0,n){
-        if(s[i] == '2'){
-            curr2++;
-        }
-        else if(s[i] == '1' or s[i] =='3'){
-            cur13 --;
-        }
-
-        ans = max(ans, curr2 + cur13);
+    ll mx=0;
+    for(auto x:beautysm){
+        mx = max(mx, x.second);
     }
 
 
-    print(n - ans);
+    print(mx);
 
 }
 

@@ -36,49 +36,62 @@ long long fast_power(long long base, long long power, long long  MOD=1e9+7ll){
 }
 
 
-const bool multipleTestCases = 1; 
+const bool multipleTestCases = 0; 
 
 void solve(){
   /*
-    digits - 1,2,3,4
 
-    last 2 digits 0 or div by 4 then its divisible by 4
+    as we got the prices, we need to sort out to get the min price discount first
 
-    
+    and to gather till that, we will also make purchase from the right side 
 
   */
 
-    string s;cin>>s;
-    ll n = s.size();
+    ll n;cin>>n;
+    vector<pll>arr(n);
+    f(i,0,n)cin>>arr[i].second>>arr[i].first;
 
-  
-    ll tot13=0;
- 
-    f(i,0,n){
-        if(s[i] == '1' or s[i] == '3'){
-            tot13++;
+
+    sort(all(arr));
+
+
+    ll cost=0,curr=0;
+    int l=0,r=n-1;
+    while(l<=r){
+        // if(l==r){
+        //     ll need = max(0ll, arr[l].first - curr);
+        //     ll fullprice = min(arr[l].second, need);
+
+        //     cost += fullprice*2;
+        //     arr[l].second -= fullprice;
+
+        //     cost += arr[l].second*1;
+            
+        //     break;
+        // }
+
+
+        if(curr >= arr[l].first){
+            // threshold met, buy at discount
+
+            cost += arr[l].second * 1;
+            curr += arr[l].second;
+            l++;
+        }
+        else{
+            ll need = arr[l].first - curr;
+            ll take = min(need, arr[r].second);
+
+            cost += take*2;
+            curr += take;
+            arr[r].second -= take;
+
+            if(arr[r].second == 0)
+                r--;
         }
     }
 
-
-    ll curr2=0, cur13=tot13;
-
-    ll ans = tot13;
-    
-    f(i,0,n){
-        if(s[i] == '2'){
-            curr2++;
-        }
-        else if(s[i] == '1' or s[i] =='3'){
-            cur13 --;
-        }
-
-        ans = max(ans, curr2 + cur13);
-    }
-
-
-    print(n - ans);
-
+    print(cost);
 }
 
 

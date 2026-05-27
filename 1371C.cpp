@@ -40,44 +40,26 @@ const bool multipleTestCases = 1;
 
 void solve(){
   /*
-    digits - 1,2,3,4
+    type1 guest ->  consumes max(a,b) {by def = a}
+    type2 guest ->  consumes min(a,b) {by def = b}
 
-    last 2 digits 0 or div by 4 then its divisible by 4
+    type2 guest bottlecked by that min(a,b)
+    type1 is alaways satisfied if enough cookies in total
 
-    
+    mainly solving for the type2 guests
+
 
   */
 
-    string s;cin>>s;
-    ll n = s.size();
+    ll a,b,n,m;cin>>a>>b>>n>>m;
 
-  
-    ll tot13=0;
- 
-    f(i,0,n){
-        if(s[i] == '1' or s[i] == '3'){
-            tot13++;
-        }
+    if(min(a,b) >= m and n+m <= a+b){
+        print("Yes");
+        return;
     }
 
 
-    ll curr2=0, cur13=tot13;
-
-    ll ans = tot13;
-    
-    f(i,0,n){
-        if(s[i] == '2'){
-            curr2++;
-        }
-        else if(s[i] == '1' or s[i] =='3'){
-            cur13 --;
-        }
-
-        ans = max(ans, curr2 + cur13);
-    }
-
-
-    print(n - ans);
+    print("No");
 
 }
 
