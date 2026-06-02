@@ -40,40 +40,58 @@ const bool multipleTestCases = 1;
 
 void solve(){
   /*
-    ci - color of the block       belongs ot [1,n]
 
   */
 
-    int n;cin>>n;
-    vll c(n);
-    f(i,0,n)cin>>c[i];
+    ll n;cin>>n;
+    vll arr(n);
+    f(i,0,n)cin>>arr[i];
 
-    
-    map<ll,vll>mp;
-    f(i,0,n){
-      mp[c[i]].pb(i);
-    }
 
-    vll ans(n,0);
-    for(auto it:mp){
-      vll diff = it.second;
+    auto check = [&](ll k){
 
-      int sz=1;
-      f(i,0,diff.size()- 1){
-        if((diff[i+1] - diff[i])%2 ==1){
-          sz++;
+        multiset<ll>s(all(arr));
+        f(stage, 1,k+1){
+            ll target = k - stage + 1;
+
+            auto it = s.upper_bound(target);
+
+            if(it == s.begin()){
+                return false;
+            }
+
+            --it;
+            s.erase(it);
+
+
+            if(!s.empty()){
+                ll smallest = *s.begin();
+                s.erase(s.begin());
+                s.insert(smallest + target);
+            }
+
         }
-      }
+        
+        return true;
+    };
 
-      ans[it.first-1] = sz;
 
+    ll low=0, high=n;
+    while(low <= high){
+        auto mid = (high+low)/2;
+
+        if(check(mid)){
+            low = mid+1;
+        }
+        else{
+            high = mid-1;
+        }
     }
 
 
-    for(auto x:ans) 
-      cout << x << " ";
-    cout << "\n";
-    
+    print(low-1);
+
+
 }
 
 

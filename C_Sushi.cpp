@@ -36,45 +36,41 @@ long long fast_power(long long base, long long power, long long  MOD=1e9+7ll){
 }
 
 
-const bool multipleTestCases = 1; 
+const bool multipleTestCases = 0; 
 
 void solve(){
   /*
-    ci - color of the block       belongs ot [1,n]
 
   */
 
-    int n;cin>>n;
-    vll c(n);
-    f(i,0,n)cin>>c[i];
+    ll n,m;cin>>n>>m;
+    vll a(n),b(m);
+    f(i,0,n)cin>>a[i];
+    f(i,0,m)cin>>b[i];
 
     
-    map<ll,vll>mp;
-    f(i,0,n){
-      mp[c[i]].pb(i);
-    }
+    sort(all(a));
+    sort(all(b));
 
-    vll ans(n,0);
-    for(auto it:mp){
-      vll diff = it.second;
+    int shari_idx=0,neta_idx=0;
+    ll count=0;
 
-      int sz=1;
-      f(i,0,diff.size()- 1){
-        if((diff[i+1] - diff[i])%2 ==1){
-          sz++;
+    while (shari_idx < n && neta_idx < m) {
+        if (b[neta_idx] <= 2 * a[shari_idx]) {
+            count++;
+            shari_idx++;
+            neta_idx++;
+        } 
+        else {
+
+            shari_idx++;
         }
-      }
-
-      ans[it.first-1] = sz;
-
     }
 
+    print(count);
 
-    for(auto x:ans) 
-      cout << x << " ";
-    cout << "\n";
-    
 }
+
 
 
 int main(){

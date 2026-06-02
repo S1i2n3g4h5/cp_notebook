@@ -40,40 +40,62 @@ const bool multipleTestCases = 1;
 
 void solve(){
   /*
-    ci - color of the block       belongs ot [1,n]
+
+    odd case: postions fixed already
+    even case: need to check prefix + sufix costs for best cost possible
+
 
   */
 
-    int n;cin>>n;
-    vll c(n);
-    f(i,0,n)cin>>c[i];
+    ll n;cin>>n;
+    vll arr(n);
+    f(i,0,n)cin>>arr[i];
 
-    
-    map<ll,vll>mp;
-    f(i,0,n){
-      mp[c[i]].pb(i);
-    }
 
-    vll ans(n,0);
-    for(auto it:mp){
-      vll diff = it.second;
+    auto cost = [&](int i){
+        ll max_neighbour = max(arr[i-1], arr[i+1]);
+        if(arr[i] > max_neighbour)
+            return 0ll;
+        return max_neighbour - arr[i] + 1;
+    };
 
-      int sz=1;
-      f(i,0,diff.size()- 1){
-        if((diff[i+1] - diff[i])%2 ==1){
-          sz++;
-        }
-      }
 
-      ans[it.first-1] = sz;
+    if(n&1){
+        ll totcost=0;
+        for(int i=1;i<n-1;i+=2)
+            totcost += cost(i);
 
+        print(totcost);
+        return;
     }
 
 
-    for(auto x:ans) 
-      cout << x << " ";
-    cout << "\n";
+    vll pf(n,0),suf(n,0);
+    for(int i=1;i<n-1;i+=2){
+        pf[i] = cost(i);
+        if(i>1)
+            pf[i] += pf[i-2];
+    }
+
+    for(int i=n-2;i>=2;i-=2){
+        suf[i] = cost(i);
+        if(i<n-2)
+            suf[i] += suf[i+2];
+    }
+
     
+    ll ans = pf[n-3];
+
+    for(int i=1;i<n-3;i+=2){
+        ll current_cost = pf[i] + suf[i+3];
+
+        ans = min(ans, current_cost);
+    }
+
+    ans = min(ans, suf[2]);
+
+    print(ans);
+
 }
 
 

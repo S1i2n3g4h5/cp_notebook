@@ -40,39 +40,56 @@ const bool multipleTestCases = 1;
 
 void solve(){
   /*
-    ci - color of the block       belongs ot [1,n]
+
+    basic lowebound and checking condition only
 
   */
 
-    int n;cin>>n;
-    vll c(n);
-    f(i,0,n)cin>>c[i];
+    ll n,m;cin>>n>>m;
+    vll a(n),b(m);
+    f(i,0,n)cin>>a[i];
+    f(i,0,m)cin>>b[i];
 
-    
-    map<ll,vll>mp;
+
+    sort(all(b));
+
+    ll prevval = -2e18;
+
     f(i,0,n){
-      mp[c[i]].pb(i);
-    }
+        ll op1 = 2e18, op2=2e18;
 
-    vll ans(n,0);
-    for(auto it:mp){
-      vll diff = it.second;
 
-      int sz=1;
-      f(i,0,diff.size()- 1){
-        if((diff[i+1] - diff[i])%2 ==1){
-          sz++;
+        // option1 - keep same elemnt 
+        if(a[i] >= prevval){
+            op1 = a[i];
         }
-      }
 
-      ans[it.first-1] = sz;
+        // option2
+        /*
+            since newleemtn value >= prevval
+            bj - a[i] >= preval
+            bj >= prevvval + a[i];
+            
+        */
+        auto it = lower_bound(all(b), prevval + a[i]);
 
+        if(it != b.end()){
+            op2 = *it - a[i];
+        }
+
+        
+        ll bestcurr = min(op1, op2);
+
+        if(bestcurr == 2e18){
+            print("NO");
+            return;
+        }
+
+        prevval = bestcurr;
     }
 
 
-    for(auto x:ans) 
-      cout << x << " ";
-    cout << "\n";
+    print("YES");
     
 }
 

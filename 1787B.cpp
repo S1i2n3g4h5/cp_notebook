@@ -41,12 +41,67 @@ const bool multipleTestCases = 1;
 void solve(){
   /*
 
+      s its like lest say 24 = 2^3 * 3
+      normal sum would be like 2+2+2+3 = 9
+      
+      but if we multipply 3*2 = 6 then
+      2+2+6 = 10  cuh better and correct
+
   */
 
-    ll n;cin>>n;
+  ll n;cin>>n;
 
-     
+  ll tmp=n;
+  vector<pll>arr;
+  for(ll i=2;i*i<=tmp;i++){
+    if(tmp%i == 0){
+      ll cnt=0;
+      while(tmp%i==0){
+        cnt++;
+        tmp/=i;
+      }
 
+      arr.pb({i, cnt});
+    }
+  }
+
+  if(tmp > 1){
+    arr.pb({tmp, 1});
+  }
+
+
+
+  ll mx=0;
+  while(true){
+    ll curr = 1;
+    ll mn_expo = 2e9;
+    bool anyleft = false;
+
+    for(auto& x:arr){
+      if(x.second >= 1){
+        anyleft = true;
+        curr *= x.first;
+        mn_expo = min(mn_expo, x.second);
+      }
+    }
+
+
+    if(!anyleft)
+      break;
+
+
+    mx += (curr * mn_expo);
+
+    for(auto& x:arr){
+      if(x.second >= 1){
+        x.second -= mn_expo;
+      }
+    }
+
+  }
+
+
+  print(mx);
 
 }
 

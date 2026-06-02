@@ -40,40 +40,56 @@ const bool multipleTestCases = 1;
 
 void solve(){
   /*
-    ci - color of the block       belongs ot [1,n]
+
+    **question likes this we cant arbiarily random values, hence assumption matters most
+
+
+    since given constraints -
+        pi <= k
+    
+    so lets assume we want to fix minimum possible to be m
+
+    then each elemnt msut be >=m  but also close ot m
+    so we cna minimize the overall maximum-min diff of array
+
+    ai/pi >= m
+    meaning ai/m >= p
+
+    combining constraints- >
+        pi = min(k, ai/m);
+
+    
 
   */
 
-    int n;cin>>n;
-    vll c(n);
-    f(i,0,n)cin>>c[i];
+    ll n,k;cin>>n>>k;
+    vll arr(n);
+    f(i,0,n)cin>>arr[i];
 
     
-    map<ll,vll>mp;
-    f(i,0,n){
-      mp[c[i]].pb(i);
-    }
+    ll ans = 1e9;
 
-    vll ans(n,0);
-    for(auto it:mp){
-      vll diff = it.second;
+    f(m,0,arr[0]+1){
+        ll currmax=0;
 
-      int sz=1;
-      f(i,0,diff.size()- 1){
-        if((diff[i+1] - diff[i])%2 ==1){
-          sz++;
+        f(i,0,n){
+            ll p;
+            if(m==0){
+                p = k;
+            }
+            else{
+                p = min(k, arr[i]/m);
+            }
+
+            currmax = max(currmax, arr[i] / p);
         }
-      }
 
-      ans[it.first-1] = sz;
-
+        ans = min(ans, currmax - m);
     }
 
 
-    for(auto x:ans) 
-      cout << x << " ";
-    cout << "\n";
-    
+    print(ans);
+
 }
 
 

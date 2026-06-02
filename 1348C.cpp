@@ -40,40 +40,48 @@ const bool multipleTestCases = 1;
 
 void solve(){
   /*
-    ci - color of the block       belongs ot [1,n]
 
+    only 2 cases possibel - 
+    1. all chars same when distributed among k strings;
+    2. some cdiffernt chars emrege when trying to distribute.
+
+
+    for case 1 the asnwer is same so output that.
+    but for case 2, when enountered diff chars, just put all chars inot this current string and output
+    
   */
 
-    int n;cin>>n;
-    vll c(n);
-    f(i,0,n)cin>>c[i];
+    ll n,k;cin>>n>>k;
+    string s;cin>>s;
 
+    sort(all(s));
     
-    map<ll,vll>mp;
-    f(i,0,n){
-      mp[c[i]].pb(i);
+
+    if(s[0] != s[k-1]){
+        print(s[k-1]);
+        return;
     }
 
-    vll ans(n,0);
-    for(auto it:mp){
-      vll diff = it.second;
 
-      int sz=1;
-      f(i,0,diff.size()- 1){
-        if((diff[i+1] - diff[i])%2 ==1){
-          sz++;
+    string ans = "";
+    ans += s[0];
+
+    if(k<n){
+        if(s[k] == s[n-1]){
+            // rem chars same?
+            
+            int cnt = (n-1)/k;
+            ans += string(cnt, s[k]);
         }
-      }
+        else{
+            // rem chars difff;
 
-      ans[it.first-1] = sz;
-
+            ans += s.substr(k);
+        }
     }
 
+    print(ans);
 
-    for(auto x:ans) 
-      cout << x << " ";
-    cout << "\n";
-    
 }
 
 

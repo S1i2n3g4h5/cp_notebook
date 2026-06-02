@@ -41,15 +41,48 @@ const bool multipleTestCases = 1;
 void solve(){
   /*
 
-  */
+    so to make the sum equal meaning we neeed to make the elements equal
+    which menas the distinct elemnts unders k-block must be same
 
-    ll n,k;cin>>n>>k;
-    vll arr(n);
-    f(i,0,n)cin>>arr[i];
-
-
+    so the number f distinct elem in array strictly less than k for valid answer to evne exits
     
 
+
+  */
+
+  ll n,k;cin>>n>>k;
+  vll arr(n);
+  f(i,0,n)cin>>arr[i];
+
+
+  set<ll>unq;
+  f(i,0,n)
+    unq.insert(arr[i]);
+
+
+  if(unq.size() > k){
+    print(-1);
+    return;
+  }
+
+
+
+  vll base(all(unq));
+  int padding = *unq.begin();
+  while(base.size() < k){
+    base.push_back(padding);
+  }
+
+
+
+  print(n*k);
+  f(i,0,n){
+    f(j,0,k){
+      cout << base[j] << " ";
+    }
+  }
+
+  cout <<"\n";
 
 }
 

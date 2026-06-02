@@ -35,47 +35,77 @@ long long fast_power(long long base, long long power, long long  MOD=1e9+7ll){
   return result;
 }
 
-
 const bool multipleTestCases = 1; 
 
-void solve(){
-  /*
-    ci - color of the block       belongs ot [1,n]
 
-  */
+vll arr;
+vector<pair<ll, pair<ll, ll>>> moves;
 
-    int n;cin>>n;
-    vll c(n);
-    f(i,0,n)cin>>c[i];
 
+void go(ll i, ll A, ll B, ll C) {
+    if(i == 0)
+        return;
     
-    map<ll,vll>mp;
-    f(i,0,n){
-      mp[c[i]].pb(i);
+    if(arr[i] == 0) {
+        go(i - 1, A, C, B);
+        // print("1 -> ", i,A,B,C);
+        
+        moves.push_back({i, {A, B}});
+        
+        go(i - 1, C, B, A);
+        // print("1/2 -> ", i,A,B,C);
     }
-
-    vll ans(n,0);
-    for(auto it:mp){
-      vll diff = it.second;
-
-      int sz=1;
-      f(i,0,diff.size()- 1){
-        if((diff[i+1] - diff[i])%2 ==1){
-          sz++;
-        }
-      }
-
-      ans[it.first-1] = sz;
-
+    else{
+        int k = i - 1 - arr[i];
+        go(k, A, C, B);
+        // print("2 -> ", i,A,B,C);
+        
+        moves.push_back({i, {A, B}});
+        
+        go(k, C, A, B);
+        // print("2/1 -> ", i,A,B,C);
+        go(i - 1, A, B, C);
+        // print("2/2 -> ", i,A,B,C);
     }
-
-
-    for(auto x:ans) 
-      cout << x << " ";
-    cout << "\n";
-    
 }
 
+void solve() {
+    /*
+
+    */
+
+    int n;cin>>n;
+    
+    arr.resize(n+1);
+    moves.clear();
+    
+
+    bool possible = true;
+    f(i,1,n+1){
+        cin>>arr[i];
+
+        if(arr[i] > (i-1)){
+            possible = false;
+        }
+    }
+
+
+    if (!possible) {
+        print("NO");
+        return;
+    }
+    
+    
+    go(n,1,3,2);
+    
+
+    print("YES");
+    print(moves.size());
+    for(auto& move:moves)
+        print(move.first, move.second.first, move.second.second);
+
+
+}
 
 int main(){
   ios::sync_with_stdio(0);cin.tie(0);cout.tie(0);

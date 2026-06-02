@@ -36,44 +36,51 @@ long long fast_power(long long base, long long power, long long  MOD=1e9+7ll){
 }
 
 
-const bool multipleTestCases = 1; 
+const bool multipleTestCases = 0; 
 
 void solve(){
   /*
-    ci - color of the block       belongs ot [1,n]
+
+    few observations to keep into account -
+    + ony forward going cant go back
+    + need to make sure the time when the conversion possible without changing +1hr
+
+    palindrome here - reverse HH = MM
+
+
 
   */
 
-    int n;cin>>n;
-    vll c(n);
-    f(i,0,n)cin>>c[i];
+    string s;cin>>s;
+    ll n =s.size();
 
-    
-    map<ll,vll>mp;
-    f(i,0,n){
-      mp[c[i]].pb(i);
-    }
+    string as = s.substr(0,2);
+    string bs = s.substr(3,2);
 
-    vll ans(n,0);
-    for(auto it:mp){
-      vll diff = it.second;
+    int a = stoi(as), b = stoi(bs);
 
-      int sz=1;
-      f(i,0,diff.size()- 1){
-        if((diff[i+1] - diff[i])%2 ==1){
-          sz++;
+
+    auto palindrome = [&](auto tot){
+        int h = tot / 60;
+        int m = tot % 60;
+
+        return (h/10 == m%10) and (m/10 == h%10);         
+    };
+
+
+    ll total_min = a*60 + b;
+    ll ans = 0;
+    while(true){
+        if(palindrome(total_min)){
+            break;
         }
-      }
-
-      ans[it.first-1] = sz;
-
+        
+        total_min = (total_min + 1) % 1440;
+        ans++;
     }
 
+    print(ans);
 
-    for(auto x:ans) 
-      cout << x << " ";
-    cout << "\n";
-    
 }
 
 

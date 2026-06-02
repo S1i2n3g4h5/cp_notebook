@@ -40,40 +40,69 @@ const bool multipleTestCases = 1;
 
 void solve(){
   /*
-    ci - color of the block       belongs ot [1,n]
 
+    since the naive logic for pi wont work here 
+    because of hard constriants.
+    we need to calcluate the optimal p value maximum possible for each arr[i];
+
+    let v = ai/p
+    if we assume the pmax = ai/v +1
+
+
+    to be repeatedly finding thebest answer
+    we can use priorityqueue to keep the max eletn
+    and use it as v
+    and updating the priorityque when required;
+
+    
   */
 
-    int n;cin>>n;
-    vll c(n);
-    f(i,0,n)cin>>c[i];
+    
+    ll n,k;cin>>n>>k;
+    vll arr(n);
+    f(i,0,n)cin>>arr[i];
 
     
-    map<ll,vll>mp;
+    ll currmin = 2e9;
+    
+    priority_queue<pll>pq;
     f(i,0,n){
-      mp[c[i]].pb(i);
+        pq.push({arr[i],arr[i]});
+        currmin = min(currmin, arr[i]);
     }
 
-    vll ans(n,0);
-    for(auto it:mp){
-      vll diff = it.second;
 
-      int sz=1;
-      f(i,0,diff.size()- 1){
-        if((diff[i+1] - diff[i])%2 ==1){
-          sz++;
+    ll min_diff = 2e9;
+
+    while(true){
+        auto top = pq.top();pq.pop();
+
+        // assuming max to be v
+        ll v = top.first;
+        ll ai = top.second;
+
+        min_diff = min(min_diff, v - currmin);
+
+        if(v == 0){
+            // cant divisde by zero
+            break;
         }
-      }
 
-      ans[it.first-1] = sz;
+
+        ll pmax = ai / v + 1;
+        if(pmax > k){
+            break;
+        }
+        
+        ll new_v = ai / pmax;
+        currmin  = min(currmin, new_v);
+
+        pq.push({new_v, ai});
 
     }
 
+    print(min_diff);
 
-    for(auto x:ans) 
-      cout << x << " ";
-    cout << "\n";
-    
 }
 
 

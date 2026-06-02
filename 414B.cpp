@@ -36,44 +36,56 @@ long long fast_power(long long base, long long power, long long  MOD=1e9+7ll){
 }
 
 
-const bool multipleTestCases = 1; 
+const bool multipleTestCases = 0; 
 
 void solve(){
   /*
-    ci - color of the block       belongs ot [1,n]
+
+    greedy can be failed quickly.
+    only option dp  left
+
+    dp[i][j] = number of validd sequences of length i that end with number j
+
+    so if ai+1 is a multiple of j then,
+        dp[i+1][ai+1] = (dp[i+1][ai+1] + dp[i][j]);
+
+    
 
   */
 
-    int n;cin>>n;
-    vll c(n);
-    f(i,0,n)cin>>c[i];
+    ll n,k;cin>>n>>k;
 
-    
-    map<ll,vll>mp;
-    f(i,0,n){
-      mp[c[i]].pb(i);
+    ll mod = 1e9+7;
+
+    vector<vll>dp(k+1, vll(n+1, 0));
+
+    f(i,1,n+1){
+        dp[1][i] = 1;
     }
+ 
 
-    vll ans(n,0);
-    for(auto it:mp){
-      vll diff = it.second;
+    f(i,1,k){
+        f(j,1,n+1){
+            if(dp[i][j] == 0)
+                continue;
 
-      int sz=1;
-      f(i,0,diff.size()- 1){
-        if((diff[i+1] - diff[i])%2 ==1){
-          sz++;
+
+            for(int multiple=j;multiple<=n;multiple += j){
+                dp[i+1][multiple] = (dp[i+1][multiple] + dp[i][j]) % mod;
+            }
+            
         }
-      }
-
-      ans[it.first-1] = sz;
-
     }
 
 
-    for(auto x:ans) 
-      cout << x << " ";
-    cout << "\n";
-    
+    ll ans=0;
+    f(i,1,n+1){
+        ans = (ans + dp[k][i]) % mod;
+    }
+
+
+    print(ans);
+
 }
 
 

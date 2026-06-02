@@ -40,40 +40,61 @@ const bool multipleTestCases = 1;
 
 void solve(){
   /*
-    ci - color of the block       belongs ot [1,n]
+
+    to solve this we can find the last positions of everything and then
+    also check for the last index of each unique element occuring
+    and then also checking for the most recent barrier happening from right to left
+
+    to determin the most best index so that i=0 - barrierindex, we are required to make changes only into this zone
+
+    and as while doing the changes we can just continue the expansion and manually continue doing that
+
 
   */
 
-    int n;cin>>n;
-    vll c(n);
-    f(i,0,n)cin>>c[i];
+    ll n;cin>>n;
+    vll arr(n);
+    f(i,0,n)cin>>arr[i];
 
-    
-    map<ll,vll>mp;
+
+    map<ll,ll>last_index;
     f(i,0,n){
-      mp[c[i]].pb(i);
+        last_index[arr[i]] = i;
     }
 
-    vll ans(n,0);
-    for(auto it:mp){
-      vll diff = it.second;
 
-      int sz=1;
-      f(i,0,diff.size()- 1){
-        if((diff[i+1] - diff[i])%2 ==1){
-          sz++;
+    ll barrier = -1;
+    for(int i=n-2;i>=0;i--){
+        if(arr[i] > arr[i+1]){
+            barrier = i;
+            break;
         }
-      }
+    }
 
-      ans[it.first-1] = sz;
+
+    if(barrier == -1){
+        print(0);
+        return;
+    }
+
+
+
+    // expanding the barrier
+    set<ll>unq;
+
+    f(i,0,barrier+1){
+
+        if(arr[i] !=  0){
+            unq.insert(arr[i]);
+
+            barrier = max(barrier, last_index[arr[i]]);
+        }
 
     }
 
 
-    for(auto x:ans) 
-      cout << x << " ";
-    cout << "\n";
-    
+    print(unq.size());
+
 }
 
 

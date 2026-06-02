@@ -38,52 +38,45 @@ long long fast_power(long long base, long long power, long long  MOD=1e9+7ll){
 
 const bool multipleTestCases = 1; 
 
+ll mod = 1e9+7;
+
+vector<ll>arr(1000002, 0);
+
 void solve(){
   /*
-    ci - color of the block       belongs ot [1,n]
+    arr[i] = arr[i-1]*(i-1) + 1
+    prefix continous
 
   */
 
-    int n;cin>>n;
-    vll c(n);
-    f(i,0,n)cin>>c[i];
+    ll n;cin>>n;
 
     
-    map<ll,vll>mp;
-    f(i,0,n){
-      mp[c[i]].pb(i);
-    }
+    print(arr[n]);
 
-    vll ans(n,0);
-    for(auto it:mp){
-      vll diff = it.second;
-
-      int sz=1;
-      f(i,0,diff.size()- 1){
-        if((diff[i+1] - diff[i])%2 ==1){
-          sz++;
-        }
-      }
-
-      ans[it.first-1] = sz;
-
-    }
-
-
-    for(auto x:ans) 
-      cout << x << " ";
-    cout << "\n";
-    
 }
 
 
 int main(){
   ios::sync_with_stdio(0);cin.tie(0);cout.tie(0);
   
+
+    // precomputation
+
+    arr[1] = 1;
+    
+    f(i,2,1000002){
+
+        arr[i] = (arr[i-1] * (i-1) + 1) % mod;
+    }
+
+    // _________________
+
+
   int t = 1;
   if(multipleTestCases) cin >> t;
   while(t--){
       solve();
   }
   return 0;
-}
+}   

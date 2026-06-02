@@ -36,46 +36,42 @@ long long fast_power(long long base, long long power, long long  MOD=1e9+7ll){
 }
 
 
-const bool multipleTestCases = 1; 
+const bool multipleTestCases = 0; 
 
 void solve(){
   /*
-    ci - color of the block       belongs ot [1,n]
 
   */
 
-    int n;cin>>n;
-    vll c(n);
-    f(i,0,n)cin>>c[i];
+    ll n,k,q;cin>>n>>k>>q;
+    vector<pll>arr(n), query(q);
+    f(i,0,n)cin>>arr[i].first>>arr[i].second;
+    f(i,0,q)cin>>query[i].first>>query[i].second;
 
-    
-    map<ll,vll>mp;
+
+    vll diff(2e6,0);
     f(i,0,n){
-      mp[c[i]].pb(i);
-    }
-
-    vll ans(n,0);
-    for(auto it:mp){
-      vll diff = it.second;
-
-      int sz=1;
-      f(i,0,diff.size()- 1){
-        if((diff[i+1] - diff[i])%2 ==1){
-          sz++;
-        }
-      }
-
-      ans[it.first-1] = sz;
-
-    }
-
-
-    for(auto x:ans) 
-      cout << x << " ";
-    cout << "\n";
+        diff[arr[i].first]++;
+        diff[arr[i].second+1]--;
     
-}
+    }
 
+
+    vll pf(2e6, 0);
+    ll curr=0;
+    f(i,1,2e6){
+        curr += diff[i];
+
+        pf[i] = pf[i-1] + (curr >= k ? 1 : 0);
+    }
+
+
+    f(i,0,q){
+        print(pf[query[i].second] - pf[query[i].first - 1]);
+    }
+
+
+}
 
 int main(){
   ios::sync_with_stdio(0);cin.tie(0);cout.tie(0);

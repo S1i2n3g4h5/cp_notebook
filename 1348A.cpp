@@ -40,40 +40,25 @@ const bool multipleTestCases = 1;
 
 void solve(){
   /*
-    ci - color of the block       belongs ot [1,n]
+    to minimiez we split evenly to both
 
   */
 
-    int n;cin>>n;
-    vll c(n);
-    f(i,0,n)cin>>c[i];
-
+    ll n;cin>>n;
     
-    map<ll,vll>mp;
-    f(i,0,n){
-      mp[c[i]].pb(i);
+    ll sum1=0, sum2=0;
+
+    sum1 += (1 << n);
+    f(i,1,n/2){
+        sum1 += (1 << i);
     }
-
-    vll ans(n,0);
-    for(auto it:mp){
-      vll diff = it.second;
-
-      int sz=1;
-      f(i,0,diff.size()- 1){
-        if((diff[i+1] - diff[i])%2 ==1){
-          sz++;
-        }
-      }
-
-      ans[it.first-1] = sz;
-
+    f(i,n/2,n){
+        sum2 += (1 << i);
     }
 
 
-    for(auto x:ans) 
-      cout << x << " ";
-    cout << "\n";
-    
+    print(abs(sum1 - sum2));
+
 }
 
 

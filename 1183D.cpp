@@ -40,40 +40,41 @@ const bool multipleTestCases = 1;
 
 void solve(){
   /*
-    ci - color of the block       belongs ot [1,n]
+    restriction  number of candies of each type shudl be distinct
+    and not the arr[i] to be distinct...
 
   */
 
-    int n;cin>>n;
-    vll c(n);
-    f(i,0,n)cin>>c[i];
+    ll n;cin>>n;
+    vll arr(n);
+    f(i,0,n)cin>>arr[i];
 
-    
-    map<ll,vll>mp;
+
+    vll counts(n+1, 0);
     f(i,0,n){
-      mp[c[i]].pb(i);
+        counts[arr[i]]++;
     }
 
-    vll ans(n,0);
-    for(auto it:mp){
-      vll diff = it.second;
 
-      int sz=1;
-      f(i,0,diff.size()- 1){
-        if((diff[i+1] - diff[i])%2 ==1){
-          sz++;
+    sort(rall(counts));
+
+    ll ans=0;
+    ll currmaxallowed = 2e9;
+    for(auto cnt: counts){
+
+        ll take = min(cnt, currmaxallowed);
+        if(take <= 0){
+            break;
         }
-      }
 
-      ans[it.first-1] = sz;
+        ans += take;
+        currmaxallowed = take - 1;
 
     }
 
 
-    for(auto x:ans) 
-      cout << x << " ";
-    cout << "\n";
-    
+    print(ans);
+
 }
 
 

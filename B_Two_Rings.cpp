@@ -40,40 +40,25 @@ const bool multipleTestCases = 1;
 
 void solve(){
   /*
-    ci - color of the block       belongs ot [1,n]
 
   */
 
-    int n;cin>>n;
-    vll c(n);
-    f(i,0,n)cin>>c[i];
+    ll x1,y1,x2,y2,r1,r2;cin>>x1>>y1>>r1>>x2>>y2>>r2;
+
+    ll dx = x2 - x1;
+    ll dy = y2 - y1;
+    ll distSq = dx * dx + dy * dy;
 
     
-    map<ll,vll>mp;
-    f(i,0,n){
-      mp[c[i]].pb(i);
+    ll sumR = r1 + r2;
+    ll diffR = abs(r1 - r2);
+
+    if (distSq <= sumR * sumR && distSq >= diffR * diffR) {
+        cout << "Yes" << endl;
+    } else {
+        cout << "No" << endl;
     }
 
-    vll ans(n,0);
-    for(auto it:mp){
-      vll diff = it.second;
-
-      int sz=1;
-      f(i,0,diff.size()- 1){
-        if((diff[i+1] - diff[i])%2 ==1){
-          sz++;
-        }
-      }
-
-      ans[it.first-1] = sz;
-
-    }
-
-
-    for(auto x:ans) 
-      cout << x << " ";
-    cout << "\n";
-    
 }
 
 

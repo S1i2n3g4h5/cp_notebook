@@ -40,40 +40,34 @@ const bool multipleTestCases = 1;
 
 void solve(){
   /*
-    ci - color of the block       belongs ot [1,n]
 
   */
 
-    int n;cin>>n;
-    vll c(n);
-    f(i,0,n)cin>>c[i];
+    string s;cin>>s;
 
-    
-    map<ll,vll>mp;
-    f(i,0,n){
-      mp[c[i]].pb(i);
-    }
+    ll n = s.size();
 
-    vll ans(n,0);
-    for(auto it:mp){
-      vll diff = it.second;
+    ll cnt=0;
+    ll bal=0;
 
-      int sz=1;
-      f(i,0,diff.size()- 1){
-        if((diff[i+1] - diff[i])%2 ==1){
-          sz++;
+    f(i,0,n-1){
+        
+        if(s[i] == '(')
+            bal++;
+        else
+            bal--;
+
+        if(bal == 0){
+            cnt++;
+            break;
         }
-      }
-
-      ans[it.first-1] = sz;
 
     }
 
+    if(cnt>0)print("YES");
+    else
+        print("NO");
 
-    for(auto x:ans) 
-      cout << x << " ";
-    cout << "\n";
-    
 }
 
 

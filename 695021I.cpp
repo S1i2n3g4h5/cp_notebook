@@ -36,44 +36,94 @@ long long fast_power(long long base, long long power, long long  MOD=1e9+7ll){
 }
 
 
-const bool multipleTestCases = 1; 
+const bool multipleTestCases = 0; 
 
 void solve(){
   /*
-    ci - color of the block       belongs ot [1,n]
+
+    maximise the possibel distinct numbers!
+
+    distributing duplicates to both heaps
+
 
   */
 
-    int n;cin>>n;
-    vll c(n);
-    f(i,0,n)cin>>c[i];
+    ll n;cin>>n;
+    // n = 2*n;
+    vll arr(2*n);
+    f(i,0,2*n)cin>>arr[i];
 
-    
-    map<ll,vll>mp;
-    f(i,0,n){
-      mp[c[i]].pb(i);
+
+    map<ll,ll>frq;
+    f(i,0,2*n){
+        frq[arr[i]]++;
     }
 
-    vll ans(n,0);
-    for(auto it:mp){
-      vll diff = it.second;
 
-      int sz=1;
-      f(i,0,diff.size()- 1){
-        if((diff[i+1] - diff[i])%2 ==1){
-          sz++;
+    map<ll,vll>grp;
+    f(i,0,2*n){
+        grp[arr[i]].pb(i);
+    }
+    
+
+    vll h1,h2,extra;
+
+    int t=0;
+    for(auto x:grp){
+        auto idxs = x.second;
+
+        if(idxs.size() >= 2){
+            h1.pb(idxs[0]);
+            h2.pb(idxs[1]);
+
+            f(i,2,(ll)idxs.size()){
+                extra.pb(idxs[i]);
+            }
         }
-      }
-
-      ans[it.first-1] = sz;
+        else{
+            if(t==0){
+                h1.pb(idxs[0]);
+                t ^= 1;
+            }
+            else{
+                h2.pb(idxs[0]);
+                t ^= 1;
+            }
+        }
 
     }
 
 
-    for(auto x:ans) 
-      cout << x << " ";
+    // print(h1.size(), h2.size(), extra.size());
+    for(auto idx:extra){
+        if(h1.size() < n){
+            h1.pb(idx);
+        }
+        else
+            h2.pb(idx);
+    }
+
+
+    vll ans(2*n,0);
+    set<ll>s1,s2;
+    for(auto idx:h1){
+        ans[idx] = 1;
+        s1.insert(arr[idx]);
+    }
+    for(auto idx:h2){
+        ans[idx] = 2;
+        s2.insert(arr[idx]);
+    }
+
+
+
+    print((ll)s1.size() * (ll)s2.size());
+
+    for(auto x:ans){
+        cout << x << " ";
+    }
     cout << "\n";
-    
+
 }
 
 
