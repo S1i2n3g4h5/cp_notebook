@@ -59,7 +59,75 @@ void solve(){
     }
 
     
+    vector<string>moves;
+
+
+    auto strip_row = [&](){
+        f(i,0,n){
+            ll mn = 1e9;
+            f(j,0,m){
+                mn = min(mn, mat[i][j]);
+            }
+        
+            if(mn > 0){
+                f(j,0,m){
+                    mat[i][j] -= mn;
+                }
+                f(k,0,mn){
+                    moves.pb("row " + to_string(i+1));
+                }
+            }
+
+        }
+    };
+    auto strip_col = [&](){
+        f(j,0,m){
+            ll mn = 1e9;
+            f(i,0,n){
+                mn = min(mn, mat[i][j]);
+            }
+
+            if(mn > 0){
+                f(i,0,n){
+                    mat[i][j] -= mn;
+                }
+                f(k,0,mn){
+                    moves.pb("col " + to_string(j+1));
+                }
+            }
+        }
+    };
     
+
+    // greedy removing
+    if(n<=m){
+        strip_row();
+        strip_col();
+    }
+    else{
+        strip_col();
+        strip_row();
+    }
+
+    
+    // validation?
+    f(i,0,n){
+        f(j,0,m){
+            if(mat[i][j] > 0){
+                // print("-1");
+                cout << -1 << "\n";
+                return;
+            }
+        }
+    }
+
+
+    cout << moves.size() << "\n";
+    for(auto x:moves){
+        // print(x);
+        cout << x << "\n";
+    }
+    // cout <<"\n";
 
 }
 

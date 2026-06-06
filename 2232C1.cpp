@@ -41,8 +41,16 @@ const bool multipleTestCases = 1;
 void solve(){
   /*
 
-    dp seems possibel, number of seats or charis?
+    since this is (easy version), greedy simulation based should work too.
 
+    ----
+
+    so fixing up the Ambivers seems more useful. as these can pair with both I and E.
+    also the priroity must be given to inroverts (enve  though order fixed, if we encounter A, we try for A->I and 
+    then pairing rest A->E wiht the previsou ones)
+
+    so another thign being is that, using a empty table always beneficial
+    
 
   */
 

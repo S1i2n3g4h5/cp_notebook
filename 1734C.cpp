@@ -41,17 +41,33 @@ const bool multipleTestCases = 1;
 void solve(){
   /*
 
-  */
+*/
 
-    ll n;cin>>n;
-    string s;cin>>s;
+  ll n;cin>>n;
+  string s;cin>>s;
 
-
+  s = " "+s;
+  vector<bool>removed(n+1,false);
+  ll ans=0;
     
+  f(step,1,n+1){
 
+    for(ll multiple=step;multiple<=n;multiple+=step){
+        if(s[multiple] == '1'){
+          break;
+        }
+
+        if(!removed[multiple]){
+          removed[multiple] = true;
+          ans += step;
+        }
+    }
+
+  }
+
+  print(ans);
 
 }
-
 
 int main(){
   ios::sync_with_stdio(0);cin.tie(0);cout.tie(0);
