@@ -36,13 +36,68 @@ const bool multipleTestCases = 1;
 void solve(){
   /*
 
+    both greedy and dp seems possible.
+    lets try with greedy once, then trying for DP solution
+
+    ---
+
+    try to jump when possible log to log jump index keeping
+    when i land on log L i need to check next log distance if pssible 
+    then directly log else need to swim and make sure doenst run out of M 
+    and also no crocdile during swim
+
+
+
+
   */
 
     ll n,m,k;cin>>n>>m>>k;
     string s;cin>>s;
 
+    int i=-1;
 
-    
+    while(i<n){
+        // Trying to jump to farthest L
+        bool jumped = false;
+        for(int step=m;step>= 1;step--){
+            int next_step = i + step;
+
+            if(next_step >= n){
+                cout << "YES" << "\n";
+                return;
+            }
+            
+            if(s[next_step] == 'L'){
+                i = next_step;
+                jumped = true;
+                break;
+            }
+        }
+
+
+        if(jumped){
+            continue;
+        }
+
+
+
+        // since no next logs, lets just SWIM ...
+        i++;
+        if(i >=n or s[i] == 'C'){
+            cout << "NO" << "\n";
+            return;
+        }
+
+        if(s[i] == 'W'){
+            k--;
+
+            if(k<0){
+                cout << "NO" << "\n";
+                return;
+            }
+        }
+        
+    }
 
 
     cout << "YES" << "\n";
